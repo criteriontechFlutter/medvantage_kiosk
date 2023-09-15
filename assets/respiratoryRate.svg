@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33">
+  <g id="Group_992" data-name="Group 992" transform="translate(-0.48 -0.2)">
+    <circle id="Ellipse_94" data-name="Ellipse 94" cx="16.5" cy="16.5" r="16.5" transform="translate(0.48 0.2)" fill="#e3d9ff"/>
+    <g id="lungs-with-the-trachea" transform="translate(7.12 8.64)">
+      <g id="Group_921" data-name="Group 921" transform="translate(0 0)">
+        <path id="Path_1377" data-name="Path 1377" d="M13.546,13.894c-2.448-2.418-2.448.081-2.448.081V18.14l-.743-.734v-.731H9.049v.731l-.743.734V13.975s0-2.5-2.447-.081c0,0-8.571,8.87-4.978,14.434.422.654,1.795,1.452,3.264-.644.68-.972,3.755.888,4.163-2.338V19.052l1.4-1.379,1.4,1.38v6.293c.408,3.225,3.481,1.365,4.164,2.339,1.47,2.1,2.844,1.3,3.264.643C22.117,22.765,13.546,13.894,13.546,13.894Z" transform="translate(0 -12.227)" fill="#7e55f3"/>
+        <rect id="Rectangle_2164" data-name="Rectangle 2164" width="1.29" height="0.744" transform="translate(9.057)" fill="#7e55f3"/>
+        <rect id="Rectangle_2165" data-name="Rectangle 2165" width="1.29" height="0.743" transform="translate(9.057 1.482)" fill="#7e55f3"/>
+        <rect id="Rectangle_2166" data-name="Rectangle 2166" width="1.29" height="0.741" transform="translate(9.057 2.965)" fill="#7e55f3"/>
+      </g>
+    </g>
+  </g>
+</svg>

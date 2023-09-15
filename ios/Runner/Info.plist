@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+	<key>UIBackgroundModes</key>
+        <array>
+            <string>audio</string>
+            <string>fetch</string>
+            <string>location</string>
+            <string>processing</string>
+        </array>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+		<true/>
+		<key>CFBundleDevelopmentRegion</key>
+		<string>$(DEVELOPMENT_LANGUAGE)</string>
+		<key>CFBundleDisplayName</key>
+		<string>Digi Doctor</string>
+		<key>CFBundleExecutable</key>
+		<string>$(EXECUTABLE_NAME)</string>
+		<key>CFBundleIdentifier</key>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+		<key>CFBundleInfoDictionaryVersion</key>
+		<string>6.0</string>
+		<key>CFBundleName</key>
+		<string>digi_doctor</string>
+		<key>CFBundlePackageType</key>
+		<string>APPL</string>
+		<key>CFBundleShortVersionString</key>
+		<string>$(MARKETING_VERSION)</string>
+		<key>CFBundleSignature</key>
+		<string>????</string>
+		<key>CFBundleVersion</key>
+		<string>$(CURRENT_PROJECT_VERSION)</string>
+		<key>FirebaseAppDelegateProxyEnabled</key>
+		<false/>
+		<key>LSApplicationCategoryType</key>
+		<string></string>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>https</string>
+			<string>http</string>
+		</array>
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+		</dict>
+		<key>NSBluetoothAlwaysUsageDescription</key>
+		<string>Digi Doctor uses bluetooth to find, connect and transfer data between different devices</string>
+		<key>NSBluetoothPeripheralUsageDescription</key>
+		<string>Digi Doctor uses bluetooth to find, connect and transfer data between different devices</string>
+		<key>NSCalendarsUsageDescription</key>
+		<string>Digi Doctor uses your calendar for adding your date of birth.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Digi Doctor requires access to the camera to upload profile image</string>
+		<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+		<string>Digi doctor needs health records to retrieve the vitals of patients.</string>
+		<key>NSHealthShareUsageDescription</key>
+		<string>We will sync your data with the Apple Health app to give you better insights</string>
+		<key>NSHealthUpdateUsageDescription</key>
+		<string>We will sync your data with the Apple Health app to give you better insights</string>
+		<key>NSLocalNetworkUsageDescription</key>
+		<string>Digi Docotor uses the network for receive the data from api</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>Digi Doctor location is required for finding nearest hospital</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>Digi Doctor location is required for finding nearest hospital</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Digi Doctor location is required for finding nearest hospital</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Digi Doctor requires access to the photo to upload document and profile image</string>
+		<key>NSSpeechRecognitionUsageDescription</key>
+		<string>speech recognition is used so that it can be converted to text and take commands from user</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Digi Doctor required access for video and audio call</string>
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>remote-notification</string>
+		</array>
+		<key>UILaunchStoryboardName</key>
+		<string>LaunchScreen</string>
+		<key>UIMainStoryboardFile</key>
+		<string>Main</string>
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
+		<key>UISupportedInterfaceOrientations~ipad</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationPortraitUpsideDown</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
+		<key>UIStatusBarHidden</key>
+		<false/>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+</dict>
+</plist>

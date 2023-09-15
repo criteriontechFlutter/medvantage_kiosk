@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="62.423" height="62.442" viewBox="0 0 62.423 62.442">
+  <g id="Group_1221" data-name="Group 1221" transform="translate(-146.524 -251.469)">
+    <g id="Rounded_Rectangle_7_copy" data-name="Rounded Rectangle 7 copy" transform="translate(146.524 251.469)" fill="#fff" stroke="#ff64b5" stroke-width="0.333">
+      <rect width="62.423" height="62.442" rx="8.33" stroke="none"/>
+      <rect x="0.167" y="0.167" width="62.09" height="62.109" rx="8.163" fill="none"/>
+    </g>
+    <g id="audio" transform="translate(163.991 266.995)">
+      <g id="Group_230" data-name="Group 230" transform="translate(4.488)">
+        <g id="Group_229" data-name="Group 229">
+          <path id="Path_512" data-name="Path 512" d="M123.748,0h0a8.948,8.948,0,0,0-8.938,8.938v9.927a8.938,8.938,0,0,0,17.875,0V8.938A8.948,8.948,0,0,0,123.748,0Zm7.039,9.092h-2.933v1.9h2.933v1.96h-2.933v1.9h2.933v1.96h-2.933v1.9h2.933v.155a7.038,7.038,0,1,1-14.077,0V18.71h2.933v-1.9h-2.933v-1.96h2.933v-1.9h-2.933v-1.96h2.933v-1.9h-2.933V8.938a7.038,7.038,0,1,1,14.077,0Z" transform="translate(-114.81)" fill="#ff64b5"/>
+        </g>
+      </g>
+      <g id="Group_232" data-name="Group 232" transform="translate(0 18.985)">
+        <g id="Group_231" data-name="Group 231">
+          <path id="Path_513" data-name="Path 513" d="M68.87,299.919a11.526,11.526,0,0,1-23.052,0h-1.9a13.425,13.425,0,0,0,26.85,0Z" transform="translate(-43.919 -299.919)" fill="#ff64b5"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

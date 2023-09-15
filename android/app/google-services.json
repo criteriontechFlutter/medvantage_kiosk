@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "976364589253",
+    "project_id": "digidoctor-max",
+    "storage_bucket": "digidoctor-max.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976364589253:android:fa0ebd633b502c63f760ac",
+        "android_client_info": {
+          "package_name": "com.criteriontech.digi_doctor_max"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976364589253-a46jorfu704pf59d9kucsm82s4jrsbth.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ9qngHY2j7_whroFi6GvUyrLFhSeQAUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976364589253-a46jorfu704pf59d9kucsm82s4jrsbth.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "976364589253-8f40os0bn0khksn2vn9qsdoml8qi5fjf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.criteriontech.digidoctor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976364589253:android:9f8d9d0a0bf2e00ff760ac",
+        "android_client_info": {
+          "package_name": "com.criteriontech.digidoctor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976364589253-a46jorfu704pf59d9kucsm82s4jrsbth.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ9qngHY2j7_whroFi6GvUyrLFhSeQAUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976364589253-a46jorfu704pf59d9kucsm82s4jrsbth.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "976364589253-8f40os0bn0khksn2vn9qsdoml8qi5fjf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.criteriontech.digidoctor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976364589253:android:ae7e49e21b7d35bff760ac",
+        "android_client_info": {
+          "package_name": "com.digidoctorkiosktab.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976364589253-a46jorfu704pf59d9kucsm82s4jrsbth.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ9qngHY2j7_whroFi6GvUyrLFhSeQAUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976364589253-a46jorfu704pf59d9kucsm82s4jrsbth.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "976364589253-8f40os0bn0khksn2vn9qsdoml8qi5fjf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.criteriontech.digidoctor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
