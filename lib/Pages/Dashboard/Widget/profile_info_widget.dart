@@ -1,5 +1,6 @@
 
 import 'package:digi_doctor/Pages/StartUpScreen/startup_screen.dart';
+import 'package:digi_doctor/Pages/medvantage_login.dart';
 import 'package:digi_doctor/Pages/profile/profile_view.dart';
 import 'package:digi_doctor/Pages/select_member/select_memeber_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,6 +35,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
   Widget build(BuildContext context) {
     ApplicationLocalizations localization =
     Provider.of<ApplicationLocalizations>(context, listen: true);
+    MedvantageLogin userdata=Provider.of<MedvantageLogin>(context,listen: false);
     VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: true);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +61,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: Visibility(
-              visible: UserData().getUserData.isNotEmpty,
+              visible: userdata.isLoggedIn==true,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -223,8 +225,10 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     color: AppColor.blue,
                     title: 'Logout',
                     onPress: (){
+                      MedvantageLogin userdata=Provider.of<MedvantageLogin>(context,listen: false);
+                      userdata.logOut();
                       setState(() {
-                        DashboardModal().onPressLogout(context);
+                      //  DashboardModal().onPressLogout(context);
                         Navigator.of(context, rootNavigator: true).pop();
                       });
                     },

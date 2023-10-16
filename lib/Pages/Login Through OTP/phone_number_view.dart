@@ -1,11 +1,12 @@
 
 import 'package:digi_doctor/AppManager/app_util.dart';
+import 'package:digi_doctor/AppManager/widgets/my_text_field_2.dart';
 import 'package:digi_doctor/Localization/app_localization.dart';
-import 'package:digi_doctor/Pages/Login%20Through%20OTP/registration.dart';
+import 'package:digi_doctor/Localization/language_class.dart';
+import 'package:digi_doctor/Pages/Login%20Through%20OTP/register%20through%20otp/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import '../../AppManager/app_color.dart';
 import '../../AppManager/my_text_theme.dart';
@@ -17,9 +18,8 @@ import 'otp_view.dart';
 
 class LoginThroughOtp extends StatefulWidget {
   String index;
-  LoginThroughOtp({Key? key, required this.index}) : super(key: key);
-
-
+  String registerOrLogin;
+  LoginThroughOtp({Key? key, required this.index,required this.registerOrLogin}) : super(key: key);
 
   @override
   State<LoginThroughOtp> createState() => _LoginThroughOtpState();
@@ -28,11 +28,11 @@ class LoginThroughOtp extends StatefulWidget {
 class _LoginThroughOtpState extends State<LoginThroughOtp> {
   @override
   Widget build(BuildContext context) {
+
     ApplicationLocalizations localization =
     Provider.of<ApplicationLocalizations>(context, listen: true);
     LoginThroughOTPModal modal =LoginThroughOTPModal();
     OtpLoginController controller =OtpLoginController();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -47,9 +47,7 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                 height: Get.height,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(
-                        "assets/kiosk_bg.png",
-                      ),
+                      image: AssetImage("assets/kiosk_bg.png",),
                       fit: BoxFit.fill),
                 ),
                 child: Column(
@@ -66,8 +64,7 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Image.asset('assets/translate.png',
-                              height: 30, width: 35),
+                          child: Image.asset('assets/translate.png',height: 30, width: 35),
                         ),
                       ),
                     ),
@@ -75,17 +72,12 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            localization.getLocaleData.login.toString(),
-                            style: MyTextTheme().veryLargeWCB,
-                          ),
+                          Text(localization.getLocaleData.login.toString(), style: MyTextTheme().veryLargeWCB,),
                           Text(
                             "${localization.getLocaleData.hello.toString()}, ${localization.getLocaleData.hintText!.Welcometo} Kiosk",
                             style: MyTextTheme().veryLargeWCN,
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 20,),
                           Container(
                             width: 500,
                             height: 300,
@@ -95,159 +87,189 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                             child:  Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
+                                // Expanded(
+                                //   child: Padding(
+                                //     padding: const EdgeInsets.all(20.0),
+                                //     child: IntlPhoneField(
+                                //       ///
+                                //       invalidNumberMessage:
+                                //       localization.getLocaleData
+                                //           .enterYourNo
+                                //           .toString(),
+                                //       controller: controller.phoneNumberC.value,
+                                //
+                                //       decoration: InputDecoration(
+                                //         floatingLabelBehavior:
+                                //         FloatingLabelBehavior.always,
+                                //         //label: ,
+                                //         filled: true,
+                                //         isDense: true,
+                                //         fillColor: AppColor.white,
+                                //         counterText: '',
+                                //         //contentPadding: widget.isPasswordField==null? EdgeInsets.all(5):widget.isPasswordField? EdgeInsets.fromLTRB(5,5,5,5):EdgeInsets.all(5),
+                                //         contentPadding:
+                                //         const EdgeInsets.all(
+                                //             12),
+                                //         hintText: localization
+                                //             .getLocaleData
+                                //             .mobileNumber
+                                //             .toString(),
+                                //         hintStyle: MyTextTheme()
+                                //             .mediumPCN
+                                //             .copyWith(
+                                //             color: AppColor
+                                //                 .greyDark),
+                                //         labelStyle: MyTextTheme()
+                                //             .largeBCN
+                                //             .copyWith(
+                                //             color: AppColor
+                                //                 .greyDark),
+                                //         alignLabelWithHint: true,
+                                //         errorStyle: MyTextTheme()
+                                //             .mediumBCB
+                                //             .copyWith(
+                                //             color:
+                                //             AppColor.red),
+                                //         focusedBorder:
+                                //         OutlineInputBorder(
+                                //           borderRadius:
+                                //           const BorderRadius.all(
+                                //               Radius.circular(
+                                //                   5)),
+                                //           borderSide: BorderSide(
+                                //               color: AppColor
+                                //                   .greyLight,
+                                //               width: 2),
+                                //         ),
+                                //         enabledBorder:
+                                //         OutlineInputBorder(
+                                //           borderRadius:
+                                //           const BorderRadius.all(
+                                //               Radius.circular(
+                                //                   5)),
+                                //           borderSide: BorderSide(
+                                //             color:
+                                //             AppColor.greyLight,
+                                //           ),
+                                //         ),
+                                //         disabledBorder:
+                                //         OutlineInputBorder(
+                                //           borderRadius:
+                                //           const BorderRadius.all(
+                                //               Radius.circular(
+                                //                   5)),
+                                //           borderSide: BorderSide(
+                                //             color:
+                                //             AppColor.greyLight,
+                                //           ),
+                                //         ),
+                                //         errorBorder:
+                                //         OutlineInputBorder(
+                                //           borderRadius:
+                                //           const BorderRadius.all(
+                                //               Radius.circular(
+                                //                   5)),
+                                //           borderSide: BorderSide(
+                                //             color:
+                                //             AppColor.greyLight,
+                                //           ),
+                                //         ),
+                                //         focusedErrorBorder:
+                                //         OutlineInputBorder(
+                                //           borderRadius:
+                                //           const BorderRadius
+                                //               .all(
+                                //               Radius.circular(
+                                //                   5)),
+                                //           borderSide: BorderSide(
+                                //             color:
+                                //             AppColor.greyLight,
+                                //           ),
+                                //         ),
+                                //       ),
+                                //       initialCountryCode: 'IN',
+                                //       onChanged: (phone) {
+                                //         print(phone.completeNumber);
+                                //       },
+                                //
+                                //       validator: (value) {
+                                //         if (value == null) {
+                                //           return localization
+                                //               .getLocaleData
+                                //               .validationText
+                                //               ?.pleaseEnterMobile
+                                //               .toString();
+                                //         } else {
+                                //           return null;
+                                //         }
+                                //       },
+                                //       // validator: (value) {
+                                //       //   if (value!.isEmpty) {
+                                //       //     return localization.getLocaleData.hintText!.enterMobileNo.toString();
+                                //       //   }
+                                //       //   else {}
+                                //       // },
+                                //       //  validator:(value){
+                                //       //                                                   if(!modal.controller.isPhone(value.toString())){
+                                //       //                                                     return "Please enter mobile number.";
+                                //       //                                                   }else{
+                                //       //                                                     return null;
+                                //       //                                                   }
+                                //       //                                                 },
+                                //     ),
+                                //   ),
+                                // ),
                                 Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: IntlPhoneField(
-                                      ///
-                                      invalidNumberMessage:
-                                      localization.getLocaleData
-                                          .enterYourNo
-                                          .toString(),
-                                      controller: controller.phoneNumberC.value,
-
-                                      decoration: InputDecoration(
-                                        floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
-                                        //label: ,
-                                        filled: true,
-                                        isDense: true,
-                                        fillColor: AppColor.white,
-                                        counterText: '',
-                                        //contentPadding: widget.isPasswordField==null? EdgeInsets.all(5):widget.isPasswordField? EdgeInsets.fromLTRB(5,5,5,5):EdgeInsets.all(5),
-                                        contentPadding:
-                                        const EdgeInsets.all(
-                                            12),
-                                        hintText: localization
-                                            .getLocaleData
-                                            .mobileNumber
-                                            .toString(),
-                                        hintStyle: MyTextTheme()
-                                            .mediumPCN
-                                            .copyWith(
-                                            color: AppColor
-                                                .greyDark),
-                                        labelStyle: MyTextTheme()
-                                            .largeBCN
-                                            .copyWith(
-                                            color: AppColor
-                                                .greyDark),
-                                        alignLabelWithHint: true,
-                                        errorStyle: MyTextTheme()
-                                            .mediumBCB
-                                            .copyWith(
-                                            color:
-                                            AppColor.red),
-                                        focusedBorder:
-                                        OutlineInputBorder(
-                                          borderRadius:
-                                          const BorderRadius.all(
-                                              Radius.circular(
-                                                  5)),
-                                          borderSide: BorderSide(
-                                              color: AppColor
-                                                  .greyLight,
-                                              width: 2),
-                                        ),
-                                        enabledBorder:
-                                        OutlineInputBorder(
-                                          borderRadius:
-                                          const BorderRadius.all(
-                                              Radius.circular(
-                                                  5)),
-                                          borderSide: BorderSide(
-                                            color:
-                                            AppColor.greyLight,
-                                          ),
-                                        ),
-                                        disabledBorder:
-                                        OutlineInputBorder(
-                                          borderRadius:
-                                          const BorderRadius.all(
-                                              Radius.circular(
-                                                  5)),
-                                          borderSide: BorderSide(
-                                            color:
-                                            AppColor.greyLight,
-                                          ),
-                                        ),
-                                        errorBorder:
-                                        OutlineInputBorder(
-                                          borderRadius:
-                                          const BorderRadius.all(
-                                              Radius.circular(
-                                                  5)),
-                                          borderSide: BorderSide(
-                                            color:
-                                            AppColor.greyLight,
-                                          ),
-                                        ),
-                                        focusedErrorBorder:
-                                        OutlineInputBorder(
-                                          borderRadius:
-                                          const BorderRadius
-                                              .all(
-                                              Radius.circular(
-                                                  5)),
-                                          borderSide: BorderSide(
-                                            color:
-                                            AppColor.greyLight,
-                                          ),
-                                        ),
-                                      ),
-                                      initialCountryCode: 'IN',
-                                      onChanged: (phone) {
-                                        print(phone.completeNumber);
-                                      },
-
-                                      validator: (value) {
-                                        if (value == null) {
-                                          return localization
-                                              .getLocaleData
-                                              .validationText
-                                              ?.pleaseEnterMobile
-                                              .toString();
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                      // validator: (value) {
-                                      //   if (value!.isEmpty) {
-                                      //     return localization.getLocaleData.hintText!.enterMobileNo.toString();
-                                      //   }
-                                      //   else {}
-                                      // },
-                                      //  validator:(value){
-                                      //                                                   if(!modal.controller.isPhone(value.toString())){
-                                      //                                                     return "Please enter mobile number.";
-                                      //                                                   }else{
-                                      //                                                     return null;
-                                      //                                                   }
-                                      //                                                 },
-                                    ),
-                                  ),
-                                ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20),child:
+                                    MyTextField2(
+                                      hintText: localization.getLocaleData.enterYourNo.toString(),
+                                    controller: controller.phoneNumberC.value,
+                                  ),)),
                                 Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: SizedBox(
                                     height: 40,
                                     width: 300,
-                                    child: Expanded(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColor.lightGreen, // Background color
+                                      ),
+                                      onPressed: (){
+                                        if(controller.phoneNumberC.value.text.toString()==''){
+                                          AlertToast().retry;
+                                        }else{
+                                          if(widget.registerOrLogin=='Login'){
+                                            modal.loginThroughOTP(context,controller.phoneNumberC.value.text.toString());
+                                            App().navigate(context,  OtpView(phonenumber:controller.phoneNumberC.value.text.toString(), registerOrLogin: 'Login',));
+                                          }else{
+                                            modal.sendOTPForRegistration(context, controller.phoneNumberC.value.text.toString());
+                                          }
+                                         }
+                                      },
+                                        child:  Text(widget.registerOrLogin=='Login'?localization.getLocaleData.verifyingOtp.toString(): localization.getLocaleData.login.toString()),
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: widget.registerOrLogin=='Login',
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: SizedBox(
+                                      height: 40,
+                                      width: 300,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: AppColor.lightGreen, // Background color
                                         ),
                                         onPressed: (){
-                                          modal.loginThroughOTP(context,controller.phoneNumberC.value.text.toString());
-                                          App().navigate(context,  OtpView(phonenumber:controller.phoneNumberC.value.text.toString()));
-                                          print('its working ok');
+                                            App().navigate(context,   LoginThroughOtp(index: '', registerOrLogin: 'registration',));
                                         },
-                                          child:  Text(localization.getLocaleData.login.toString()),
+                                          child:  Text(localization.getLocaleData.register.toString()),
                                       ),
                                     ),
                                   ),
                                 ),
-
                               ],
                             ),
                           )
@@ -612,9 +634,9 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
             content: Stack(
               clipBehavior: Clip.none,
               children: <Widget>[
-                Row(
+                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     LanguageChangeWidget(isPopScreen: true),
                   ],
                 ),

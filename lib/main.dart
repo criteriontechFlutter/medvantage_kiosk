@@ -127,10 +127,12 @@ import '../../../AppManager/user_data.dart';
 import 'AppManager/app_color.dart';
 import 'Localization/app_localization.dart';
 import 'Localization/language_class.dart';
+import 'Pages/Dashboard/find_location_provider.dart';
 import 'Pages/StartUpScreen/startup_screen.dart';
 import 'Pages/VitalPage/LiveVital/PatientMonitor/patient_monitor_view_modal.dart';
 import 'Pages/VitalPage/LiveVital/Stethoscope/stethoscope_view_modal.dart';
 import 'Pages/Voice_Assistant.dart';
+import 'Pages/medvantage_login.dart';
 import 'Pages/voiceAssistantProvider.dart';
 import 'SignalR/signal_r_view_model.dart';
 import 'ai chat/chat_provider.dart';
@@ -204,6 +206,10 @@ void main() async {
       create: (_) => EcgViewModal(),
     ),    ChangeNotifierProvider<VoiceAssistantProvider>(
       create: (_) => VoiceAssistantProvider(),
+    ),  ChangeNotifierProvider<LocationProvider>(
+      create: (_) => LocationProvider(),
+    ),  ChangeNotifierProvider<MedvantageLogin>(
+      create: (_) => MedvantageLogin(),
     ),
   ], child: MaterialApp(
     debugShowCheckedModeBanner: false,

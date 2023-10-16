@@ -6,6 +6,7 @@
   "RNo": "RNo. ",
   "time1": "time 1",
   "time2": "time 2",
+  "time2": "time 2",
   "mmHgHigher": "140/90mmHgHigher",
   "mmHgLower": "90/60mmHgLower",
   "eraMedicalCollegeLucknow": "546/497 sarafarz ganj , era medical college , lucknow ",
@@ -486,6 +487,7 @@
   "aboutUs": "ہمارے بارے میں",
   "vitalHistory": "اہم تاریخ",
   "yourAppointment": "آپ کی ملاقات کا وقت بُک کر لیا گیا تھا۔",
+  "location": "مقام",
   "doctorBySpeciality": "خصوصیت کے لحاظ سے ڈاکٹر تلاش کریں۔",
   "doctorBySymptoms": "علامات کے مطابق ڈاکٹر تلاش کریں۔",
 

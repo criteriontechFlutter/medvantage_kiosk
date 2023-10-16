@@ -59,11 +59,14 @@ class MicStreamExampleAppState extends State<MicStreamExampleApp>
     print("Init application");
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
-    setState(() {
-      listenVM.updateLoading = false;
-      initPlatformState();
-      hideSuggesstion = false;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        listenVM.updateLoading = false;
+        initPlatformState();
+        hideSuggesstion = false;
+      });
     });
+
   }
 
   // Responsible for switching between recording / idle state

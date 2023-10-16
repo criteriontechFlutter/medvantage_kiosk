@@ -2,15 +2,13 @@
 import 'package:digi_doctor/AppManager/my_text_theme.dart';
 import 'package:digi_doctor/Localization/app_localization.dart';
 import 'package:digi_doctor/Pages/Login%20Through%20OTP/data%20modal/user_data_modal.dart';
-import 'package:digi_doctor/Pages/Login%20Through%20OTP/registration.dart';
-import 'package:digi_doctor/Pages/Login_files/otp_files/otp_model.dart';
+import 'package:digi_doctor/Pages/Login%20Through%20OTP/register%20through%20otp/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../../AppManager/app_color.dart';
 import '../../AppManager/app_util.dart';
 import '../StartUpScreen/startup_screen.dart';
-import 'otp_login_controller.dart';
 import 'otp_modal.dart';
 
 class SelectUser extends StatefulWidget {
@@ -111,21 +109,19 @@ class _SelectUserState extends State<SelectUser> {
                   child: SizedBox(
                     height: 40,
                     width: 300,
-                    child: Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.buttonColor, // Background color
-                        ),
-                        onPressed: (){
-                          // modal.getAllCountry(context);
-                          // modal.getStateByCountry(context);
-                          // modal.getCityByStates(context);
-                          App().navigate(context, const Registration());
-                          print("jhbuyfkdgj");
-
-                        },
-                        child:  Text(localization.getLocaleData.register.toString()),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.buttonColor, // Background color
                       ),
+                      onPressed: (){
+                        // modal.getAllCountry(context);
+                        // modal.getStateByCountry(context);
+                        // modal.getCityByStates(context);
+                        App().navigate(context, const Registration());
+                        print("jhbuyfkdgj");
+
+                      },
+                      child:  Text(localization.getLocaleData.register.toString()),
                     ),
                   ),
                 ),

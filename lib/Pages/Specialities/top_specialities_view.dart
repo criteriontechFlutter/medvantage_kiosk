@@ -351,7 +351,7 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                           });
                                                                           modal.controller.updateSelectedIndex = index;
                                                                           modal2.controller.updateDepartment = details.departmentName;
-                                                                          modal2.controller.updateDepartmentId = details.id.toString();
+                                                                          modal2.controller.updateDepartmentId = details.id;
                                                                           modal.controller.updateSelectedId = details.id.toString();
                                                                           print("id: ${details.id}");
                                                                           specialistDoctorModal.getDoctorList(
@@ -411,7 +411,7 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
 
                                                                               Column(
                                                                                 mainAxisAlignment: MainAxisAlignment.center,
-                                                                                children: [
+                                                                                children:  const [
                                                                                   // Align(
                                                                                   //   child: Text(
                                                                                   //     //  localization.getLocaleData.noOfDoctors.toString() +
@@ -424,7 +424,7 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                   //       textAlign:
                                                                                   //       TextAlign.left),
                                                                                   // ),
-                                                                                  const SizedBox(
+                                                                                  SizedBox(
                                                                                     height:
                                                                                     9,
                                                                                   ),

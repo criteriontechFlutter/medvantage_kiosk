@@ -698,7 +698,7 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                                                                                                                     }
 
                                                                                                                   } else {
-                                                                                                                    App().navigate(context,  LoginThroughOtp(index:'appointment'));
+                                                                                                                    App().navigate(context,  LoginThroughOtp(index:'appointment',registerOrLogin: 'Login'));
                                                                                                                   }
                                                                                                                 },
                                                                                                                 child: Container(

@@ -27,6 +27,13 @@ class OtpLoginController extends GetxController {
   Rx<TextEditingController> heightC = TextEditingController().obs;
   Rx<TextEditingController> weightC = TextEditingController().obs;
 
+  String otpval='';
+  get getOtpval=> otpval;
+  set updateOtpVal(val){
+    otpval=val;
+    update();
+  }
+
   final formKey = GlobalKey<FormState>().obs;
 
   List gender = [
@@ -112,5 +119,7 @@ class OtpLoginController extends GetxController {
     cityId=val;
     update();
   }
+
+
 
 }

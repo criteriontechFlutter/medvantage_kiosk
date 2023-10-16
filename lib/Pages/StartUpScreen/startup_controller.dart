@@ -1,5 +1,6 @@
 
 import 'package:digi_doctor/AppManager/alert_dialogue.dart';
+import 'package:digi_doctor/Pages/Dashboard/find_location.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,11 @@ class StartupController extends GetxController{
         containerImage: "assets/consult_doctor_kiosk.png",
         containerText: localization.getLocaleData.hintText!.consultDoctor.toString(),
         route: TopSpecialitiesView(),
+      ),
+      StartupDataModal(
+        containerImage: "assets/quick_helth_kiosk.png",
+        containerText: localization.getLocaleData.location!.toString(),
+        route: FindLocation(),
       ),
       // StartupDataModal(
       //   containerImage: "assets/quick_helth_kiosk.png",

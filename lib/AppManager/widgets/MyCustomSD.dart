@@ -81,7 +81,9 @@ class _MyCustomSDState extends State<MyCustomSD> {
         return item[widget.valFrom];
       }).toList(),
       onChanged: (val){
-        widget.onChanged(val);
+    if(val!=null) {
+      widget.onChanged(val);
+    }
       },
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),

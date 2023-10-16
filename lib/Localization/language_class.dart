@@ -1,5 +1,6 @@
 class Lang {
   String? yourAppointment;
+  String? location;
   String? doctorBySymptoms;
   String? doctorBySpeciality;
   String? tooBusyText;
@@ -150,6 +151,7 @@ class Lang {
   String? usedForAccountRecovery;
   String? howAreYouToday;
   String? add;
+  String? age;
   String? prescriptionHistoryNotFound;
   String? loadingPrescriptionHistory;
   String? profile;
@@ -520,6 +522,7 @@ class Lang {
         this.searchBy,
         this.doctorBySymptoms,
         this.yourAppointment,
+        this.location,
         this.specialist,
         this.sendCodeHeaderText,
         this.downloadPostCovidCareBooklet,
@@ -668,6 +671,7 @@ class Lang {
         this.hello,
         this.howAreYouToday,
         this.add,
+        this.age,
         this.prescriptionHistoryNotFound,
         this.loadingPrescriptionHistory,
         this.profile,
@@ -1033,6 +1037,7 @@ class Lang {
     doctorBySpeciality=json['doctorBySpeciality'];
     doctorBySymptoms=json['doctorBySymptoms'];
     yourAppointment=json['yourAppointment'];
+    location=json['location'];
     specialist=json['specialist'];
     tooBusyText = json['tooBusyText'];
     sendCodeHeaderText = json['sendCodeHeaderText'];
@@ -1045,6 +1050,7 @@ class Lang {
     bookAnAppointmentText = json['bookAnAppointmentText'];
     getSampleText = json['getSampleText'];
     getStarted = json['getStarted'];
+    age = json['age'];
     skip = json['skip'];
     next = json['next'];
     enterMobileHeaderText = json['enterMobileHeaderText'];
@@ -1562,6 +1568,7 @@ class Lang {
     data['doctorBySpeciality'] = this.doctorBySpeciality;
     data['doctorBySymptoms'] = this.doctorBySymptoms;
     data['yourAppointment'] = this.yourAppointment;
+    data['location'] = this.location;
     data['tooBusyText'] = this.tooBusyText;
     data['specialist']=this.specialist;
     data['sendCodeHeaderText'] = this.sendCodeHeaderText;
@@ -2027,6 +2034,7 @@ class Lang {
     data['nearestHospital'] = this.nearestHospital;
     data['search'] = this.search;
     data['changeLanguage'] = this.changeLanguage;
+    data['age'] = this.age;
     data['privacyPolicy'] = this.privacyPolicy;
     data['requestForHomeIsolation'] = this.requestForHomeIsolation;
     data['myIsolatedPatientList'] = this.myIsolatedPatientList;

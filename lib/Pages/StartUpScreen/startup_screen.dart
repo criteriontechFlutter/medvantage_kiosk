@@ -7,6 +7,7 @@ import 'package:digi_doctor/AppManager/user_data.dart';
 import 'package:digi_doctor/AppManager/widgets/my_button.dart';
 import 'package:digi_doctor/Pages/Dashboard/OrganSymptom/speech.dart';
 import 'package:digi_doctor/Pages/Dashboard/OrganSymptom/translate.dart';
+import 'package:digi_doctor/Pages/Dashboard/find_location.dart';
 import 'package:digi_doctor/Pages/Login_files/login_view.dart';
 import 'package:digi_doctor/Pages/MyAppointment/my_appointment_view.dart';
 import 'package:digi_doctor/Pages/StartUpScreen/startup_controller.dart';
@@ -32,6 +33,7 @@ import '../VitalPage/LiveVital/device_view.dart';
 import '../VitalPage/LiveVital/stetho_master/AppManager/alert_dialogue.dart';
 import '../Voice_Assistant.dart';
 import '../bhojpuri.dart';
+import '../medvantage_login.dart';
 import '../voiceAssistantProvider.dart';
 
 class StartupPage extends StatefulWidget {
@@ -91,6 +93,8 @@ class _StartupPageState extends State<StartupPage> {
     ScreenUtil.init(context);
     ApplicationLocalizations localization =
     Provider.of<ApplicationLocalizations>(context, listen: true);
+    MedvantageLogin userdata=Provider.of<MedvantageLogin>(context,listen: false);
+
     return GetBuilder(
         init: StartupController(),
         builder: (_) {
@@ -122,12 +126,14 @@ class _StartupPageState extends State<StartupPage> {
                               //crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+
                                 const SizedBox(
                                     height: 80,
                                     child: ProfileInfoWidget()),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
+
                                     Text(
                                       //    "Welcome to ",
                                       // localization.getLocaleData
@@ -180,19 +186,27 @@ class _StartupPageState extends State<StartupPage> {
                                                   } else if (controller.getContainerIndex
                                                       .toString() ==
                                                       "1") {
-                                                    if (UserData().getUserData.isNotEmpty) {
-                                                      App()
-                                                          .navigate(context,  DeviceView());}
-                                                    else {
-                                                      App().navigate(context,  LoginThroughOtp(index:controller.getContainerIndex));
+                                                    // if (UserData().getUserData.isNotEmpty) {
+                                                     // App().navigate(context,  DeviceView());}
+                                                    //userdata.checkUser();
+                                                    if(userdata.getLoggedIn==true){
+                                                      App().navigate(context,  FindLocation());
+                                                    }else if(userdata.getLoggedIn==false){
+                                                      App().navigate(context,  LoginThroughOtp(index: '',registerOrLogin: 'Login'));
                                                     }
+
+                                                  // }
+                                                    // else {
+                                                    //   App().navigate(context,  LoginThroughOtp(index:controller.getContainerIndex));
+                                                    // }
                                                     // alertToast(context, "Coming Soon...");
-                                                  } else {
+                                                  }
+                                                  else {
                                                     if (UserData().getUserData.isNotEmpty) {
                                                       App().navigate(context, const MyAppointmentView());
                                                     }
                                                     else {
-                                                      App().navigate(context,  LoginThroughOtp(index:'appointment'));
+                                                      App().navigate(context,  LoginThroughOtp(index:'appointment',registerOrLogin: 'Login'));
                                                     }}
 
                                                   print("Login Page");
@@ -263,6 +277,7 @@ class _StartupPageState extends State<StartupPage> {
                                     ),
                                   ),
                                 ),
+
                                 Visibility(
                                   visible: UserData().getUserData.isEmpty,
                                   child: InkWell(
@@ -396,13 +411,13 @@ class _StartupPageState extends State<StartupPage> {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: true,
+                                        visible: false,
                                         child: Padding(
                                           padding: const EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
                                           child: InkWell(
                                             onTap: (){
 
-                                              App().navigate(context,  LoginThroughOtp(index: '',));
+                                              App().navigate(context,  LoginThroughOtp(index: '',registerOrLogin: 'Login',));
                                             },
                                             child: Container(
                                               height: 50,
@@ -414,9 +429,9 @@ class _StartupPageState extends State<StartupPage> {
                                                 padding: const EdgeInsets.all(8.0),
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
-                                                  children:  [
-                                                    const Icon(Icons.mic,color: Colors.white,size: 35,),
-                                                    Text('login',style: const TextStyle(color: Colors.white,fontSize: 18),),
+                                                  children:  const [
+                                                    Icon(Icons.mic,color: Colors.white,size: 35,),
+                                                    Text('login',style: TextStyle(color: Colors.white,fontSize: 18),),
                                                   ],
                                                 ),
                                               ),
@@ -572,9 +587,11 @@ class _StartupPageState extends State<StartupPage> {
                     color: AppColor.blue,
                     title: 'Logout',
                     onPress: (){
+                      MedvantageLogin userdata=Provider.of<MedvantageLogin>(context,listen: false);
+
                       setState(() {
                       });
-                      DashboardModal().onPressLogout(context);
+                      userdata.logOut();
                       Navigator.of(context, rootNavigator: true).pop();
                     },
                   ),

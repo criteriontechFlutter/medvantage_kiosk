@@ -225,6 +225,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import 'app_util.dart';
 
@@ -377,6 +378,21 @@ class RawData{
       }
 
 
+
+    }
+    on DioError catch (e) {
+
+      print(e.toString());
+      final snackBar = SnackBar(
+        content:  Text(e.toString()),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
     }
     on SocketException {
