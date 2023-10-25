@@ -1,6 +1,9 @@
 
+import 'dart:convert';
+
 import 'package:digi_doctor/Pages/Symptoms/top_symptom_data_modal.dart';
 import 'package:digi_doctor/Pages/Symptoms/top_symptoms_controller.dart';
+import 'package:digi_doctor/Pages/VitalPage/LiveVital/stetho_master/AppManager/raw_api.dart';
 import 'package:get/get.dart';
 
 import '../../AppManager/alert_dialogue.dart';
@@ -18,6 +21,8 @@ class TopSymptomsModal {
 
  Future<void> onPressed(context) async{
     await getDoctorBySymptom(context);
+   // await getDoctorsList(context);
+
   }
 
 
@@ -202,5 +207,21 @@ class TopSymptomsModal {
       }
     }
   }
+  
+  
+  
+//   Future<void>getDoctorsList(context)async{
+//    var body=[{"organId":50},{"organId":19}];
+//    var b = jsonEncode(body);
+//    var data = await RawDataApi().getapi('/api/OrganDepartmentMapping/GetDoctorBySymptoms?JsonOrgan=$b', context);
+//    print(data['responseValue'].toString());
+//    if(data["status"].toString()=='1'){
+//      print('${data}abcd');
+//      List<dynamic> responseValue=data['responseValue'];
+// print(responseValue.toString()+'12345678901234567890');
+//      controller.update_recommended_doctors = responseValue;
+//      alertToast( context,data['message']);
+//    }
+//   }
 
 }

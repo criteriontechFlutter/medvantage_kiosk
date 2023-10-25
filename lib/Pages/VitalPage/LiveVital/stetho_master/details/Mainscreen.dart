@@ -69,7 +69,7 @@ class _MainScreenDartState extends State<MainScreenDart> {
 
   getWebView(context,{required String pid})async{
     ProgressDialogue().show(context, loadingText: "redirecting to webpage");
-    var data =await RawData().getapi("getPatientInfoByPID/$pid",context);
+    var data =await RawDataApi().getapi("getPatientInfoByPID/$pid",context);
     ProgressDialogue().hide();
     print("ppppppppppppppppppppp$data");
     if(data["status"]=="success"){

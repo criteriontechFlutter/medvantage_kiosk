@@ -111,7 +111,7 @@ class _RegistrationViewState extends State<RegistrationView> {
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
                                     child: Form(
-                                      key: modal.controller.formKey.value,
+                                      key: modal.controller.formKeyRegistration.value,
                                       autovalidateMode: AutovalidateMode
                                           .onUserInteraction,
                                       child: Column(
@@ -352,7 +352,7 @@ class _RegistrationViewState extends State<RegistrationView> {
                                                 color: Colors.orange,
                                                 onPress: () async {
                                                   if(isChecked){
-                                                    if (modal.controller.formKey.value
+                                                    if (modal.controller.formKeyRegistration.value
                                                         .currentState!
                                                         .validate()) {
                                                       if (modal

@@ -327,7 +327,9 @@ class _OrganListViewState extends State<OrganListView> {
                         modal.controller.updateSelectedLangId =
                             modal.controller.listItemsOne[index]['language'];
                         modal.getOrganSymptomList(context, setState,
-                            modal.controller.listItemsOne[index]);
+                            modal.controller.listItemsOne[index],modal.controller
+                                .listItemsOne[index]['id'].toString());
+                        // modal.getBodyPartList(context);
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -653,7 +655,7 @@ class _OrganListViewState extends State<OrganListView> {
                           const SizedBox(
                             height: 10,
                           );
-                            OrganSymptom fields = modal
+                          ProblemName fields = modal
                                 .controller
                                 .getOrganSymptomList[index];
                             return Padding(
@@ -691,7 +693,7 @@ class _OrganListViewState extends State<OrganListView> {
                                           ),
                                           Expanded(
                                               child: Text(
-                                                fields.symptoms
+                                                fields.problemName
                                                     .toString(),
                                                 style: MyTextTheme()
                                                     .smallBCN,)),

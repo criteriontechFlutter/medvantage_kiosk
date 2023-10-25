@@ -39,6 +39,7 @@ import '../prescription_history/dataModal/prescription_history_data_modal.dart';
 import '../prescription_history/prescription_history_modal.dart';
 import 'AppointmentDetails/appointment_details_modal.dart';
 import 'MyAppointmentDataModal/my_appointment_data_modal.dart';
+import 'appointmentDataModal.dart';
 import 'my_appointment_controller.dart';
 
 class MyAppointmentView extends StatefulWidget {
@@ -62,7 +63,8 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
   get() async {
     VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
     listenVM.listeningPage="My appointment";
-    await modal.getPatientAppointmentList(context);
+  //  await modal.getPatientAppointmentList(context);
+    await modal.getMedvantageUserAppointment(context);
   }
 
   @override
@@ -385,14 +387,14 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(localization.getLocaleData.time.toString(),style: MyTextTheme().mediumBCB,),
+
+                                            // Text(localization.getLocaleData.time.toString(),style: MyTextTheme().mediumBCB,),
                                             Text(localization.getLocaleData.hintText!.date.toString(),style: MyTextTheme().mediumBCB,),
                                             Text(localization.getLocaleData.patient.toString(),style: MyTextTheme().mediumBCB,),
                                             Text(localization.getLocaleData.hintText!.doctor.toString(),style: MyTextTheme().mediumBCB,),
                                             Text(localization.getLocaleData.hintText!.department.toString(),style: MyTextTheme().mediumBCB,),
-
-
                                             Text(localization.getLocaleData.hintText!.appointment.toString(),style: MyTextTheme().mediumBCB,),
+
                                           ],
                                         ),
                                       ),
@@ -411,15 +413,16 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                               itemCount: modal.controller.getAppointmentList.length,
                                                 shrinkWrap: true,
                                                 itemBuilder: (BuildContext context, int index){
-                                                  MyAppointmentDataModal appointmentData =modal.controller.getAppointmentList[index];
+                                                 // MyAppointmentDataModal appointmentData =modal.controller.getAppointmentList[index];
+                                                  AppointmentHistoryDataModal appointmentData =modal.controller.getAppointmentList[index];
                                               return AnimationConfiguration.staggeredList(
                                                 position: index,
                                                 duration: const Duration(milliseconds: 800),
 
                                                 child: InkWell(
                                                   onTap: () async {
-                                                    await prescriptionModal.getPrescriptionHistory(context,appointmentData.appointmentId);
-                                                    showPrescription(context,appointmentData);
+                                                    // await prescriptionModal.getPrescriptionHistory(context,appointmentData.appointmentId);
+                                                    // showPrescription(context,appointmentData);
                                                   },
                                                   child: Padding(
                                                     padding: const EdgeInsets.fromLTRB(0,5,0,3),
@@ -435,88 +438,92 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                                             child: Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [
-                                                                Text(appointmentData.appointTime.toString(),style: MyTextTheme().mediumBCN,),
-                                                                Text(appointmentData.appointDate.toString(),style: MyTextTheme().mediumBCN,),
+                                                                 // Text((index+1).toString(),style: MyTextTheme().mediumBCN,),
+                                                                Text(appointmentData.appointmentDate.toString(),style: MyTextTheme().mediumBCN,),
                                                                 Text(appointmentData.patientName.toString(),style: MyTextTheme().mediumBCN,),
                                                                 Text(appointmentData.doctorName.toString(),style: MyTextTheme().mediumBCN,),
-                                                                Text(appointmentData.specialty.toString(),style: MyTextTheme().mediumBCN,),
+                                                                Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),
+                                                                Text(appointmentData.mobileNo.toString(),style: MyTextTheme().mediumBCN,),
 
 
+                                                                // Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),
 
-                                                      appointmentData.expiredStatus !=
-                                                              0
-                                                              ? Container(
-                                                            width: 100,
-                                                            padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal: 10,
-                                                                vertical: 5),
-                                                            decoration: BoxDecoration(
-                                                                color: AppColor.red,
-                                                                borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    15)),
-                                                            child: Text(
-                                                              localization.getLocaleData.expired.toString(),
-                                                              textAlign:
-                                                              TextAlign.center,
-                                                              style: MyTextTheme()
-                                                                  .smallWCB,
-                                                            ),
-                                                      )
-                                                              : appointmentData
-                                                              .isPrescribed ==
-                                                              true
-                                                              ? Container(
-                                                            width: 100,
-                                                            padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal:
-                                                                10,
-                                                                vertical:
-                                                                5),
-                                                            decoration: BoxDecoration(
-                                                                color: AppColor
-                                                                    .green,
-                                                                borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    15)),
-                                                            child: Text(
-                                                              textAlign: TextAlign.center,
-                                                              localization.getLocaleData.prescribed.toString(),
-                                                              style:
-                                                              MyTextTheme()
-                                                                  .smallWCB,
-                                                            ),
-                                                      )
-                                                              : Container(
-                                                            width: 100,
-                                                            padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal:
-                                                                10,
-                                                                vertical:
-                                                                5),
-                                                            decoration: BoxDecoration(
-                                                                color:!appointmentData.isCancelled? AppColor
-                                                                    .orangeColorDark:AppColor.red,
-                                                                borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    15)),
-                                                            child: Text(
-                                                              textAlign: TextAlign.center,
-                                                              !appointmentData.isCancelled? localization.getLocaleData.confirmed.toString():"Cancelled",
-                                                              style:
-                                                              MyTextTheme()
-                                                                  .smallWCB,
-                                                            ),
-                                                      )
+
+                                                      //
+                                                      // appointmentData.expiredStatus !=
+                                                      //         0
+                                                      //         ? Container(
+                                                      //       width: 100,
+                                                      //       padding:
+                                                      //       const EdgeInsets
+                                                      //           .symmetric(
+                                                      //           horizontal: 10,
+                                                      //           vertical: 5),
+                                                      //       decoration: BoxDecoration(
+                                                      //           color: AppColor.red,
+                                                      //           borderRadius:
+                                                      //           BorderRadius
+                                                      //               .circular(
+                                                      //               15)),
+                                                      //       child: Text(
+                                                      //         localization.getLocaleData.expired.toString(),
+                                                      //         textAlign:
+                                                      //         TextAlign.center,
+                                                      //         style: MyTextTheme()
+                                                      //             .smallWCB,
+                                                      //       ),
+                                                      // )
+                                                      //         : appointmentData
+                                                      //         .isPrescribed ==
+                                                      //         true
+                                                      //         ? Container(
+                                                      //       width: 100,
+                                                      //       padding:
+                                                      //       const EdgeInsets
+                                                      //           .symmetric(
+                                                      //           horizontal:
+                                                      //           10,
+                                                      //           vertical:
+                                                      //           5),
+                                                      //       decoration: BoxDecoration(
+                                                      //           color: AppColor
+                                                      //               .green,
+                                                      //           borderRadius:
+                                                      //           BorderRadius
+                                                      //               .circular(
+                                                      //               15)),
+                                                      //       child: Text(
+                                                      //         textAlign: TextAlign.center,
+                                                      //         localization.getLocaleData.prescribed.toString(),
+                                                      //         style:
+                                                      //         MyTextTheme()
+                                                      //             .smallWCB,
+                                                      //       ),
+                                                      // )
+                                                      //         : Container(
+                                                      //       width: 100,
+                                                      //       padding:
+                                                      //       const EdgeInsets
+                                                      //           .symmetric(
+                                                      //           horizontal:
+                                                      //           10,
+                                                      //           vertical:
+                                                      //           5),
+                                                      //       decoration: BoxDecoration(
+                                                      //           color:!appointmentData.isCancelled? AppColor
+                                                      //               .orangeColorDark:AppColor.red,
+                                                      //           borderRadius:
+                                                      //           BorderRadius
+                                                      //               .circular(
+                                                      //               15)),
+                                                      //       child: Text(
+                                                      //         textAlign: TextAlign.center,
+                                                      //         !appointmentData.isCancelled? localization.getLocaleData.confirmed.toString():"Cancelled",
+                                                      //         style:
+                                                      //         MyTextTheme()
+                                                      //             .smallWCB,
+                                                      //       ),
+                                                      // )
                                                               ],
                                                             ),
                                                           ),

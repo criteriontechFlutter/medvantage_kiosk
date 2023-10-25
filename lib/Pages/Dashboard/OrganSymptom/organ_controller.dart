@@ -12,6 +12,14 @@ class OrganController extends GetxController{
   Rx<TextEditingController> searchC=TextEditingController().obs;
   Rx<TextEditingController> searchSpeechToText=TextEditingController().obs;
 
+
+  List bodyParts=[].obs;
+  get getBodyParts=>bodyParts;
+  set updateBodyParts(val){
+    bodyParts=val;
+    update();
+  }
+
   List  listItemsOne = [
     {
       "isSelected":false,
@@ -130,14 +138,24 @@ class OrganController extends GetxController{
 
   List organSymptomList=[].obs;
 
-  List<OrganSymptom> get getOrganSymptomList=>List<OrganSymptom>.from(
+  // List<OrganSymptom> get getOrganSymptomList=>List<OrganSymptom>.from(
+  //     (
+  //         (searchC.value.text==''?organSymptomList:organSymptomList.where((element) =>
+  //             (
+  //                 element['symptoms'].toString().toLowerCase().trim()
+  //             ).trim().contains(searchC.value.text.toLowerCase().trim())
+  //         ))
+  //             .map((element) => OrganSymptom.fromJson(element))
+  //     )
+  // );
+  List<ProblemName> get getOrganSymptomList=>List<ProblemName>.from(
       (
           (searchC.value.text==''?organSymptomList:organSymptomList.where((element) =>
               (
                   element['symptoms'].toString().toLowerCase().trim()
               ).trim().contains(searchC.value.text.toLowerCase().trim())
           ))
-              .map((element) => OrganSymptom.fromJson(element))
+              .map((element) => ProblemName.fromJson(element))
       )
   );
 

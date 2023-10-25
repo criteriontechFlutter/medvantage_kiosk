@@ -42,11 +42,11 @@ class StartupController extends GetxController{
       //   containerText: localization.getLocaleData.hintText!.quickHealth.toString(),
       //   // route:alertToast(context, "ksdhkf"),
       // ),
-      // StartupDataModal(
-      //   containerImage: 'assets/medical_history_kiosk.png',
-      //   containerText: localization.getLocaleData.hintText!.medicalHistory.toString(),
-      //   route: const MyAppointmentView(),
-      // )
+      StartupDataModal(
+        containerImage: 'assets/medical_history_kiosk.png',
+        containerText: localization.getLocaleData.hintText!.medicalHistory.toString(),
+        route: const MyAppointmentView(),
+      )
     ];
   }
   // List containerList=<StartupDataModal>[

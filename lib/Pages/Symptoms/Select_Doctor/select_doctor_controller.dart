@@ -24,8 +24,10 @@ class SelectDoctorController extends GetxController {
   }
 
   set update_recommended_doctors(List val){
-    recommended_Doctors = val[0]['recomendedDoctor'];
-    popularDoctor = val[0]['popularDoctor'];
+     recommended_Doctors = val;
+    // recommended_Doctors = val[0]['recomendedDoctor'];
+    // popularDoctor = val[0]['popularDoctor'];
+     popularDoctor = val;
     update();
   }
 
@@ -44,20 +46,36 @@ class SelectDoctorController extends GetxController {
               .map((element) => RecommendedDoctorDataModal.fromJson(element))
       )
   );
-  List<PopularDoctorDataModal> get get_popular_Doctors_Data=>List<PopularDoctorDataModal>.from(
+  // List<PopularDoctorDataModal> get get_popular_Doctors_Data=>List<PopularDoctorDataModal>.from(
+  //     (
+  //         (searchC.value.text==''?popularDoctor:popularDoctor.where((element) =>
+  //             (
+  //                 element['drName'].toString().toLowerCase().trim()
+  //                     +
+  //                 element['speciality'].toString().toLowerCase().trim()
+  //                     +
+  //                 element['hospitalName'].toString().toLowerCase().trim()
+  //
+  //
+  //             ).trim().contains(searchC.value.text.toLowerCase().trim())
+  //         ))
+  //             .map((element) => PopularDoctorDataModal.fromJson(element))
+  //     )
+  // );
+  List<DoctorsListDataModal> get get_popular_Doctors_Data=>List<DoctorsListDataModal>.from(
       (
           (searchC.value.text==''?popularDoctor:popularDoctor.where((element) =>
               (
-                  element['drName'].toString().toLowerCase().trim()
+                  element['name'].toString().toLowerCase().trim()
                       +
-                  element['speciality'].toString().toLowerCase().trim()
-                      +
-                  element['hospitalName'].toString().toLowerCase().trim()
+                  element['department'].toString().toLowerCase().trim()
+                  //     +
+                  // element['hospitalName'].toString().toLowerCase().trim()
 
 
               ).trim().contains(searchC.value.text.toLowerCase().trim())
           ))
-              .map((element) => PopularDoctorDataModal.fromJson(element))
+              .map((element) => DoctorsListDataModal.fromJson(element))
       )
   );
   Rx<TextEditingController> searchC = TextEditingController().obs;

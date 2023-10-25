@@ -34,7 +34,7 @@ class OtpLoginController extends GetxController {
     update();
   }
 
-  final formKey = GlobalKey<FormState>().obs;
+  final formKeyOtp = GlobalKey<FormState>().obs;
 
   List gender = [
     {

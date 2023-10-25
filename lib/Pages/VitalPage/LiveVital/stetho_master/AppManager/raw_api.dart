@@ -222,15 +222,17 @@
 // }
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'app_util.dart';
 
 
-class RawData{
+class RawDataApi{
 
 
 
@@ -384,7 +386,7 @@ class RawData{
 
       print(e.toString());
       final snackBar = SnackBar(
-        content:  Text(e.toString()),
+        content:  const Text('Some Error Occured. Retry'),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
@@ -534,5 +536,105 @@ class RawData{
   //   }
   // }
 
+  // Future<dynamic> post(url,body,context,{
+  //   bool? token,
+  //   String? newBaseUrl,
+  //   bool showRetryEvent=true,
+  // })
+  // async {
+  //
+  //
+  //
+  //   try{
+  //
+  //     String myUrl=(newBaseUrl??baseUrl)+url;
+  //
+  //     if (kDebugMode) {
+  //       print("URL: "+myUrl);
+  //       print("BODY: "+body.toString());
+  //     }
+  //
+  //     var response = (token?? false)? await http.post(
+  //         Uri.parse(myUrl),
+  //         // headers: myHeader,
+  //         // newHeader.isEmpty? {
+  //         //    'accessToken':  myToken.toString(),
+  //         //    'userID': user.getUserId.toString(),
+  //         //  }:newHeader,
+  //         headers: {
+  //           HttpHeaders.contentTypeHeader: "application/json",
+  //         },
+  //         body: jsonEncode(body)
+  //     ):await http.post(
+  //         Uri.parse(myUrl),
+  //         headers: {
+  //           HttpHeaders.contentTypeHeader: "application/json",
+  //         },
+  //         body: body
+  //     );
+  //
+  //     print("Response: ${response.body.toString()}");
+  //
+  //     log(response.body.toString());
+  //     var  data = await json.decode(response.body);
+  //     print(data.toString()+'124567890');
+  //     return data;
+  //   }
+  //   on SocketException catch (e) {
+  //
+  //     if(showRetryEvent){
+  //       var retry=await apiDialogue2(context,'Alert', e.toString(),
+  //       );
+  //       if(retry){
+  //         var data= await post(url,body,context,
+  //           token: token,);
+  //         return data;
+  //       }
+  //       else{
+  //         return cancelResponse;
+  //       }
+  //     }
+  //
+  //
+  //   }
+  //   on TimeoutException catch (e) {
+  //
+  //     if(showRetryEvent){
+  //
+  //       var retry=await apiDialogue2(context,'Alert', e.toString(),
+  //       );
+  //       if(retry){
+  //         var data= await post(url,body,context,
+  //           token: token,);
+  //         return data;
+  //       }
+  //       else{
+  //         return cancelResponse;
+  //       }
+  //     }
+  //
+  //
+  //   }
+  //   catch (e) {
+  //
+  //
+  //     if(showRetryEvent){
+  //
+  //       var retry=await apiDialogue2(context,'Alert', e.toString(),
+  //       );
+  //       if(retry){
+  //         var data= await post(url,body,context,
+  //           token: token,);
+  //
+  //         return data;
+  //       }
+  //       else{
+  //         return cancelResponse;
+  //       }
+  //     }
+  //
+  //   }
+  //
+  // }
 
 }

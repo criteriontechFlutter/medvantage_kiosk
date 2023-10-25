@@ -169,20 +169,11 @@ class _StartupPageState extends State<StartupPage> {
                                                 setState(() {
                                                   controller.updateContainerIndex = index.toString();
                                                   if (controller.getContainerIndex.toString() == "0") {
-
-                                                    //
                                                     // if (UserData().getUserData.isNotEmpty) {
                                                        App().navigate(context,  TopSpecialitiesView());
-                                                    //
                                                     // }else{
                                                   //    App().navigate(context,  LoginThroughOtp(index:'appointment'));
-
                                                     // }
-
-
-
-
-
                                                   } else if (controller.getContainerIndex
                                                       .toString() ==
                                                       "1") {
@@ -194,7 +185,6 @@ class _StartupPageState extends State<StartupPage> {
                                                     }else if(userdata.getLoggedIn==false){
                                                       App().navigate(context,  LoginThroughOtp(index: '',registerOrLogin: 'Login'));
                                                     }
-
                                                   // }
                                                     // else {
                                                     //   App().navigate(context,  LoginThroughOtp(index:controller.getContainerIndex));
@@ -202,14 +192,8 @@ class _StartupPageState extends State<StartupPage> {
                                                     // alertToast(context, "Coming Soon...");
                                                   }
                                                   else {
-                                                    if (UserData().getUserData.isNotEmpty) {
                                                       App().navigate(context, const MyAppointmentView());
-                                                    }
-                                                    else {
-                                                      App().navigate(context,  LoginThroughOtp(index:'appointment',registerOrLogin: 'Login'));
-                                                    }}
-
-                                                  print("Login Page");
+                                                  print("Login Page");}
                                                   //App().navigate(context, data.route);
                                                 });
                                                 //print("consultDoctor");
@@ -469,7 +453,6 @@ class _StartupPageState extends State<StartupPage> {
                                           ),
                                         ),
                                       ),
-
                                     ],
                                   ),
                                 ),
@@ -588,7 +571,6 @@ class _StartupPageState extends State<StartupPage> {
                     title: 'Logout',
                     onPress: (){
                       MedvantageLogin userdata=Provider.of<MedvantageLogin>(context,listen: false);
-
                       setState(() {
                       });
                       userdata.logOut();

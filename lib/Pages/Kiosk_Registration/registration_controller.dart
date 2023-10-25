@@ -19,7 +19,7 @@ class RegistrationController extends GetxController{
   Rx<TextEditingController> heightC = TextEditingController().obs;
   Rx<TextEditingController> weightC = TextEditingController().obs;
 
-  final formKey = GlobalKey<FormState>().obs;
+   final formKeyRegistration = GlobalKey<FormState>().obs;
 
 
   RxBool isReadTerms=false.obs;

@@ -34,6 +34,20 @@ class NewBookAppointmentController extends GetxController{
     update();
   }
 
+  List dayList=[];
+ get getDayList=>dayList;
+ set updateDayList(val){
+   dayList=val;
+   update();
+ }
+
+ List timeList=[];
+ get getTimeList=>timeList;
+ set updateTimeList(val){
+   timeList=val;
+   update();
+ }
+
 
 
 }

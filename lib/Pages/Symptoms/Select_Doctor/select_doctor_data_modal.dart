@@ -114,3 +114,44 @@ class PopularDoctorDataModal{
 
 
 }
+
+class DoctorsListDataModal {
+  int? id;
+  String? name;
+  int? departmentId;
+  String? departmentName;
+  int? designationId;
+  int? clientID;
+  int? roleId;
+
+  DoctorsListDataModal(
+      {this.id,
+        this.name,
+        this.departmentId,
+        this.departmentName,
+        this.designationId,
+        this.clientID,
+        this.roleId});
+
+  DoctorsListDataModal.fromJson(Map<String, dynamic> json) {
+    id = json['id']??0;
+    name = json['name']??'';
+    departmentId = json['departmentId']??0;
+    departmentName = json['departmentName']??'';
+    designationId = json['designationId']??0;
+    clientID = json['clientID']??0;
+    roleId = json['roleId']??0;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['departmentId'] = this.departmentId;
+    data['departmentName'] = this.departmentName;
+    data['designationId'] = this.designationId;
+    data['clientID'] = this.clientID;
+    data['roleId'] = this.roleId;
+    return data;
+  }
+}

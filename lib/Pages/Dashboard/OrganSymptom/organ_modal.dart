@@ -7,8 +7,10 @@ import 'package:digi_doctor/AppManager/raw_api.dart';
 import 'package:digi_doctor/Pages/Dashboard/OrganSymptom/speech.dart';
 import 'package:digi_doctor/Pages/Symptoms/Select_Doctor/select_doctor_view.dart';
 import 'package:digi_doctor/Pages/VitalPage/LiveVital/stetho_master/AppManager/my_text_theme.dart';
+import 'package:digi_doctor/Pages/VitalPage/LiveVital/stetho_master/AppManager/raw_api.dart';
 import 'package:digi_doctor/Pages/bhojpuri.dart';
 import 'package:digi_doctor/main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +58,22 @@ Map newObject={
     controller.update();
   }
 
-  Future<void> getOrganSymptomList(context,setState,Map Organ) async {
+  getBodyPartList(context)async{
+    try{
+    var data = await RawDataApi().getapi('/api/KnowMedApis/GetAllBodyOrgans',  context);
+     print(data.toString());
+     controller.updateBodyParts=data["responseValue"];
+     if (kDebugMode) {
+       print('njsdnajsbdyyyys${controller.getBodyParts}');
+     }
+    } catch(e){
+      if (kDebugMode) {
+        print('${e}errorerror');
+      }
+    }
+  }
+
+  Future<void> getOrganSymptomList(context,setState,Map Organ,String id) async {
 
     print(Organ);
     ProgressDialogue().show(context, loadingText: 'Loading...');
@@ -65,12 +82,15 @@ Map newObject={
       "language": controller.getSelectedLangId.toString(),
       "symptomName":""
     };
-    var data = await rawData.api(
-        'GetKioskSymptomsByProblemId', body, context,
-        isNewBaseUrl: true, newBaseUrl: 'http://182.156.200.178:192/Services/patientProblem.asmx/',
-        token: true);
+    // var data = await rawData.api(
+    //     'GetKioskSymptomsByProblemId', body, context,
+    //     isNewBaseUrl: true, newBaseUrl: 'http://182.156.200.178:192/Services/patientProblem.asmx/',
+    //     token: true);
+    var data = await RawDataApi().api('/api/KnowMedApis/getAllSymptoms?regionOrganId=$id',  {},context);
     ProgressDialogue().hide();
-    if (data['responseCode'] == 1) {
+
+    if (data['status'] == 1) {
+    // if (data['responseCode'] == 1) {
 
       for(int i=0;i<data['responseValue'].length;i++){
         data['responseValue'][i].addAll({'isSelected':false});

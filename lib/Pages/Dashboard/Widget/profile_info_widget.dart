@@ -3,11 +3,13 @@ import 'package:digi_doctor/Pages/StartUpScreen/startup_screen.dart';
 import 'package:digi_doctor/Pages/medvantage_login.dart';
 import 'package:digi_doctor/Pages/profile/profile_view.dart';
 import 'package:digi_doctor/Pages/select_member/select_memeber_view.dart';
+import 'package:digi_doctor/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import '../../../AppManager/app_color.dart';
 import '../../../AppManager/app_util.dart';
@@ -16,6 +18,7 @@ import '../../../AppManager/user_data.dart';
 import '../../../AppManager/widgets/my_button2.dart';
 import '../../../Localization/app_localization.dart';
 import '../../../Localization/language_change_widget.dart';
+import '../../Login Through OTP/select_user.dart';
 import '../../VitalPage/LiveVital/stetho_master/AppManager/alert_dialogue.dart';
 import '../../voiceAssistantProvider.dart';
 import '../dashboard_modal.dart';
@@ -29,17 +32,20 @@ class ProfileInfoWidget extends StatefulWidget {
 
 class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
 
-
-
   @override
   Widget build(BuildContext context) {
+
     ApplicationLocalizations localization =
     Provider.of<ApplicationLocalizations>(context, listen: true);
     MedvantageLogin userdata=Provider.of<MedvantageLogin>(context,listen: false);
     VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: true);
+
+    final medvantageUser = GetStorage();
+    var userName = medvantageUser.read('medvantageUserName');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
+
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 25,left: 10),
@@ -83,7 +89,6 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                       ),
                     ),
                   ),
-
                   Row(
                     children: [
                       // InkWell(
@@ -164,6 +169,46 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(localization.getLanguage.name.toString(),style: MyTextTheme().mediumWCB,),
+                               //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
+                                    const Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
+                                  ],
+                                ),
+                            ),
+                          )
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        App().replaceNavigate(context, const SelectUser());
+                      });
+                    },
+                    child: Padding(
+                      padding:  const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 160,
+                          decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
+                          border: Border.all(
+                            color: AppColor.white
+                          ),
+                          ),
+                          child:Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.white),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+
+
+
+
+
+                                    Text(userName.toString(),style: MyTextTheme().mediumWCB,),
                                //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
                                     const Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
                                   ],

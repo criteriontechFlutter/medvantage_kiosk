@@ -104,7 +104,7 @@ class _RegistrationState extends State<Registration> {
                                             child: Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                                               child: Form(
-                                                key: modal2.controller.formKey.value,
+                                                key: modal2.controller.formKeyOtp.value,
                                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                                 child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -235,7 +235,7 @@ class _RegistrationState extends State<Registration> {
                                                           onPress: () async {
                                                             if (modal2
                                                                 .controller
-                                                                .formKey
+                                                                .formKeyOtp
                                                                 .value
                                                                 .currentState!
                                                                 .validate()) {
@@ -247,7 +247,11 @@ class _RegistrationState extends State<Registration> {
                                                                   modal2.controller.selectedGenderC.value.text == '') {
                                                                 alertToast(context, "Please Enter Your Details");
                                                               } else {
-                                                                await modal2.register(context,widget.phonenumber.toString());
+                                                                if(isEmailValid(modal2.controller.emailController.value.text)){
+                                                                  await modal2.register(context,widget.phonenumber.toString());
+                                                                }else{
+                                                                  alertToast(context, "invalid email address");
+                                                                }
                                                               }
                                                             } else {
                                                               alertToast(context, "Please Enter Your Details");
@@ -302,8 +306,14 @@ class _RegistrationState extends State<Registration> {
         ),
       ),
     );
-  }
 
+  }
+  bool isEmailValid(String email) {
+    String emailPattern =
+        r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*$';
+    RegExp regExp = RegExp(emailPattern);
+    return regExp.hasMatch(email);
+  }
   changeLanguage() {
     ApplicationLocalizations localization =
         Provider.of<ApplicationLocalizations>(context, listen: false);

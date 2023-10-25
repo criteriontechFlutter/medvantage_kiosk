@@ -624,7 +624,7 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                                   child: MyButton(title:localization.getLocaleData.hintText!.book.toString(),height: 100,
                                                                                                     onPress: (){
                                                                                                     modal2.controller.updateDoctorId=doctor.id;
-                                                                                                    App().navigate(context, NewBookAppointment(doctorName: doctor.name.toString(),doctorId:doctor.id));
+                                                                                                    App().navigate(context, NewBookAppointment(doctorName: doctor.name.toString(),doctorId:doctor.id,departmentId: doctor.departmentId,));
 //**//**********
 //                                                                                                       App().navigate(context, TimeSlotView(profilePhoto: doctor.profilePhotoPath.toString(),degree:doctor.degree.toString() ,doctorId:doctor.id.toString(),
 //                                                                                                         drName:doctor.drName.toString(),

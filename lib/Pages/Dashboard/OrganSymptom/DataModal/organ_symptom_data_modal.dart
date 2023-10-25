@@ -22,3 +22,26 @@ class OrganSymptom {
     return data;
   }
 }
+
+class ProblemName {
+  int? id;
+  String? problemName;
+  String? isVisible;
+
+  ProblemName({this.id, this.problemName, this.isVisible});
+
+  ProblemName.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    problemName = json['problemName'];
+    isVisible = json['isVisible'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['problemName'] = this.problemName;
+    data['isVisible'] = this.isVisible;
+    return data;
+  }
+}
+

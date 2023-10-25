@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'MyAppointmentDataModal/my_appointment_data_modal.dart';
+import 'appointmentDataModal.dart';
 
 class MyAppointmentController extends GetxController{
 
@@ -26,16 +27,27 @@ Rx<TextEditingController> search=TextEditingController().obs;
   //     appointmentList.map((e) => MyAppointmentDataModal.fromJson(e)));
 
 
-List<MyAppointmentDataModal> get getAppointmentList=>List<MyAppointmentDataModal>.from(
+List<AppointmentHistoryDataModal> get getAppointmentList=>List<AppointmentHistoryDataModal>.from(
     (
         (search.value.text==''?appointmentList:appointmentList.where((element) =>
             (
                 element['doctorName'].toString().toLowerCase().trim()
             ).trim().contains(search.value.text.toLowerCase().trim())
         ))
-            .map((element) => MyAppointmentDataModal.fromJson(element))
+            .map((element) => AppointmentHistoryDataModal.fromJson(element))
     )
 );
+
+// List<MyAppointmentDataModal> get getAppointmentList=>List<MyAppointmentDataModal>.from(
+//     (
+//         (search.value.text==''?appointmentList:appointmentList.where((element) =>
+//             (
+//                 element['doctorName'].toString().toLowerCase().trim()
+//             ).trim().contains(search.value.text.toLowerCase().trim())
+//         ))
+//             .map((element) => MyAppointmentDataModal.fromJson(element))
+//     )
+// );
 
 
 

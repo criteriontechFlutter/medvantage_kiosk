@@ -71,8 +71,9 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                     Center(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(localization.getLocaleData.login.toString(), style: MyTextTheme().veryLargeWCB,),
+                          Text( widget.registerOrLogin=="Login"   ?localization.getLocaleData.login.toString():localization.getLocaleData.registration.toString(), style: MyTextTheme().veryLargeWCB,),
                           Text(
                             "${localization.getLocaleData.hello.toString()}, ${localization.getLocaleData.hintText!.Welcometo} Kiosk",
                             style: MyTextTheme().veryLargeWCN,
@@ -80,7 +81,7 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                           const SizedBox(height: 20,),
                           Container(
                             width: 500,
-                            height: 300,
+                            height: 250,
                             decoration: BoxDecoration(
                                 color: AppColor.primaryColorLight
                             ),
@@ -223,7 +224,7 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(20),child:
                                     MyTextField2(
-                                      hintText: localization.getLocaleData.enterYourNo.toString(),
+                                      hintText: widget.registerOrLogin=='Login'? localization.getLocaleData.enterMobileAndEmail.toString():localization.getLocaleData.enterYourNo.toString(),
                                     controller: controller.phoneNumberC.value,
                                   ),)),
                                 Padding(
@@ -247,7 +248,7 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                                           }
                                          }
                                       },
-                                        child:  Text(widget.registerOrLogin=='Login'?localization.getLocaleData.verifyingOtp.toString(): localization.getLocaleData.login.toString()),
+                                        child:  Text(widget.registerOrLogin=='Login'? localization.getLocaleData.login.toString():localization.getLocaleData.verifyingOtp.toString()),
                                     ),
                                   ),
                                 ),
@@ -260,7 +261,7 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                                       width: 300,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: AppColor.lightGreen, // Background color
+                                          backgroundColor: AppColor.orangeButtonColor, // Background color
                                         ),
                                         onPressed: (){
                                             App().navigate(context,   LoginThroughOtp(index: '', registerOrLogin: 'registration',));
@@ -272,7 +273,7 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -636,7 +637,7 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
               children: <Widget>[
                  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     LanguageChangeWidget(isPopScreen: true),
                   ],
                 ),

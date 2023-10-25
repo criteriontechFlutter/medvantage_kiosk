@@ -98,8 +98,9 @@ class _OtpViewState extends State<OtpView> {
                             onCompleted: (v) {
                               if (kDebugMode) {
                                 if(widget.registerOrLogin=='Login'){
-                                  print('controller.otpC.value.text.toString()''${controller.otpC.value.text}');
-                                  modal.matchOtp(context, controller.getOtpval, usernameOrNumber);
+
+                                  print('controller.otpC.value.text.toString()''${controller.otpC.value.text}+$v');
+                                  modal.matchOtp(context, v, usernameOrNumber);
                                   print("Completed");
                                 }else{
                                   modal.matchRegistrationOtp(context, widget.phonenumber, controller.getOtpval);

@@ -421,7 +421,7 @@ class _TopSymptomsBetaState extends State<TopSymptomsBeta> {
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
                       child: MyButton2(
                         title: localization.getLocaleData.proceed.toString(),
-                        color: AppColor.primaryColor,
+                        color: AppColor.red,
                         width: 200,
                         onPress: () {
                           //setState(() {

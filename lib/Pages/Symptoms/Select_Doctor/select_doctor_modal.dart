@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:digi_doctor/AppManager/user_data.dart';
 import 'package:digi_doctor/Pages/Symptoms/Select_Doctor/select_doctor_controller.dart';
 import 'package:get/get.dart';
+import '../../../AppManager/alert_dialogue.dart';
 import '../../../AppManager/raw_api.dart';
+import '../../VitalPage/LiveVital/stetho_master/AppManager/raw_api.dart';
 import '../top_symptoms_controller.dart';
 
 class SelectDoctorModal {
@@ -44,6 +46,22 @@ class SelectDoctorModal {
 
       //print('----------------------------------' +  data['responseValue'][0]['popularDoctor'].toString());
       controller.update_recommended_doctors = data['responseValue'];
+    }
+  }
+
+  Future<void>getDoctorsList(context)async{
+    var body=[{"organId":50},{"organId":19}];
+    var b = jsonEncode(body);
+    var data = await RawDataApi().getapi('/api/OrganDepartmentMapping/GetDoctorBySymptoms?JsonOrgan=$b', context);
+    print(data['responseValue'].toString());
+    if(data["status"].toString()=='1'){
+      print('${data}abcd');
+      List<dynamic> responseValue=data['responseValue'];
+
+      controller.update_recommended_doctors = responseValue;
+      print(responseValue.toString()+'12345678901234567890');
+      print(controller.get_popular_Doctors_Data.toString()+'12345678901234567890');
+      alertToast( context,data['message']);
     }
   }
 }

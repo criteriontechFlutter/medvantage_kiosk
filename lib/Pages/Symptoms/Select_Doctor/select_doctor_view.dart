@@ -66,6 +66,7 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
     modal.controller.updateProblemId=widget.selectedSymptomsId;
     modal.controller.updateShowNoData = false;
     await modal.getDoctorBySymptom(context);
+    await modal.getDoctorsList(context);
     modal.controller.updateShowNoData = true;
   }
 
@@ -387,7 +388,10 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                                           modal.controller
                                               .get_popular_Doctors_Data.length,
                                           itemBuilder: (BuildContext context,int index){
-                                            PopularDoctorDataModal doctor = modal
+                                            // PopularDoctorDataModal doctor = modal
+                                            //     .controller
+                                            //     .get_popular_Doctors_Data[index];
+                                            DoctorsListDataModal doctor = modal
                                                 .controller
                                                 .get_popular_Doctors_Data[index];
                                             return
@@ -405,40 +409,40 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                       children: [
-                                                        Expanded(flex: 1,
-                                                          child: CachedNetworkImage(height: 25,imageUrl: doctor.imagePath
-                                                              .toString(),
-                                                              // progressIndicatorBuilder: (context,
-                                                              //         url,
-                                                              //         downloadProgress) =>
-                                                              //     CircularProgressIndicator(
-                                                              //         value:
-                                                              //             downloadProgress
-                                                              //                 .progress),
-                                                              errorWidget: (context,
-                                                                  url, error) =>
-                                                                  Image.asset(
-                                                                      "assets/doctorSign.png")
-                                                            // Icon(Icons.error),
-                                                          ),
-                                                        ),
+                                                        // Expanded(flex: 1,
+                                                        //   child: CachedNetworkImage(height: 25,imageUrl: doctor.imagePath
+                                                        //       .toString(),
+                                                        //       // progressIndicatorBuilder: (context,
+                                                        //       //         url,
+                                                        //       //         downloadProgress) =>
+                                                        //       //     CircularProgressIndicator(
+                                                        //       //         value:
+                                                        //       //             downloadProgress
+                                                        //       //                 .progress),
+                                                        //       errorWidget: (context,
+                                                        //           url, error) =>
+                                                        //           Image.asset(
+                                                        //               "assets/doctorSign.png")
+                                                        //     // Icon(Icons.error),
+                                                        //   ),
+                                                        // ),
                                                         Expanded(flex: 2,
                                                           child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
                                                               Text(
-                                                                doctor.doctorName
+                                                                doctor.name
                                                                     .toString(),
                                                                 style: MyTextTheme()
                                                                     .smallBCB,
                                                               ),
-                                                              Expanded(
-                                                                child: Text(
-                                                                  doctor.degree.toString(),
-                                                                  style:
-                                                                  MyTextTheme().smallBCN,
-                                                                ),
-                                                              )
+                                                              // Expanded(
+                                                              //   child: Text(
+                                                              //     doctor.degree.toString(),
+                                                              //     style:
+                                                              //     MyTextTheme().smallBCN,
+                                                              //   ),
+                                                              // )
                                                             ],
                                                           ),
                                                         ),
@@ -446,18 +450,18 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                                                         Expanded(flex: 2,
                                                           child: Center(
                                                             child: Text(
-                                                              doctor.speciality
+                                                              doctor.departmentName
                                                                   .toString(),
                                                               style: MyTextTheme()
                                                                   .mediumPCB,
                                                             ),
                                                           ),
                                                         ),
-                                                        Text(
-                                                          '\u{20B9}  ${doctor.drFee}',
-                                                          style:
-                                                          MyTextTheme().mediumPCB,
-                                                        ),
+                                                        // Text(
+                                                        //   '\u{20B9}  ${doctor.drFee}',
+                                                        //   style:
+                                                        //   MyTextTheme().mediumPCB,
+                                                        // ),
                                                         const Expanded(child: SizedBox()),
                                                         Expanded(flex: 1,
                                                           child:  SizedBox(
@@ -465,12 +469,13 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                                                               child: MyButton(title: localization.getLocaleData.hintText!.book.toString(),
                                                                 onPress: (){
 //**//*********
-                                                                  App().navigate(context, TimeSlotView(profilePhoto: doctor.imagePath.toString(),degree:doctor.degree.toString() ,doctorId:doctor.id.toString(),
-                                                                    drName:doctor.doctorName.toString(),
-                                                                    fees: double.parse(doctor.drFee.toString())+.0,
-                                                                    iSEraDoctor:doctor.isEraUser.toString(),
-                                                                    speciality:  doctor.degree.toString()
-                                                                    ,timeSlots:doctor.sittingDays??[],selectedDay:null,));
+   ///                                                               App().navigate(context, TimeSlotView(profilePhoto: doctor.imagePath.toString(),degree:doctor.degree.toString() ,doctorId:doctor.id.toString(),
+   ///                                                                 drName:doctor.doctorName.toString(),
+  ///                                                                  fees: double.parse(doctor.drFee.toString())+.0,
+   ///                                                                 iSEraDoctor:doctor.isEraUser.toString(),
+   ///                                                                 speciality:  doctor.degree.toString()
+  ///                                                                  ,timeSlots:doctor.sittingDays??[],selectedDay:null,));
+//
 //                                                                 App().navigate(context, TimeSlotView(profilePhoto: doctor.profilePhotoPath.toString(),degree:doctor.degree.toString() ,doctorId:doctor.id.toString(),
 //                                                                   drName:doctor.drName.toString(),
 //                                                                   fees: double.parse(doctor.drFee.toString())+.0,

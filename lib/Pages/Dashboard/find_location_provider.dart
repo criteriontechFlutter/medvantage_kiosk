@@ -37,7 +37,7 @@ class LocationProvider extends ChangeNotifier{
 
   }
    getLocation({required String id})async{
-     var data = await RawData().getapi('/api/LocationDepartmentAssign/GetAllLocationDepartmentAssignByDeptId?deptid=$id',{});
+     var data = await RawDataApi().getapi('/api/LocationDepartmentAssign/GetAllLocationDepartmentAssignByDeptId?deptid=$id',{});
      updateLocations=data['responseValue'];
      print('${data}09090909090909099');
    }

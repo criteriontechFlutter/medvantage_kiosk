@@ -20,7 +20,7 @@ class PatientModal {
       "age": controller.ageC.text.toString(),
       "gender": selectGender
     };
-    var data = await RawData().api('saveApi/', body, context, token: false);
+    var data = await RawDataApi().api('saveApi/', body, context, token: false);
     ProgressDialogue().hide();
     print('datatatatatata   $data');
     controller.updatPatientDetails = data['data'];

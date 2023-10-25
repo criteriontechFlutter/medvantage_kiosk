@@ -814,7 +814,7 @@ apiDialogue(context,alert,msg,{
                                   height: 200,
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 30.0),
-                                      child: Lottie.asset("assets/stetho_scope.json", ),
+                                      child: Lottie.asset("assets/stethoscope.json", ),
                                     )),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
