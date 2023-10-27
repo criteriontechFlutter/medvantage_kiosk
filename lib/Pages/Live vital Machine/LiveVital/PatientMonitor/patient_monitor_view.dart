@@ -1091,39 +1091,39 @@ class _PatientMonitorViewState extends State<PatientMonitorView>
   // );
   // }
 
-  Spo2Graph() {
-    PatientMonitorViewModal PatientMonitorVM =
-        Provider.of<PatientMonitorViewModal>(context, listen: true);
-    return SizedBox(
-      height: MediaQuery.of(context).size.height / 2.9,
-      child: SfCartesianChart(
-          primaryYAxis: NumericAxis(
-            maximum: PatientMonitorVM.getSelectedSpo2YaxisValue,
-            minimum: -PatientMonitorVM.getSelectedSpo2YaxisValue,
-          ),
-          primaryXAxis: NumericAxis(isVisible: false),
-          series: <ChartSeries>[
-            SplineSeries<ChartData, int>(
-              dataSource: PatientMonitorVM.spo2GraphList.toList().length <
-                      PatientMonitorVM.getSelectedSpo2XAxisValue
-                  ? PatientMonitorVM.spo2GraphList.toList()
-                  : PatientMonitorVM.spo2GraphList
-                      .toList()
-                      .getRange(
-                          (PatientMonitorVM.spo2GraphList.toList().length -
-                              PatientMonitorVM.getSelectedSpo2XAxisValue),
-                          PatientMonitorVM.spo2GraphList.toList().length)
-                      .toList(),
-              // Type of spline
-              splineType: SplineType.cardinal,
-              cardinalSplineTension: 0.9,
-              xValueMapper: (ChartData sales, _) =>
-                  PatientMonitorVM.spo2GraphList.toList().indexOf(sales),
-              yValueMapper: (ChartData sales, _) => sales.maxDb,
-            )
-          ]),
-    );
-  }
+  // Spo2Graph() {
+  //   PatientMonitorViewModal PatientMonitorVM =
+  //       Provider.of<PatientMonitorViewModal>(context, listen: true);
+  //   return SizedBox(
+  //     height: MediaQuery.of(context).size.height / 2.9,
+  //     child: SfCartesianChart(
+  //         primaryYAxis: NumericAxis(
+  //           maximum: PatientMonitorVM.getSelectedSpo2YaxisValue,
+  //           minimum: -PatientMonitorVM.getSelectedSpo2YaxisValue,
+  //         ),
+  //         primaryXAxis: NumericAxis(isVisible: false),
+  //         series: <ChartSeries>[
+  //           SplineSeries<ChartData, int>(
+  //             dataSource: PatientMonitorVM.spo2GraphList.toList().length <
+  //                     PatientMonitorVM.getSelectedSpo2XAxisValue
+  //                 ? PatientMonitorVM.spo2GraphList.toList()
+  //                 : PatientMonitorVM.spo2GraphList
+  //                     .toList()
+  //                     .getRange(
+  //                         (PatientMonitorVM.spo2GraphList.toList().length -
+  //                             PatientMonitorVM.getSelectedSpo2XAxisValue),
+  //                         PatientMonitorVM.spo2GraphList.toList().length)
+  //                     .toList(),
+  //             // Type of spline
+  //             splineType: SplineType.cardinal,
+  //             cardinalSplineTension: 0.9,
+  //             xValueMapper: (ChartData sales, _) =>
+  //                 PatientMonitorVM.spo2GraphList.toList().indexOf(sales),
+  //             yValueMapper: (ChartData sales, _) => sales.maxDb,
+  //           )
+  //         ]),
+  //   );
+  // }
 }
 
 //  YaxisDropDown(context){

@@ -38,7 +38,7 @@ class OximeterModal {
 
           var data= await vitalModal.saveDeviceVital(context,spo2: controller.getOximeterData.spo2.toString(),
          pr: controller.getOximeterData.heartRate.toString(),
-            memberId: UserData().getUserMemberId.toString(),);
+          );
 
 
       if(data['status']==0){

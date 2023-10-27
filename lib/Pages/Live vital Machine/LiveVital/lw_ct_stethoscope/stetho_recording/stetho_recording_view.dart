@@ -14,6 +14,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import '../../../../../AppManager/widgets/my_app_bar.dart';
 import '../../../../../AppManager/widgets/my_text_field_2.dart';
 import 'module/pick_audio_file.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 
 class StethoRecordingView extends StatefulWidget {
   const StethoRecordingView({Key? key}) : super(key: key);

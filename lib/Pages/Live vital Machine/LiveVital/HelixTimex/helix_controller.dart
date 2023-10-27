@@ -12,7 +12,8 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../AppManager/my_text_theme.dart';
-import '../../Add Vitals/add_vitals_modal.dart';
+import '../../../VitalPage/Add Vitals/add_vitals_modal.dart';
+
 
 
 class HelixController extends GetxController{

@@ -107,7 +107,12 @@ class RawData{
         }
       }
     }
-  }  apiNLP(url,var body,context,{
+  }
+
+
+
+
+  apiNLP(url,var body,context,{
     bool? token,
     bool? isNewBaseUrl,
     String? newBaseUrl,
@@ -285,5 +290,101 @@ class RawData{
     }
   }
 
+
+
+  getapi(url,context,{
+    bool? token,
+    bool? isNewBaseUrl,
+    String? newBaseUrl,
+    bool showRetry=true
+  })
+  async {
+    // print('**********************');
+    //   print(data);
+    //  print("*********************i");
+    try{
+      //Map<String, String> headerC;
+      // var formData = FormData.fromMap(body);
+      var fullUrl=(isNewBaseUrl?? false)? newBaseUrl.toString()+url:baseUrl+url;
+      //  print('bodyyyyyyyyy:  '+body.toString());
+      print('token:  '+user.getUserToken.toString());
+      print('baseurl:  '+fullUrl.toString());
+      // print('userId:  '+user.getUserId.toString());
+
+      var response = !(token??   false)?  await Dio().get(fullUrl,
+        options: Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: "application/json",
+            }
+        ),
+      ):
+      await Dio().get(fullUrl,
+        options: Options(
+            headers: {
+              'x-access-token': user.getUserToken.toString(),
+              //'token':  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlN0dWRlbnQyMDIyIiwibmFtZWlkIjoiNCIsInJvbGUiOiI3IiwicHJpbWFyeXNpZCI6IjkiLCJuYmYiOjE2NTUxOTI4MzIsImV4cCI6MTY1NTE5NjQzMiwiaWF0IjoxNjU1MTkyODMyfQ.g4U-naBHpQnRKyagGfj_PTCNn1aJPR0Qst2Bjbw2jns",
+              // 'userID': user.getUserId.toString()
+            }
+        ),
+      );
+
+      var data = await jsonDecode(response.toString());
+      print(data);
+      if(data is List){
+        return data[0];
+      }
+      else{
+        return data;
+      }
+
+
+
+    }
+    on SocketException {
+      print('No Internet connection');
+      if(showRetry){
+        var retry=await apiDialogue(context, 'Alert  !!!', 'Internet connection issue, try to reconnect.',
+        );
+        if(retry){
+          var data= await getapi(url,context,
+              token: token);
+          return data;
+        }
+        else{
+          return cancelResponse;
+        }
+      }
+
+    }
+    on TimeoutException catch (e) {
+      if(showRetry){
+        print('Time Out '+e.toString());
+        var retry=await apiDialogue(context, 'Alert  !!!', 'Time Out, plz check your connection.',
+        );
+        if(retry){
+          var data= await getapi(url,context,
+              token: token);
+          return data;
+        }
+        else{
+          return cancelResponse;
+        }}
+    }
+    catch (e) {
+      if(showRetry){
+        print('Error in Api: $e');
+        var retry=await apiDialogue(context, 'Alert  !!!', 'Internet connection issue, try to reconnect.',
+        );
+        if(retry){
+          var data= await getapi(url,context,
+            token: token,);
+          return data;
+        }
+        else{
+          return cancelResponse;
+        }
+      }
+    }
+  }
 
 }

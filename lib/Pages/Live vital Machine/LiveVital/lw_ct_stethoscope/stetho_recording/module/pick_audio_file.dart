@@ -2,12 +2,14 @@ import 'package:digi_doctor/AppManager/app_color.dart';
 import 'package:digi_doctor/AppManager/app_util.dart';
 import 'package:digi_doctor/AppManager/widgets/my_button.dart';
 import 'package:digi_doctor/AppManager/widgets/my_text_field_2.dart';
+import 'package:file_picker/file_picker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../AppManager/alert_dialogue.dart';
 import '../../../../../../AppManager/widgets/MyTextField.dart';
+import '../stetho_chart_view.dart';
 import '../stetho_controller.dart';
 
 pickAudioRecording(context) {
