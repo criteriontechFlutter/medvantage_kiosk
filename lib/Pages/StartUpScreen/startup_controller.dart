@@ -9,6 +9,7 @@ import '../../AppManager/app_util.dart';
 import '../../Localization/app_localization.dart';
 import '../MyAppointment/my_appointment_view.dart';
 import '../Specialities/top_specialities_view.dart';
+import '../VitalPage/LiveVital/device_view.dart';
 
 
 class StartupController extends GetxController{
@@ -32,16 +33,16 @@ class StartupController extends GetxController{
         containerText: localization.getLocaleData.hintText!.consultDoctor.toString(),
         route: TopSpecialitiesView(),
       ),
-      StartupDataModal(
-        containerImage: "assets/quick_helth_kiosk.png",
-        containerText: localization.getLocaleData.location!.toString(),
-        route: FindLocation(),
-      ),
       // StartupDataModal(
       //   containerImage: "assets/quick_helth_kiosk.png",
-      //   containerText: localization.getLocaleData.hintText!.quickHealth.toString(),
-      //   // route:alertToast(context, "ksdhkf"),
+      //   containerText: localization.getLocaleData.location!.toString(),
+      //   route: FindLocation(),
       // ),
+      StartupDataModal(
+        containerImage: "assets/quick_helth_kiosk.png",
+        containerText: localization.getLocaleData.hintText!.quickHealth.toString(),
+         route:DeviceView(),
+      ),
       StartupDataModal(
         containerImage: 'assets/medical_history_kiosk.png',
         containerText: localization.getLocaleData.hintText!.medicalHistory.toString(),

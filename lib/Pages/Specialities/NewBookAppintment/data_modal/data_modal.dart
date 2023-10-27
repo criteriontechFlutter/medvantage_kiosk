@@ -1,25 +1,46 @@
 
+
 class TimeSlotDataModal {
   int? id;
-  int? userId;
   String? fromTime;
   String? toTime;
+  int? doctorId;
+  int? timeslotId;
+  int? dayId;
+  String? dayName;
+  String? doctorName;
 
-  TimeSlotDataModal({this.id, this.userId, this.fromTime, this.toTime});
+  TimeSlotDataModal(
+      {this.id,
+        this.fromTime,
+        this.toTime,
+        this.doctorId,
+        this.timeslotId,
+        this.dayId,
+        this.dayName,
+        this.doctorName});
 
   TimeSlotDataModal.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    userId = json['userId'];
     fromTime = json['fromTime'];
     toTime = json['toTime'];
+    doctorId = json['doctorId'];
+    timeslotId = json['timeslotId'];
+    dayId = json['dayId'];
+    dayName = json['dayName'];
+    doctorName = json['doctorName'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['userId'] = this.userId;
     data['fromTime'] = this.fromTime;
     data['toTime'] = this.toTime;
+    data['doctorId'] = this.doctorId;
+    data['timeslotId'] = this.timeslotId;
+    data['dayId'] = this.dayId;
+    data['dayName'] = this.dayName;
+    data['doctorName'] = this.doctorName;
     return data;
   }
 }
@@ -27,38 +48,47 @@ class TimeSlotDataModal {
 
 class DayDataModal {
   int? id;
+  String? fromTime;
+  String? toTime;
+  int? doctorId;
+  int? timeslotId;
+  int? dayId;
   String? dayName;
-  int? userId;
-  int? status;
-  String? createdDate;
-  int? clientID;
+  String? doctorName;
 
   DayDataModal(
       {this.id,
+        this.fromTime,
+        this.toTime,
+        this.doctorId,
+        this.timeslotId,
+        this.dayId,
         this.dayName,
-        this.userId,
-        this.status,
-        this.createdDate,
-        this.clientID});
+        this.doctorName});
 
   DayDataModal.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    fromTime = json['fromTime'];
+    toTime = json['toTime'];
+    doctorId = json['doctorId'];
+    timeslotId = json['timeslotId'];
+    dayId = json['dayId'];
     dayName = json['dayName'];
-    userId = json['userId'];
-    status = json['status'];
-    createdDate = json['createdDate'];
-    clientID = json['clientID'];
+    doctorName = json['doctorName'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['fromTime'] = this.fromTime;
+    data['toTime'] = this.toTime;
+    data['doctorId'] = this.doctorId;
+    data['timeslotId'] = this.timeslotId;
+    data['dayId'] = this.dayId;
     data['dayName'] = this.dayName;
-    data['userId'] = this.userId;
-    data['status'] = this.status;
-    data['createdDate'] = this.createdDate;
-    data['clientID'] = this.clientID;
+    data['doctorName'] = this.doctorName;
     return data;
   }
 }
+
 

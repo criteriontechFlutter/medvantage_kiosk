@@ -69,7 +69,7 @@ class _SelectUserState extends State<SelectUser> {
                           List<UsersDataModal> allusers = users as List<UsersDataModal>;
                             UsersDataModal user = allusers[index];
 
-                          print(allusers[0].patientName);
+                          print(allusers[0].uhID);
                           return Padding(
                             padding: const EdgeInsets.all(20),
                             child: Container(
@@ -92,7 +92,7 @@ class _SelectUserState extends State<SelectUser> {
                                           user.patientName.toString(),
                                       style: MyTextTheme().largeWCB,
                                     )),
-                                    const Expanded(child: SizedBox()),
+
                                     const Icon(
                                       Icons.man,
                                       color: Colors.white38,
@@ -104,13 +104,10 @@ class _SelectUserState extends State<SelectUser> {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    Text(
-                                      'Gender',
+                                    Text(user.gender.toString(),
                                       style: MyTextTheme().largeWCB,
                                     ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
+                                    const Expanded(child: SizedBox()),
                                     const Icon(
                                       Icons.wheelchair_pickup,
                                       color: Colors.white38,
@@ -123,52 +120,40 @@ class _SelectUserState extends State<SelectUser> {
                                       style: MyTextTheme().largeWCB,
                                     ),
                                     Expanded(
-                                      child: Center(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          height: 50,
-                                          width: 70,
-                                          child: const Icon(
-                                            Icons.delete,
-                                            color: Colors.white70,
-                                            size: 40,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        final medvantageUser = GetStorage();
-                                        medvantageUser.write(
-                                            'medvantageUserName',
-                                            user.patientName.toString());
-                                        medvantageUser.write(
-                                            'medvantageUserUHID',
-                                            user.uhID.toString());
-                                        var a = medvantageUser
-                                            .read('medvantageUserName');
-                                        var B = medvantageUser
-                                            .read('medvantageUserUHID');
-                                        print(a.toString() + 'data123');
-                                        print(B.toString() + 'data123');
-                                        App().replaceNavigate(
-                                            context, const StartupPage());
-                                      },
-                                      child: Center(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          height: 50,
-                                          width: 70,
-                                          child: const Icon(
-                                            Icons.forward,
-                                            color: Colors.white70,
-                                            size: 40,
+                                      child: InkWell(
+                                        onTap: () {
+                                          final medvantageUser = GetStorage();
+                                          medvantageUser.write(
+                                              'medvantageUserName',
+                                              user.patientName.toString());
+                                          medvantageUser.write(
+                                              'medvantageUserUHID',
+                                              user.uhID.toString());
+                                          var a = medvantageUser
+                                              .read('medvantageUserName');
+                                          var B = medvantageUser
+                                              .read('medvantageUserUHID');
+                                          print(a.toString() + 'data123');
+                                          print(B.toString() + 'data123');
+                                          App().replaceNavigate(
+                                              context, const StartupPage());
+                                        },
+                                        child: Center(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20)),
+                                              height: 50,
+                                              width: 70,
+                                              child: const Icon(
+                                                Icons.forward,
+                                                color: Colors.white70,
+                                                size: 40,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -182,30 +167,30 @@ class _SelectUserState extends State<SelectUser> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SizedBox(
-                      height: 40,
-                      width: 300,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              AppColor.buttonColor, // Background color
-                        ),
-                        onPressed: () {
-                          // modal.getAllCountry(context);
-                          // modal.getStateByCountry(context);
-                          // modal.getCityByStates(context);
-
-                          getSavedUsers();
-                          // App().navigate(context, const Registration());
-                          // print("jhbuyfkdgj");
-                        },
-                        child: Text(
-                            localization.getLocaleData.register.toString()),
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(20.0),
+                  //   child: SizedBox(
+                  //     height: 40,
+                  //     width: 300,
+                  //     child: ElevatedButton(
+                  //       style: ElevatedButton.styleFrom(
+                  //         backgroundColor:
+                  //             AppColor.buttonColor, // Background color
+                  //       ),
+                  //       onPressed: () {
+                  //         // modal.getAllCountry(context);
+                  //         // modal.getStateByCountry(context);
+                  //         // modal.getCityByStates(context);
+                  //
+                  //         getSavedUsers();
+                  //         // App().navigate(context, const Registration());
+                  //         // print("jhbuyfkdgj");
+                  //       },
+                  //       child: Text(
+                  //           localization.getLocaleData.register.toString()),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               );
             }),

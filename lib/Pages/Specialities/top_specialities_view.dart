@@ -81,6 +81,7 @@ return  [
     VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
     listenVM.listeningPage="Top Specialities";
     MedvantageModal med=MedvantageModal();
+    modal.controller.updateSelectedIndex=0;
     med.getDepartmentList();
     print("object${widget.isDoctor}");
     if(widget.isDoctor==1){
@@ -134,7 +135,6 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                         // Orientation.portrait==MediaQuery.of(context).orientation?
                         //  AssetImage("assets/kiosk_bg.png",):
                         // AssetImage("assets/kiosk_bg_img.png",),
-
                         fit: BoxFit.fill)),
                 child: Column(
                   children: [
@@ -143,13 +143,11 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                         child: ProfileInfoWidget()),
                     SizedBox(
                       height: 110,
-
                       child: AnimationLimiter(
                         child: ListView.builder(
                             scrollDirection:   Axis.horizontal,
                            physics: const NeverScrollableScrollPhysics(),
                            // shrinkWrap: true,
-
                             itemCount: optionList().length,itemBuilder:(BuildContext context,int index){
                           return AnimationConfiguration.staggeredList(
                             position: index,
@@ -159,7 +157,6 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                               //verticalOffset: 0100.0,
                               child: FadeInAnimation(
                                 child: Padding(
-
                                   padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 18),
                                   child: InkWell(
                                     onTap: (){
@@ -179,9 +176,7 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                       }
                                       optionList()[index]['isChecked']=true;
                                     },
-
                                     child: Container(
-
                                  decoration: BoxDecoration(
                                    borderRadius: BorderRadius.circular(10),
                                      color: widget.isDoctor==index?AppColor.primaryColor:AppColor.white
@@ -197,13 +192,9 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                           children: [
                                             Image.asset(
                                               optionList()[index]['icon'],
-                                              color: widget.isDoctor==index?AppColor
-                                                  .white:AppColor.secondaryColorShade2,
-                                              height: 40,
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
+                                              color: widget.isDoctor==index?AppColor.white:AppColor.secondaryColorShade2,
+                                              height: 40),
+                                            const SizedBox(width: 10),
                                             Text(
                                               optionList()[index]['name'],
                                               style: MyTextTheme()
@@ -238,9 +229,6 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                //**
-
-                                //*****
                                 Text(localization.getLocaleData.hintText!.findDoctor.toString(),style: MyTextTheme().mediumGCN.copyWith(fontSize: 20)),
                                 Column(
                                   children: [
@@ -326,7 +314,7 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                     elevation: 5,
                                                                     child: Container(
                                                                       width: 200,
-                                                                      height: Get.height*0.15,
+                                                                      height: 100,
                                                                       decoration: BoxDecoration(
                                                                         //
 
@@ -624,24 +612,24 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                                   child: MyButton(title:localization.getLocaleData.hintText!.book.toString(),height: 100,
                                                                                                     onPress: (){
                                                                                                     modal2.controller.updateDoctorId=doctor.id;
-                                                                                                    App().navigate(context, NewBookAppointment(doctorName: doctor.name.toString(),doctorId:doctor.id,departmentId: doctor.departmentId,));
+                                                                                                  //  App().navigate(context, NewBookAppointment(doctorName: doctor.name.toString(),doctorId:doctor.id,departmentId: doctor.departmentId));
 //**//**********
-//                                                                                                       App().navigate(context, TimeSlotView(profilePhoto: doctor.profilePhotoPath.toString(),degree:doctor.degree.toString() ,doctorId:doctor.id.toString(),
-//                                                                                                         drName:doctor.drName.toString(),
-//                                                                                                         fees: double.parse(doctor.drFee.toString())+.0,
-//                                                                                                         iSEraDoctor:doctor.isEraUser.toString(),
-//                                                                                                         speciality:  doctor.degree.toString()
-//                                                                                                         ,timeSlots:doctor.sittingDays??[],selectedDay:null,));
+                                                                                                      App().navigate(context, TimeSlotView(profilePhoto: '',degree:'' ,doctorId:doctor.id.toString(),
+                                                                                                        drName:doctor.name.toString(),
+                                                                                                        fees: 0,
+                                                                                                        iSEraDoctor:'',
+                                                                                                        speciality:  '',
+                                                                                                        timeSlots:[],
+                                                                                                          selectedDay:null,
+                                                                                                        departmentId: doctor.departmentId??0,
+
+                                                                                                         // departmentId: doctor.departmentId??0
+                                                                                                      ));
                                                                                                     },
-
                                                                                                   ))
-
-
                                                                                             ]
                                                                                         ),
                                                                                       ),
-
-
                                                                                       ),
                                                                                     ),
                                                                                   ),

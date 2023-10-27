@@ -1,12 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digi_doctor/Pages/Dashboard/Widget/profile_info_widget.dart';
-import 'package:digi_doctor/Pages/Login%20Through%20OTP/phone_number_view.dart';
 import 'package:digi_doctor/Pages/voiceAssistantProvider.dart';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
-import '../../../../AppManager/user_data.dart';
 import '../../../../Localization/app_localization.dart';
 import 'package:digi_doctor/AppManager/app_util.dart';
 import 'package:digi_doctor/Pages/Specialities/SpecialistDoctors/TimeSlot/time_slot_controller.dart';
@@ -19,17 +13,16 @@ import 'package:provider/provider.dart';
 import '../../../../AppManager/alert_dialogue.dart';
 import '../../../../AppManager/app_color.dart';
 import '../../../../AppManager/my_text_theme.dart';
-import '../../../../AppManager/widgets/common_widgets.dart';
 
 import '../../../Dashboard/dashboard_modal.dart';
-
-import '../../DataModal/appointment_time_data_modal.dart';
-
+import '../../NewBookAppintment/NewBookAppointemtView.dart';
+import '../../NewBookAppintment/NewBookAppointmentController.dart';
+import '../../NewBookAppintment/NewBookAppointmentModal.dart';
+import '../../NewBookAppintment/data_modal/data_modal.dart';
 import '../../top_specialities_controller.dart';
 import '../../top_specialities_modal.dart';
 import '../../top_specialities_view.dart';
 import '../search_specialist_doctor_modal.dart';
-import 'book_appointment_view.dart';
 
 class TimeSlotView extends StatefulWidget {
   final String doctorId;
@@ -41,6 +34,7 @@ class TimeSlotView extends StatefulWidget {
   final double fees;
   final String? selectedDay;
   final String? profilePhoto;
+  final int? departmentId;
 
   const TimeSlotView(
       {Key? key,
@@ -51,10 +45,13 @@ class TimeSlotView extends StatefulWidget {
         required this.degree,
         required this.timeSlots,
         required this.fees,
+         this.departmentId,
         this.selectedDay,
         this.profilePhoto,
       })
       : super(key: key);
+
+
 
   @override
   State<TimeSlotView> createState() => _TimeSlotViewState();
@@ -98,7 +95,15 @@ class _TimeSlotViewState extends State<TimeSlotView> {
       'name':"Urdu",
     }
   ];
+  NewBookAppointmentModal appointmentModal = NewBookAppointmentModal();
+  bool selected = false;
   get() async {
+
+   selected=false;
+    appointmentModal.controller.updateAvailableDays=[];
+    appointmentModal.controller.updateTimeList=[];
+    // appointmentModal.getTimeSlots(context,dayId: '', drId: '');
+    appointmentModal.getDays(context,widget.doctorId.toString());
     VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
     listenVM.listeningPage="slot view";
     List<DateTime> dates = [];
@@ -147,6 +152,8 @@ class _TimeSlotViewState extends State<TimeSlotView> {
 
   @override
   Widget build(BuildContext context) {
+    var selectedDay = '';
+
     ApplicationLocalizations localization =
     Provider.of<ApplicationLocalizations>(context, listen: true);
     return Container(
@@ -171,7 +178,6 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                         // Orientation.portrait==MediaQuery.of(context).orientation?
                         //  AssetImage("assets/kiosk_bg.png",):
                         // AssetImage("assets/kiosk_bg_img.png",),
-
                         fit: BoxFit.fill)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,7 +278,6 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                     //**************************
                     SizedBox(
                       height: 110,
-
                       child: ListView.builder(
                           scrollDirection:   Axis.horizontal,
                           physics: const NeverScrollableScrollPhysics(),
@@ -280,7 +285,6 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                           itemCount: optionList().length,
                           itemBuilder:(BuildContext context,int index){
                             return Padding(
-
                               padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 18),
                               child: InkWell(
                                 onTap: (){
@@ -384,378 +388,440 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                                                           child: GetBuilder(
                                                               init: TimeSlotController(),
                                                               builder: (_) {
-                                                                return Column(
-                                                                  children: [
-                                                                    Container(
-                                                                      width: MediaQuery.of(context).size.width,
-                                                                      decoration: const BoxDecoration(
+                                                                return GetBuilder(
+                                                                 init: NewBookAppointmentController(),
+                                                                     builder: (_) {
+                                                                    return Column(
+                                                                      children: [
+                                                                        Container(
+                                                                          width: MediaQuery.of(context).size.width,
+                                                                          decoration: const BoxDecoration(
 
-                                                                          borderRadius: BorderRadius.only(
-                                                                              bottomLeft: Radius.circular(20),
-                                                                              bottomRight: Radius.circular(20))),
-                                                                      child: Padding(
-                                                                        padding: const EdgeInsets.fromLTRB(20, 15, 15, 15),
-                                                                        child: Column(
-                                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            Row(
+                                                                              borderRadius: BorderRadius.only(
+                                                                                  bottomLeft: Radius.circular(20),
+                                                                                  bottomRight: Radius.circular(20))),
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsets.fromLTRB(20, 15, 15, 15),
+                                                                            child: Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
                                                                               children: [
-                                                                                CachedNetworkImage(height: 80,imageUrl: widget.profilePhoto
-                                                                                    .toString(),
-                                                                                    // progressIndicatorBuilder: (context,
-                                                                                    //         url,
-                                                                                    //         downloadProgress) =>
-                                                                                    //     CircularProgressIndicator(
-                                                                                    //         value:
-                                                                                    //             downloadProgress
-                                                                                    //                 .progress),
-                                                                                    errorWidget: (context,
-                                                                                        url, error) =>
-                                                                                        Image.asset(
-                                                                                            "assets/doctorSign.png")
-                                                                                  // Icon(Icons.error),
-                                                                                ),
-                                                                                Padding(
-                                                                                  padding: const EdgeInsets.all(8.0),
-                                                                                  child: Column(
-                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                                    children: [
-                                                                                      Text(
-                                                                                        widget.drName.toString(),
-                                                                                        style: MyTextTheme().largeBCB,
+                                                                                Row(
+                                                                                  children: [
+                                                                                    CachedNetworkImage(height: 80,imageUrl: widget.profilePhoto
+                                                                                        .toString(),
+                                                                                        // progressIndicatorBuilder: (context,
+                                                                                        //         url,
+                                                                                        //         downloadProgress) =>
+                                                                                        //     CircularProgressIndicator(
+                                                                                        //         value:
+                                                                                        //             downloadProgress
+                                                                                        //                 .progress),
+                                                                                        errorWidget: (context,
+                                                                                            url, error) =>
+                                                                                            Image.asset(
+                                                                                                "assets/doctorSign.png")
+                                                                                      // Icon(Icons.error),
+                                                                                    ),
+                                                                                    Padding(
+                                                                                      padding: const EdgeInsets.all(8.0),
+                                                                                      child: Column(
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Text(
+                                                                                            widget.drName.toString(),
+                                                                                            style: MyTextTheme().largeBCB,
+                                                                                          ),
+                                                                                          const SizedBox(height: 5),
+                                                                                          Text(widget.speciality.toString(),
+                                                                                              style: MyTextTheme().mediumBCB),
+                                                                                        ],
                                                                                       ),
-                                                                                      const SizedBox(height: 5),
-                                                                                      Text(widget.speciality.toString(),
-                                                                                          style: MyTextTheme().mediumBCB),
-                                                                                    ],
-                                                                                  ),
+                                                                                    ),
+                                                                                  ],
                                                                                 ),
                                                                               ],
                                                                             ),
-                                                                          ],
+                                                                          ),
                                                                         ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets.fromLTRB(20, 10, 15, 10),
-                                                                      child: Row(
-                                                                        children: [
-                                                                          //*********
-                                                                          SizedBox(
-                                                                            // height: 16,
-                                                                            // width: 16,
-                                                                              child:Text(localization.getLocaleData.hintText!.bookSlot.toString(),style: const TextStyle(fontSize: 18),)
-                                                                            // SvgPicture.asset(
-                                                                            //   'assets/calender.svg',
-                                                                            //   fit: BoxFit.cover,
-                                                                            //   color: AppColor.primaryColor,
-                                                                            // ),
-                                                                          ),
-                                                                          const SizedBox(
-                                                                            width: 10,
-                                                                          ),
-                                                                          Text(
-                                                                            modal.controller.getSelectedDate == null
-                                                                                ? ""
-                                                                                : DateFormat.yMMMEd().format(
-                                                                                modal.controller.getSelectedDate ??
-                                                                                    DateTime.now()),
+                                                                        Padding(
+                                                                          padding: const EdgeInsets.fromLTRB(20, 10, 15, 10),
+                                                                          child: Row(
+                                                                            children: [
+                                                                              //*********
+                                                                              SizedBox(
+                                                                                // height: 16,
+                                                                                // width: 16,
+                                                                                  child:Text(localization.getLocaleData.hintText!.bookSlot.toString(),style: const TextStyle(fontSize: 18),)
+                                                                                // SvgPicture.asset(
+                                                                                //   'assets/calender.svg',
+                                                                                //   fit: BoxFit.cover,
+                                                                                //   color: AppColor.primaryColor,
+                                                                                // ),
+                                                                              ),
+                                                                              const SizedBox(
+                                                                                width: 10,
+                                                                              ),
+                                                                              Text(
+                                                                                modal.controller.getSelectedDate == null
+                                                                                    ? ""
+                                                                                    : DateFormat.yMMMEd().format(
+                                                                                    modal.controller.getSelectedDate ??
+                                                                                        DateTime.now()),
 
-                                                                            style: MyTextTheme().mediumBCB,
+                                                                                style: MyTextTheme().mediumBCB,
+                                                                              ),
+                                                                            ],
                                                                           ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets.fromLTRB(8, 0, 20, 0),
-                                                                      child: Container(
-                                                                        color: Colors.white,
-                                                                        height: 95,
-                                                                        child: ListView.builder(
-                                                                            physics: const BouncingScrollPhysics(
-                                                                                parent: AlwaysScrollableScrollPhysics()),
-                                                                            scrollDirection: Axis.horizontal,
-                                                                            itemCount: 7,
-                                                                            itemBuilder: (BuildContext context, int index) {
-                                                                              DateTime date = DateTime.now().add(Duration(days: index));
-                                                                              String day = (DateFormat.E().format(date).toString());
-                                                                              bool selected = (modal.controller.getSelectedDate == null ? "" : (modal.controller.getSelectedDate ?? DateTime.now()).day) == date.day;
-                                                                              //String saveDate = '';
-                                                                              return InkWell(
-                                                                                onTap: () async {
-                                                                                  print(date.toString());
-                                                                                  print(modal.controller.getSelectedDate.toString());
-                                                                                  modal.controller.updateSelectedDate = date;
-                                                                                  await modal.onEnterPage(context);
-                                                                                },
-                                                                                child: Container(
-                                                                                  width: 155,
-                                                                                  margin:
-                                                                                  const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                                                                                  decoration: BoxDecoration(
-                                                                                      color:
-                                                                                      // widget.timeSlots.contains(widget.selectedDay)?
-                                                                                      // AppColor.buttonColor:AppColor.greyLight,
-                                                                                      //kk
-                                                                                      !selected
-                                                                                          ? widget.timeSlots.contains(day)
-                                                                                          ? AppColor.white
-                                                                                          : Colors.grey
-                                                                                          : AppColor.primaryColor,
-                                                                                      borderRadius: const BorderRadius.all(
-                                                                                          Radius.circular(5)),
-                                                                                      border: Border.all(
-                                                                                          color: !selected
-                                                                                              ? AppColor.primaryColor
-                                                                                              : AppColor.white,
-                                                                                          width: 1)),
-                                                                                  child: Padding(
-                                                                                    padding:
-                                                                                    const EdgeInsets.fromLTRB(5, 4, 5, 0),
-                                                                                    child: Column(
-                                                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                                                      children: [
-                                                                                        Row(
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: const EdgeInsets.fromLTRB(8, 0, 20, 0),
+                                                                          child: Container(
+                                                                            color: Colors.white,
+                                                                            height: 95,
+                                                                            child: ListView.builder(
+                                                                                physics: const BouncingScrollPhysics(
+                                                                                    parent: AlwaysScrollableScrollPhysics()),
+                                                                                scrollDirection: Axis.horizontal,
+                                                                                itemCount: 7,
+                                                                                itemBuilder: (BuildContext context, int index) {
+                                                                                  DateTime date = DateTime.now().add(Duration(days: index));
+                                                                                  String day = (DateFormat.E().format(date).toString());
+                                                                                  String fullDay = DateFormat.EEEE().format(date);
+                                                                                  print("ALIIiiiii"+index.toString());
+                                                                                   selected = (modal.controller.getSelectedDate == null ? "" : (modal.controller.getSelectedDate ?? DateTime.now()).day) == date.day;
+                                                                                  //String saveDate = '';
+                                                                                  return InkWell(
+                                                                                    onTap: () async {
+                                                                                      if(appointmentModal.controller.getAvailableDays.contains(fullDay)){
+                                                                                        print(date.toString()+'jkhjk');
+                                                                                        print(modal.controller.getSelectedDate.toString());
+                                                                                        modal.controller.updateSelectedDate = date;
+                                                                                        selectedDay=fullDay.toString();
+                                                                                        //await modal.onEnterPage(context);
+                                                                                        print("${fullDay}jkhjk");
+                                                                                        // DayDataModal dataModelDay=    appointmentModal.controller.getDayList.where((data) => data.dayName==fullDay) as DayDataModal;
+                                                                                        appointmentModal.getTime(context, dayName: fullDay, drId: widget.doctorId);
+
+                                                                                      }else{
+
+
+
+                                                                                      }
+
+
+                                                                                      // appointmentModal.getTime(context, dayName: fullDay, drId: widget.doctorId,);
+                                                                                    },
+                                                                                    child: Container(
+                                                                                      width: 155,
+                                                                                      margin:
+                                                                                      const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                                                                      decoration: BoxDecoration(
+                                                                                          color:
+                                                                                          // widget.timeSlots.contains(widget.selectedDay)?
+                                                                                          // AppColor.buttonColor:AppColor.greyLight,
+                                                                                          //kk
+                                                                                          !selected
+                                                                                              ? (appointmentModal.controller.getAvailableDays.contains(fullDay)?AppColor.white:AppColor.greyLight)
+                                                                                              : AppColor.primaryColor,
+                                                                                          borderRadius: const BorderRadius.all(
+                                                                                              Radius.circular(5)),
+                                                                                          border: Border.all(
+                                                                                              color: !selected
+                                                                                                  ? AppColor.primaryColor
+                                                                                                  : AppColor.white,
+                                                                                              width: 1)),
+                                                                                      child: Padding(
+                                                                                        padding:
+                                                                                        const EdgeInsets.fromLTRB(5, 4, 5, 0),
+                                                                                        child: Column(
                                                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                                                           children: [
-                                                                                            Text(day,
-                                                                                                style: widget.timeSlots.contains(day)
-                                                                                                    ? MyTextTheme().smallBCN
-                                                                                                    : !selected
-                                                                                                    ? MyTextTheme().smallBCN
-                                                                                                    : MyTextTheme().smallWCN),
+                                                                                            Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                                              children: [
+                                                                                                Text(day,
+                                                                                                    style: widget.timeSlots.contains(day)
+                                                                                                        ? MyTextTheme().smallBCN
+                                                                                                        : !selected
+                                                                                                        ? MyTextTheme().smallBCN
+                                                                                                        : MyTextTheme().smallWCN),
+                                                                                                const SizedBox(
+                                                                                                  height: 5,
+                                                                                                  width: 5,
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  date.day.toString(),
+                                                                                                  style: widget.timeSlots.contains(day)
+                                                                                                      ? MyTextTheme().mediumBCB:!selected
+                                                                                                      ? MyTextTheme().mediumWCB.copyWith(color: AppColor.greyDark):
+                                                                                                  MyTextTheme().mediumWCB,
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
                                                                                             const SizedBox(
                                                                                               height: 5,
-                                                                                              width: 5,
                                                                                             ),
-                                                                                            Text(
-                                                                                              date.day.toString(),
-                                                                                              style: widget.timeSlots.contains(day)
-                                                                                                  ? MyTextTheme().mediumBCB:!selected
-                                                                                                  ? MyTextTheme().mediumWCB.copyWith(color: AppColor.greyDark):
-                                                                                              MyTextTheme().mediumWCB,
-                                                                                            ),
+                                                                                            Flexible(
+                                                                                                child: Text(
+                                                                                                  appointmentModal.controller.getAvailableDays.contains(fullDay)
+                                                                                                      ?
+                                                                                                  // localization.getLocaleData.selectSlot
+                                                                                                  //     .toString():
+                                                                                                  "Slots available ":'No slots available',
+                                                                                                  style: appointmentModal.controller.getAvailableDays.contains(fullDay)
+                                                                                                      ? TextStyle(fontSize: 12, color:!selected?AppColor.primaryColor: AppColor.white):!selected
+                                                                                                      ?  TextStyle(
+                                                                                                      fontSize: 9,
+                                                                                                      color: AppColor.greyDark)
+                                                                                                      : TextStyle(
+                                                                                                      fontSize: 9,
+                                                                                                      color: AppColor.white),
+                                                                                                ))
                                                                                           ],
                                                                                         ),
-
-                                                                                        const SizedBox(
-                                                                                          height: 5,
-                                                                                        ),
-                                                                                        Flexible(
-                                                                                            child: Text(
-                                                                                              widget.timeSlots.contains(day)
-                                                                                                  ?
-                                                                                              // localization.getLocaleData.selectSlot
-                                                                                              //     .toString():
-                                                                                              "Slots available ":'No slots available',
-                                                                                              style: widget.timeSlots.contains(day)
-                                                                                                  ? TextStyle(fontSize: 12, color: AppColor.primaryColor):!selected
-                                                                                                  ?  TextStyle(
-                                                                                                  fontSize: 9,
-                                                                                                  color: AppColor.greyDark)
-                                                                                                  : TextStyle(
-                                                                                                  fontSize: 9,
-                                                                                                  color: AppColor.white),
-                                                                                            ))
-                                                                                      ],
+                                                                                      ),
                                                                                     ),
-                                                                                  ),
-                                                                                ),
-                                                                              );
-                                                                            }),
-                                                                      ),
-                                                                    ),
-                                                                    Expanded(
-                                                                      child: Center(
-                                                                          child: CommonWidgets().showNoData(
-                                                                              show: (modal.controller.getShowNoData &&
-                                                                                  modal.controller.getSlotList.isEmpty),
-                                                                              title: localization.getLocaleData.slotNotAvailable
-                                                                                  .toString(),
-                                                                              loaderTitle: localization
-                                                                                  .getLocaleData.loadingSlotData
-                                                                                  .toString(),
-                                                                              showLoader: (!modal.controller.getShowNoData &&
-                                                                                  modal.controller.getSlotList.isEmpty),
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.all(5.0),
-                                                                                child: Container(
-                                                                                    padding: const EdgeInsets.all(5),
-                                                                                    width: MediaQuery.of(context).size.width,
-                                                                                    color: AppColor.white,
-                                                                                    child: ListView.builder(
-                                                                                        physics: const BouncingScrollPhysics(
-                                                                                            parent: AlwaysScrollableScrollPhysics()),
-                                                                                        itemCount:
-                                                                                        modal.controller.getSlotList.length,
-                                                                                        itemBuilder: (context, index) {
-                                                                                          var slotType = modal
-                                                                                              .controller.getSlotList[index];
-                                                                                          //print("hhhhhhhhhhhhhhhhhh${slotType.slotType}");
+                                                                                  );
+                                                                                }),
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: const EdgeInsets.all(8.0),
+                                                                          child: Align(
+                                                                            alignment: Alignment.topLeft,
+                                                                            child: Visibility(
+                                                                              visible: appointmentModal.controller.getTimeList.isNotEmpty,
+                                                                              replacement: Center(child: Padding(
+                                                                                padding: const EdgeInsets.all(20.0),
+                                                                                child:  Text("No Slots Available",style: MyTextTheme().largePCB,),
+                                                                              )),
+                                                                              child: SizedBox(
+                                                                                height: Get.height/2-100,
+                                                                                width: Get.width/2,
+                                                                                child: ListView.builder(
+                                                                                  itemCount: appointmentModal.controller.getTimeList.length,
+                                                                                  itemBuilder: (BuildContext context, int index2) {
+                                                                                TimeSlotDataModal  time=      appointmentModal.controller.getTimeList[index2];
+                                                                                  return InkWell(
+                                                                                    onTap: (){
 
-                                                                                          return Column(
-                                                                                              crossAxisAlignment:
-                                                                                              CrossAxisAlignment.start,
-                                                                                              children: [
-                                                                                                Text(
-                                                                                                  slotType.slotType.toString(),
-                                                                                                  style: MyTextTheme().mediumBCB,
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                  height: 10,
-                                                                                                ),
-                                                                                                AnimationLimiter(
-                                                                                                  child: GridView.builder(
-                                                                                                      shrinkWrap: true,
-                                                                                                      physics:
-                                                                                                      const NeverScrollableScrollPhysics(),
-                                                                                                      gridDelegate:
-                                                                                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                                        crossAxisCount: 4,
-                                                                                                        crossAxisSpacing: 15,
-                                                                                                        mainAxisSpacing: 5,
-                                                                                                        childAspectRatio: 4 / 1.4,
-                                                                                                      ),
-                                                                                                      itemCount: slotType.slotDetails!.length,
-                                                                                                      itemBuilder:
-                                                                                                          (BuildContext context,
-                                                                                                          int index2) {
-                                                                                                        SlotBookedDetails
-                                                                                                        slotDetails = slotType.slotDetails!.isEmpty
-                                                                                                            ? SlotBookedDetails()
-                                                                                                            : slotType.slotDetails![index2];
-                                                                                                        //print("ccccccccccccccc${slotDetails.slotTime}");
+                                                                                      App().navigate(context, NewBookAppointment(doctorName: widget.drName.toString(),doctorId:widget.doctorId,departmentId: widget.departmentId,timeSlot: (time.fromTime.toString()+time.toTime.toString()),date: modal.controller.getSelectedDate.toString(),day: selectedDay,timeSlotId: time.id,dayid: time.dayId,));
+// //**//*******
+                                                                                    },
+                                                                                    child: Container(
+                                                                                      height: 70,
+                                                                                      decoration: BoxDecoration(
+                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                        border: Border.all(color: Colors.grey),
+                                                                                          color:  AppColor.primaryColor),
+                                                                                      child: Center(child: Row(
+                                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                                        children: [
+                                                                                          Text('${time.fromTime} - ${time.toTime}',style: MyTextTheme().largeWCB,),
+                                                                                          SizedBox(width: 20,),
+                                                                                          Icon(Icons.send,color: AppColor.white,)
+                                                                                        ],
+                                                                                      )),
+                                                                                    ),
+                                                                                  );
+                                                                                },),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
 
-                                                                                                        // Map slot=modal.controller.getPatientList[index]['slotDetails'][index2];
-
-                                                                                                        return AnimationConfiguration.staggeredGrid(
-                                                                                                          position: index2,
-                                                                                                          columnCount: 4,
-                                                                                                          duration: const Duration(milliseconds: 800),
-                                                                                                          child: ScaleAnimation(
-                                                                                                            child: FadeInAnimation(
-                                                                                                              child: InkWell(
-                                                                                                                onTap: ()
-                                                                                                                {
-                                                                                                                  if (UserData().getUserData.isNotEmpty) {
-
-
-                                                                                                                    print(DateFormat("yyyy-MM-dd").format(modal.controller.getSelectedDate??DateTime.now()));
-                                                                                                                    print(modal.controller.getSelectedDate);
-                                                                                                                    if(DateFormat("yyyy-MM-dd").format(modal.controller.getSelectedDate??DateTime.now())==DateFormat("yyyy-MM-dd").format(DateTime.now())){
-                                                                                                                      print("time is ${DateFormat('hh:mm a').format(DateFormat('hh:mma').parse(slotDetails.slotTime??""))}");
-                                                                                                                      var selectedTime = DateFormat('HH:mm a').format(DateFormat('hh:mma').parse(slotDetails.slotTime??""));
-                                                                                                                      //var newD =DateFormat("HH:mm").format(DateFormat.jm().parse(slotDetails.slotTime??""));
-                                                                                                                      if (kDebugMode) {
-                                                                                                                        print(selectedTime);
-                                                                                                                      }
-                                                                                                                    }
-
-                                                                                                                    modal.controller.saveTime
-                                                                                                                        .value =
-                                                                                                                        slotDetails.slotTime
-                                                                                                                            .toString();
-
-                                                                                                                    if (slotDetails.isBooked
-                                                                                                                        .toString() !=
-                                                                                                                        '1') {
-                                                                                                                      modal.controller
-                                                                                                                          .updateSelectedSlot =
-                                                                                                                          slotDetails.slotType
-                                                                                                                              .toString() +
-                                                                                                                              index2
-                                                                                                                                  .toString();
-
-                                                                                                                      modal
-                                                                                                                          .controller
-                                                                                                                          .getMyAppoointmentData
-                                                                                                                          .appointmentId !=
-                                                                                                                          0
-                                                                                                                          ? reScheduleAppointment(
-                                                                                                                          context)
-                                                                                                                          : App().navigate(
-                                                                                                                          context,
-                                                                                                                          BookAppointmentView(
-                                                                                                                            drName: widget
-                                                                                                                                .drName
-                                                                                                                                .toString(),
-                                                                                                                            speciality: widget
-                                                                                                                                .speciality
-                                                                                                                                .toString(),
-                                                                                                                            degree: widget
-                                                                                                                                .degree
-                                                                                                                                .toString(),
-                                                                                                                            isEraUser: int
-                                                                                                                                .parse(widget
-                                                                                                                                .iSEraDoctor
-                                                                                                                                .toString()),
-                                                                                                                          ));
-                                                                                                                    }
-                                                                                                                    else {
-                                                                                                                      alertToast(context,
-                                                                                                                          'Slot Booked Already');
-                                                                                                                    }
-
-                                                                                                                  } else {
-                                                                                                                    App().navigate(context,  LoginThroughOtp(index:'appointment',registerOrLogin: 'Login'));
-                                                                                                                  }
-                                                                                                                },
-                                                                                                                child: Container(
-                                                                                                                    decoration:
-                                                                                                                    BoxDecoration(
-                                                                                                                      border: Border.all(
-                                                                                                                        color: Colors.grey.shade400,
-                                                                                                                      ),
-                                                                                                                      color: modal.controller
-                                                                                                                          .selectedSlot ==
-                                                                                                                          slotDetails
-                                                                                                                              .slotType
-                                                                                                                              .toString() +
-                                                                                                                              index2
-                                                                                                                                  .toString()
-                                                                                                                          ? AppColor
-                                                                                                                          .primaryColor
-                                                                                                                          : slotDetails
-                                                                                                                          .isBooked
-                                                                                                                          .toString() !=
-                                                                                                                          '1'
-                                                                                                                          ? AppColor
-                                                                                                                          .white
-                                                                                                                          : AppColor
-                                                                                                                          .white,
-                                                                                                                      borderRadius:
-                                                                                                                      const BorderRadius
-                                                                                                                          .all(
-                                                                                                                          Radius
-                                                                                                                              .circular(
-                                                                                                                              5)),
-                                                                                                                    ),
-                                                                                                                    child: Center(
-                                                                                                                        child: Text(
-                                                                                                                            slotDetails
-                                                                                                                                .slotTime
-                                                                                                                                .toString(),
-                                                                                                                            style: MyTextTheme().smallPCB.copyWith(
-                                                                                                                                color: modal.controller.selectedSlot == slotDetails.slotType.toString() + index2.toString()
-                                                                                                                                    ? AppColor.white
-                                                                                                                                    : slotDetails.isBooked.toString() != '1'
-                                                                                                                                    ? Colors.grey.shade600
-                                                                                                                                    : Colors.black54)))),
-                                                                                                              ),
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        );
-                                                                                                      }),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                  height: 10,
-                                                                                                ),
-                                                                                              ]);
-                                                                                        })),
-                                                                              ))),
-                                                                    )
-                                                                  ],
+                                                                        // Expanded(
+                                                                        //   child: Center(
+                                                                        //       child: CommonWidgets().showNoData(
+                                                                        //           show: (modal.controller.getShowNoData &&
+                                                                        //               modal.controller.getSlotList.isEmpty),
+                                                                        //           title: localization.getLocaleData.slotNotAvailable
+                                                                        //               .toString(),
+                                                                        //           loaderTitle: localization
+                                                                        //               .getLocaleData.loadingSlotData
+                                                                        //               .toString(),
+                                                                        //           showLoader: (!modal.controller.getShowNoData &&
+                                                                        //               modal.controller.getSlotList.isEmpty),
+                                                                        //           child: Padding(
+                                                                        //             padding: const EdgeInsets.all(5.0),
+                                                                        //             child: Container(
+                                                                        //                 padding: const EdgeInsets.all(5),
+                                                                        //                 width: MediaQuery.of(context).size.width,
+                                                                        //                 color: AppColor.white,
+                                                                        //                 child: ListView.builder(
+                                                                        //                     physics: const BouncingScrollPhysics(
+                                                                        //                         parent: AlwaysScrollableScrollPhysics()),
+                                                                        //                     itemCount:
+                                                                        //                     modal.controller.getSlotList.length,
+                                                                        //                     itemBuilder: (context, index) {
+                                                                        //                       var slotType = modal.controller.getSlotList[index];
+                                                                        //                       //print("hhhhhhhhhhhhhhhhhh${slotType.slotType}");
+                                                                        //
+                                                                        //                       return Column(
+                                                                        //                           crossAxisAlignment:
+                                                                        //                           CrossAxisAlignment.start,
+                                                                        //                           children: [
+                                                                        //                             Text(
+                                                                        //                               slotType.slotType.toString(),
+                                                                        //                               style: MyTextTheme().mediumBCB,
+                                                                        //                             ),
+                                                                        //                             const SizedBox(
+                                                                        //                               height: 10,
+                                                                        //                             ),
+                                                                        //                             AnimationLimiter(
+                                                                        //                               child: GridView.builder(
+                                                                        //                                   shrinkWrap: true,
+                                                                        //                                   physics:
+                                                                        //                                   const NeverScrollableScrollPhysics(),
+                                                                        //                                   gridDelegate:
+                                                                        //                                   const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                        //                                     crossAxisCount: 4,
+                                                                        //                                     crossAxisSpacing: 15,
+                                                                        //                                     mainAxisSpacing: 5,
+                                                                        //                                     childAspectRatio: 4 / 1.4,
+                                                                        //                                   ),
+                                                                        //                                   itemCount: slotType.slotDetails!.length,
+                                                                        //                                   itemBuilder:
+                                                                        //                                       (BuildContext context,
+                                                                        //                                       int index2) {
+                                                                        //                                     SlotBookedDetails
+                                                                        //                                     slotDetails = slotType.slotDetails!.isEmpty
+                                                                        //                                         ? SlotBookedDetails()
+                                                                        //                                         : slotType.slotDetails![index2];
+                                                                        //                                     //print("ccccccccccccccc${slotDetails.slotTime}");
+                                                                        //
+                                                                        //                                     // Map slot=modal.controller.getPatientList[index]['slotDetails'][index2];
+                                                                        //
+                                                                        //                                     return AnimationConfiguration.staggeredGrid(
+                                                                        //                                       position: index2,
+                                                                        //                                       columnCount: 4,
+                                                                        //                                       duration: const Duration(milliseconds: 800),
+                                                                        //                                       child: ScaleAnimation(
+                                                                        //                                         child: FadeInAnimation(
+                                                                        //                                           child: InkWell(
+                                                                        //                                             onTap: ()
+                                                                        //                                             {
+                                                                        //                                               if (UserData().getUserData.isNotEmpty) {
+                                                                        //
+                                                                        //
+                                                                        //                                                 print(DateFormat("yyyy-MM-dd").format(modal.controller.getSelectedDate??DateTime.now()));
+                                                                        //                                                 print(modal.controller.getSelectedDate);
+                                                                        //                                                 if(DateFormat("yyyy-MM-dd").format(modal.controller.getSelectedDate??DateTime.now())==DateFormat("yyyy-MM-dd").format(DateTime.now())){
+                                                                        //                                                   print("time is ${DateFormat('hh:mm a').format(DateFormat('hh:mma').parse(slotDetails.slotTime??""))}");
+                                                                        //                                                   var selectedTime = DateFormat('HH:mm a').format(DateFormat('hh:mma').parse(slotDetails.slotTime??""));
+                                                                        //                                                   //var newD =DateFormat("HH:mm").format(DateFormat.jm().parse(slotDetails.slotTime??""));
+                                                                        //                                                   if (kDebugMode) {
+                                                                        //                                                     print(selectedTime);
+                                                                        //                                                   }
+                                                                        //                                                 }
+                                                                        //
+                                                                        //                                                 modal.controller.saveTime
+                                                                        //                                                     .value =
+                                                                        //                                                     slotDetails.slotTime
+                                                                        //                                                         .toString();
+                                                                        //
+                                                                        //                                                 if (slotDetails.isBooked
+                                                                        //                                                     .toString() !=
+                                                                        //                                                     '1') {
+                                                                        //                                                   modal.controller
+                                                                        //                                                       .updateSelectedSlot =
+                                                                        //                                                       slotDetails.slotType
+                                                                        //                                                           .toString() +
+                                                                        //                                                           index2
+                                                                        //                                                               .toString();
+                                                                        //
+                                                                        //                                                   modal
+                                                                        //                                                       .controller
+                                                                        //                                                       .getMyAppoointmentData
+                                                                        //                                                       .appointmentId !=
+                                                                        //                                                       0
+                                                                        //                                                       ? reScheduleAppointment(
+                                                                        //                                                       context)
+                                                                        //                                                       : App().navigate(
+                                                                        //                                                       context,
+                                                                        //                                                       BookAppointmentView(
+                                                                        //                                                         drName: widget
+                                                                        //                                                             .drName
+                                                                        //                                                             .toString(),
+                                                                        //                                                         speciality: widget
+                                                                        //                                                             .speciality
+                                                                        //                                                             .toString(),
+                                                                        //                                                         degree: widget
+                                                                        //                                                             .degree
+                                                                        //                                                             .toString(),
+                                                                        //                                                         isEraUser: int
+                                                                        //                                                             .parse(widget
+                                                                        //                                                             .iSEraDoctor
+                                                                        //                                                             .toString()),
+                                                                        //                                                       ));
+                                                                        //                                                 }
+                                                                        //                                                 else {
+                                                                        //                                                   alertToast(context,
+                                                                        //                                                       'Slot Booked Already');
+                                                                        //                                                 }
+                                                                        //
+                                                                        //                                               } else {
+                                                                        //                                                 App().navigate(context,  LoginThroughOtp(index:'appointment',registerOrLogin: 'Login'));
+                                                                        //                                               }
+                                                                        //                                             },
+                                                                        //                                             child: Container(
+                                                                        //                                                 decoration:
+                                                                        //                                                 BoxDecoration(
+                                                                        //                                                   border: Border.all(
+                                                                        //                                                     color: Colors.grey.shade400,
+                                                                        //                                                   ),
+                                                                        //                                                   color: modal.controller
+                                                                        //                                                       .selectedSlot ==
+                                                                        //                                                       slotDetails
+                                                                        //                                                           .slotType
+                                                                        //                                                           .toString() +
+                                                                        //                                                           index2
+                                                                        //                                                               .toString()
+                                                                        //                                                       ? AppColor
+                                                                        //                                                       .primaryColor
+                                                                        //                                                       : slotDetails
+                                                                        //                                                       .isBooked
+                                                                        //                                                       .toString() !=
+                                                                        //                                                       '1'
+                                                                        //                                                       ? AppColor
+                                                                        //                                                       .white
+                                                                        //                                                       : AppColor
+                                                                        //                                                       .white,
+                                                                        //                                                   borderRadius:
+                                                                        //                                                   const BorderRadius
+                                                                        //                                                       .all(
+                                                                        //                                                       Radius
+                                                                        //                                                           .circular(
+                                                                        //                                                           5)),
+                                                                        //                                                 ),
+                                                                        //                                                 child: Center(
+                                                                        //                                                     child: Text(
+                                                                        //                                                         slotDetails
+                                                                        //                                                             .slotTime
+                                                                        //                                                             .toString(),
+                                                                        //                                                         style: MyTextTheme().smallPCB.copyWith(
+                                                                        //                                                             color: modal.controller.selectedSlot == slotDetails.slotType.toString() + index2.toString()
+                                                                        //                                                                 ? AppColor.white
+                                                                        //                                                                 : slotDetails.isBooked.toString() != '1'
+                                                                        //                                                                 ? Colors.grey.shade600
+                                                                        //                                                                 : Colors.black54)))),
+                                                                        //                                           ),
+                                                                        //                                         ),
+                                                                        //                                       ),
+                                                                        //                                     );
+                                                                        //                                   }),
+                                                                        //                             ),
+                                                                        //                             const SizedBox(
+                                                                        //                               height: 10,
+                                                                        //                             ),
+                                                                        //                           ]);
+                                                                        //                     })),
+                                                                        //           ))),
+                                                                        // )
+                                                                      ],
+                                                                    );
+                                                                  }
                                                                 );
                                                               }),
                                                         ),

@@ -49,7 +49,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 25,left: 10),
-          child: Image.asset('assets/kiosk_logo.png',color: AppColor.white,width: 200,height: 40,),
+          child: Image.asset('assets/kiosk_logo.png',color: AppColor.white,width: 150,height: 40,),
         ),
         // SizedBox(
         //   child:   Container(

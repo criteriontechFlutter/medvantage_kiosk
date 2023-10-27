@@ -81,4 +81,10 @@ class SelectDoctorController extends GetxController {
   Rx<TextEditingController> searchC = TextEditingController().obs;
 
   List weekDays = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+
+
+
+  List<Map<String, String>> organList = [];
+  get getOrganSelectedList=>organList;
+
 }

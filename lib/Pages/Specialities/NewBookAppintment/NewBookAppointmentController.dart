@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
+import 'data_modal/data_modal.dart';
+
 class NewBookAppointmentController extends GetxController{
   Rx<TextEditingController> nameController = TextEditingController().obs;
   Rx<TextEditingController> uhidController = TextEditingController().obs;
@@ -34,19 +36,27 @@ class NewBookAppointmentController extends GetxController{
     update();
   }
 
-  List dayList=[];
- get getDayList=>dayList;
- set updateDayList(val){
+  List<DayDataModal> dayList=[];
+  List<DayDataModal> get getDayList=>dayList;
+ set updateDayList(List<DayDataModal> val){
    dayList=val;
    update();
  }
 
- List timeList=[];
- get getTimeList=>timeList;
- set updateTimeList(val){
+ List<TimeSlotDataModal> timeList=[];
+  List<TimeSlotDataModal> get  getTimeList=>timeList;
+ set updateTimeList(List<TimeSlotDataModal>  val){
    timeList=val;
    update();
  }
+
+
+  List availableDays =[];
+  get getAvailableDays =>availableDays;
+  set updateAvailableDays(val){
+    availableDays= val;
+    update();
+  }
 
 
 

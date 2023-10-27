@@ -389,11 +389,11 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                           children: [
 
                                             // Text(localization.getLocaleData.time.toString(),style: MyTextTheme().mediumBCB,),
-                                            Text(localization.getLocaleData.hintText!.date.toString(),style: MyTextTheme().mediumBCB,),
-                                            Text(localization.getLocaleData.patient.toString(),style: MyTextTheme().mediumBCB,),
-                                            Text(localization.getLocaleData.hintText!.doctor.toString(),style: MyTextTheme().mediumBCB,),
-                                            Text(localization.getLocaleData.hintText!.department.toString(),style: MyTextTheme().mediumBCB,),
-                                            Text(localization.getLocaleData.hintText!.appointment.toString(),style: MyTextTheme().mediumBCB,),
+                                            Expanded(child: Text(localization.getLocaleData.hintText!.date.toString(),style: MyTextTheme().mediumBCB,),),
+                                            Expanded(child: Text(localization.getLocaleData.patient.toString(),style: MyTextTheme().mediumBCB,),),
+                                            Expanded(child: Text(localization.getLocaleData.hintText!.doctor.toString(),style: MyTextTheme().mediumBCB,),),
+                                           Expanded(child:  Text(localization.getLocaleData.hintText!.department.toString(),style: MyTextTheme().mediumBCB,),),
+                                            Expanded(child: Text(localization.getLocaleData.hintText!.appointment.toString(),style: MyTextTheme().mediumBCB,),),
 
                                           ],
                                         ),
@@ -428,7 +428,7 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                                     padding: const EdgeInsets.fromLTRB(0,5,0,3),
                                                     child: Container(
                                                       decoration: BoxDecoration(
-                                                        color: AppColor.white
+                                                        color: index.isOdd? AppColor.white:AppColor.greyLight
                                                       ),
                                                       child: Padding(
                                                         padding: const EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 10),
@@ -439,11 +439,11 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [
                                                                  // Text((index+1).toString(),style: MyTextTheme().mediumBCN,),
-                                                                Text(appointmentData.appointmentDate.toString(),style: MyTextTheme().mediumBCN,),
-                                                                Text(appointmentData.patientName.toString(),style: MyTextTheme().mediumBCN,),
-                                                                Text(appointmentData.doctorName.toString(),style: MyTextTheme().mediumBCN,),
-                                                                Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),
-                                                                Text(appointmentData.mobileNo.toString(),style: MyTextTheme().mediumBCN,),
+                                                                Expanded(child: Text(appointmentData.appointmentDate.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                Expanded(child: Text(appointmentData.patientName.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                Expanded(child: Text(appointmentData.doctorName.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                Expanded(child: Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                Expanded(child: Text(appointmentData.mobileNo.toString(),style: MyTextTheme().mediumBCN,),),
 
 
                                                                 // Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),

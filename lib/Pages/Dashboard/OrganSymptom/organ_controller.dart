@@ -119,6 +119,13 @@ class OrganController extends GetxController{
       'id':'43',
       'language':'1'
     },
+    {
+      "isSelected":false,
+      'img':'assets/Clinical Features.svg',
+      'title':'Full Body',
+      'id':'50',
+      'language':'1'
+    },
   ].obs;
 
   List<BodyOrganDataModal> get getListItemsOne=>List<BodyOrganDataModal>.from(
@@ -187,6 +194,9 @@ List? ids=[];
     ids=val;
     update();
   }
+
+
+
 
 
 }

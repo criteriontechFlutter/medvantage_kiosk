@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:digi_doctor/AppManager/app_color.dart';
 import 'package:digi_doctor/AppManager/app_util.dart';
@@ -53,9 +52,13 @@ class _StartupPageState extends State<StartupPage> {
     print('fgcybenvhurnijkv');
     get();
     super.initState();
-    ApplicationLocalizations localization = Provider.of<ApplicationLocalizations>(context, listen: false);
-
+    ApplicationLocalizations localization =
+        Provider.of<ApplicationLocalizations>(context, listen: false);
+    MedvantageLogin userdata =
+    Provider.of<MedvantageLogin>(context, listen: false);
+    userdata.checkUser();
   }
+
   get() async {
     // await getFacts();
 
@@ -82,8 +85,9 @@ class _StartupPageState extends State<StartupPage> {
   // }
   @override
   Widget build(BuildContext context) {
-    VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
-    listenVM.listeningPage='main dashboard';
+    VoiceAssistantProvider listenVM =
+        Provider.of<VoiceAssistantProvider>(context, listen: false);
+    listenVM.listeningPage = 'main dashboard';
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.landscapeLeft,
     //   DeviceOrientation.landscapeRight,
@@ -92,206 +96,350 @@ class _StartupPageState extends State<StartupPage> {
     //     Provider.of<ApplicationLocalizations>(context, listen: true);
     ScreenUtil.init(context);
     ApplicationLocalizations localization =
-    Provider.of<ApplicationLocalizations>(context, listen: true);
-    MedvantageLogin userdata=Provider.of<MedvantageLogin>(context,listen: false);
+        Provider.of<ApplicationLocalizations>(context, listen: true);
+    MedvantageLogin userdata =
+        Provider.of<MedvantageLogin>(context, listen: false);
 
     return GetBuilder(
         init: StartupController(),
         builder: (_) {
           return WillPopScope(
-            onWillPop: (){
+            onWillPop: () {
               exit(0);
             },
             child: Container(
-              // color: AppColor.primaryColor,
+                // color: AppColor.primaryColor,
                 child: SafeArea(
-                  child: Scaffold(
-                    // backgroundColor:Orientation.portrait==MediaQuery.of(context).orientation?Image.asset("assets/kiosk_bg.png",color: Colors.blue,).color:AppColor.white,
-                    body: GetBuilder(
-                        init: StartupController(),
-                        builder: (_) {
-                          return Container(
-                            //   height: MediaQuery.of(context).size.height,
-                            // width: Get.width,
-                            decoration:   BoxDecoration(
-                              //***
-                                color: AppColor.primaryColorLight,
-                                image: const DecorationImage(
-                                    image:  AssetImage("assets/kiosk_bg.png"),
-                                    // Orientation.portrait==MediaQuery.of(context).orientation?
-                                    //  AssetImage("assets/kiosk_bg.png",):
-                                    // AssetImage("assets/kiosk_bg_img.png",),
-                                    fit: BoxFit.fill)),
-                            child: Column(
-                              //crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Scaffold(
+                // backgroundColor:Orientation.portrait==MediaQuery.of(context).orientation?Image.asset("assets/kiosk_bg.png",color: Colors.blue,).color:AppColor.white,
+                body: GetBuilder(
+                    init: StartupController(),
+                    builder: (_) {
+                      return Container(
+                        //   height: MediaQuery.of(context).size.height,
+                        // width: Get.width,
+                        decoration: BoxDecoration(
+                            //***
+                            color: AppColor.primaryColorLight,
+                            image: const DecorationImage(
+                                image: AssetImage("assets/kiosk_bg.png"),
+                                // Orientation.portrait==MediaQuery.of(context).orientation?
+                                //  AssetImage("assets/kiosk_bg.png",):
+                                // AssetImage("assets/kiosk_bg_img.png",),
+                                fit: BoxFit.fill)),
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const SizedBox(
+                                height: 80, child: ProfileInfoWidget()),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-
-                                const SizedBox(
-                                    height: 80,
-                                    child: ProfileInfoWidget()),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-
-                                    Text(
-                                      //    "Welcome to ",
-                                      // localization.getLocaleData
-                                      //                                                       .searchDoctor
-                                      //                                                       .toString(),
-                                      localization.getLocaleData.hintText!.Welcometo.toString(),
-                                      style: MyTextTheme().veryLargeWCN.copyWith(fontSize: 30),
-                                    ),
-                                    Text(
-                                      //  "Provide Health Kiosk",
-                                      localization.getLocaleData.hintText!.ProvideHealthKiosk.toString(),
-                                      style: MyTextTheme().veryLargeWCB.copyWith(fontSize:35),
-                                    ),
-                                  ],
+                                Text(
+                                  //    "Welcome to ",
+                                  // localization.getLocaleData
+                                  //                                                       .searchDoctor
+                                  //                                                       .toString(),
+                                  localization.getLocaleData.hintText!.Welcometo
+                                      .toString(),
+                                  style: MyTextTheme()
+                                      .veryLargeWCN
+                                      .copyWith(fontSize: 30),
                                 ),
-                                const SizedBox(
-                                  height: 30,
+                                Text(
+                                  //  "Provide Health Kiosk",
+                                  localization.getLocaleData.hintText!
+                                      .ProvideHealthKiosk
+                                      .toString(),
+                                  style: MyTextTheme()
+                                      .veryLargeWCB
+                                      .copyWith(fontSize: 35),
                                 ),
-                                Expanded(
-                                  flex: 5,
-                                  child: Center(
-                                    child: Visibility(
-                                      visible: true,
-                                      child: ListView.separated(
-                                          scrollDirection:  Orientation.portrait==MediaQuery.of(context).orientation? Axis.vertical:Axis.horizontal,
-                                          shrinkWrap: true,
-                                          itemBuilder: (BuildContext context, int index) {
-                                            StartupDataModal data =
-                                            controller.getDashboard(context)[index];
-                                            print("object${MediaQuery.of(context).orientation}");
-                                            return InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  controller.updateContainerIndex = index.toString();
-                                                  if (controller.getContainerIndex.toString() == "0") {
-                                                    // if (UserData().getUserData.isNotEmpty) {
-                                                       App().navigate(context,  TopSpecialitiesView());
-                                                    // }else{
-                                                  //    App().navigate(context,  LoginThroughOtp(index:'appointment'));
-                                                    // }
-                                                  } else if (controller.getContainerIndex
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Center(
+                                child: Visibility(
+                                  visible: true,
+                                  child: ListView.separated(
+                                      scrollDirection: Orientation.portrait ==
+                                              MediaQuery.of(context).orientation
+                                          ? Axis.vertical
+                                          : Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        StartupDataModal data = controller
+                                            .getDashboard(context)[index];
+                                        print(
+                                            "object${MediaQuery.of(context).orientation}");
+                                        return InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              controller.updateContainerIndex =
+                                                  index.toString();
+                                              if (controller.getContainerIndex
                                                       .toString() ==
-                                                      "1") {
-                                                    // if (UserData().getUserData.isNotEmpty) {
-                                                     // App().navigate(context,  DeviceView());}
-                                                    //userdata.checkUser();
-                                                    if(userdata.getLoggedIn==true){
-                                                      App().navigate(context,  FindLocation());
-                                                    }else if(userdata.getLoggedIn==false){
-                                                      App().navigate(context,  LoginThroughOtp(index: '',registerOrLogin: 'Login'));
-                                                    }
-                                                  // }
-                                                    // else {
-                                                    //   App().navigate(context,  LoginThroughOtp(index:controller.getContainerIndex));
-                                                    // }
-                                                    // alertToast(context, "Coming Soon...");
-                                                  }
-                                                  else {
-                                                      App().navigate(context, const MyAppointmentView());
-                                                  print("Login Page");}
-                                                  //App().navigate(context, data.route);
-                                                });
-                                                //print("consultDoctor");
-                                              },
-                                              child: Padding(
-                                                padding:  EdgeInsets.symmetric(vertical: 8,horizontal:Orientation.portrait==MediaQuery.of(context).orientation?200:8),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                    controller.getContainerIndex.toString() ==
+                                                  "0") {
+                                                // if (UserData().getUserData.isNotEmpty) {
+                                                if (userdata.getLoggedIn ==
+                                                    true) {
+                                                  App().navigate(context,
+                                                      TopSpecialitiesView());
+                                                } else if (userdata
+                                                        .getLoggedIn ==
+                                                    false) {
+                                                  App().navigate(
+                                                      context,
+                                                      LoginThroughOtp(
+                                                          index: '',
+                                                          registerOrLogin:
+                                                              'Login'));
+                                                }
+                                                // }else{
+                                                //    App().navigate(context,  LoginThroughOtp(index:'appointment'));
+                                                // }
+                                              } else if (controller
+                                                      .getContainerIndex
+                                                      .toString() ==
+                                                  "1") {
+                                                // if (UserData().getUserData.isNotEmpty) {
+                                                // App().navigate(context,  DeviceView());}
+                                                //userdata.checkUser();
+                                                if (userdata.getLoggedIn ==
+                                                    true) {
+
+
+                                                  App().navigate(context, DeviceView());
+                                                } else if (userdata
+                                                        .getLoggedIn ==
+                                                    false) {
+                                                  App().navigate(
+                                                      context,
+                                                      LoginThroughOtp(
+                                                          index: '',
+                                                          registerOrLogin:
+                                                              'Login'));
+                                                }
+                                                // }
+                                                // else {
+                                                //   App().navigate(context,  LoginThroughOtp(index:controller.getContainerIndex));
+                                                // }
+                                                // alertToast(context, "Coming Soon...");
+                                              } else {
+                                                if (userdata.getLoggedIn ==
+                                                    true) {
+                                                  App().navigate(context,
+                                                      const MyAppointmentView());
+                                                } else if (userdata
+                                                        .getLoggedIn ==
+                                                    false) {
+                                                  App().navigate(
+                                                      context,
+                                                      LoginThroughOtp(
+                                                          index: '',
+                                                          registerOrLogin:
+                                                              'Login'));
+                                                }
+                                                print("Login Page");
+                                              }
+                                              //App().navigate(context, data.route);
+                                            });
+                                            //print("consultDoctor");
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 8,
+                                                horizontal: Orientation
+                                                            .portrait ==
+                                                        MediaQuery.of(context)
+                                                            .orientation
+                                                    ? 200
+                                                    : 8),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: controller
+                                                            .getContainerIndex
+                                                            .toString() ==
                                                         index.toString()
-                                                        ? AppColor.primaryColor
-                                                        : AppColor.white,
-                                                    borderRadius: BorderRadius.circular(5),
-                                                    // boxShadow: [
-                                                    //   BoxShadow(
-                                                    //     color: Colors.grey.withOpacity(0.8),
-                                                    //     spreadRadius: 5,
-                                                    //     blurRadius: 7,
-                                                    //     offset: const Offset(
-                                                    //         0, 3), // changes position of shadow
-                                                    //   ),
-                                                    // ],
-                                                  ),
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.symmetric(
-                                                        horizontal: 20, vertical: 30),
-                                                    child: Row(
-                                                      //crossAxisAlignment: CrossAxisAlignment.center,
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        Image.asset(
-                                                          data.containerImage.toString(),
-                                                          scale: 2,
-                                                        ),
-                                                        Padding(
-                                                          padding: const EdgeInsets.all(12.0),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment.center,
-                                                            children: [
-                                                              Text(
-                                                                data.containerText.toString(),
-                                                                style:controller.getContainerIndex.toString() ==
-                                                                    index.toString()
-                                                                    ? MyTextTheme().largeWCB
-                                                                    : MyTextTheme().mediumGCB.copyWith(fontSize: 20),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        )
-                                                      ],
+                                                    ? AppColor.primaryColor
+                                                    : AppColor.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                // boxShadow: [
+                                                //   BoxShadow(
+                                                //     color: Colors.grey.withOpacity(0.8),
+                                                //     spreadRadius: 5,
+                                                //     blurRadius: 7,
+                                                //     offset: const Offset(
+                                                //         0, 3), // changes position of shadow
+                                                //   ),
+                                                // ],
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20,
+                                                        vertical: 30),
+                                                child: Row(
+                                                  //crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Image.asset(
+                                                      data.containerImage
+                                                          .toString(),
+                                                      scale: 2,
                                                     ),
-                                                  ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              12.0),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            data.containerText
+                                                                .toString(),
+                                                            style: controller
+                                                                        .getContainerIndex
+                                                                        .toString() ==
+                                                                    index
+                                                                        .toString()
+                                                                ? MyTextTheme()
+                                                                    .largeWCB
+                                                                : MyTextTheme()
+                                                                    .mediumGCB
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            20),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
                                               ),
-                                            );
-                                          },
-                                          separatorBuilder: (BuildContext context, int index) =>
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      separatorBuilder:
+                                          (BuildContext context, int index) =>
                                               SizedBox(
-                                                width:Orientation.portrait==MediaQuery.of(context).orientation?60:2,
+                                                width: Orientation.portrait ==
+                                                        MediaQuery.of(context)
+                                                            .orientation
+                                                    ? 60
+                                                    : 2,
                                                 height: 20,
                                               ),
-                                          itemCount:controller.getDashboard(context).length),
+                                      itemCount: controller
+                                          .getDashboard(context)
+                                          .length),
+                                ),
+                              ),
+                            ),
+
+                            Visibility(
+                              visible: UserData().getUserData.isEmpty,
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    changeLanguage();
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: 160,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: AppColor.white),
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(color: Colors.white),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            4, 4, 4, 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              localization.getLanguage.name
+                                                  .toString(),
+                                              style: MyTextTheme().mediumWCB,
+                                            ),
+                                            //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
+                                            const Icon(
+                                              Icons.arrow_drop_down_sharp,
+                                              color: Colors.white,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-
-                                Visibility(
-                                  visible: UserData().getUserData.isEmpty,
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        changeLanguage();
-                                      });
-                                    },
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Visibility(
+                                    visible: true,
                                     child: Padding(
-                                      padding:  const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width: 160,
-                                        decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
-                                          border: Border.all(
-                                              color: AppColor.white
-                                          ),
-                                        ),
-                                        child:Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          VoiceAssistantProvider listenVM =
+                                              Provider.of<
+                                                      VoiceAssistantProvider>(
+                                                  context,
+                                                  listen: false);
+                                          listenVM.stopListening();
+                                          // App().navigate(context,  const MicStreamExampleApp());
+                                          bhojpuriSheet(context);
+                                          // App().navigate(context,  VoiceAssistant());
+                                        },
+                                        child: Container(
+                                          height: 50,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(20),
-                                            border: Border.all(color: Colors.white),
+                                            color: AppColor.blue,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Text(localization.getLanguage.name.toString(),style: MyTextTheme().mediumWCB,),
-                                                //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
-                                                const Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: const [
+                                                Icon(
+                                                  Icons.mic,
+                                                  color: Colors.white,
+                                                  size: 35,
+                                                ),
+                                                Text(
+                                                  "Bhojpuri",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18),
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -299,228 +447,263 @@ class _StartupPageState extends State<StartupPage> {
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Visibility(
-                                        visible: true,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal:5,vertical: 10),
-                                          child: InkWell(
-                                            onTap: (){
-                                              VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
-                                              listenVM.stopListening();
-                                              // App().navigate(context,  const MicStreamExampleApp());
-                                              bhojpuriSheet(context);
-                                              // App().navigate(context,  VoiceAssistant());
-                                            },
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                color: AppColor.blue,
-                                                borderRadius: BorderRadius.circular(5),
-                                              ),
+                                  Visibility(
+                                    visible: true,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          VoiceAssistantProvider listenVM =
+                                              Provider.of<
+                                                      VoiceAssistantProvider>(
+                                                  context,
+                                                  listen: false);
+                                          listenVM.stopListening();
+                                          App().navigate(
+                                              context, const AIChat());
+                                          // App().navigate(context,  VoiceAssistant());
+                                        },
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            color: AppColor.blue,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: const Center(
                                               child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children:  const [
-                                                    Icon(Icons.mic,color: Colors.white,size: 35,),
-                                                    Text("Bhojpuri",style: TextStyle(color: Colors.white,fontSize: 18),),
-                                                  ],
-                                                ),
-                                              ),
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              "Chat with AI",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18),
                                             ),
-                                          ),
+                                          )),
                                         ),
                                       ),
-                                      Visibility(
-                                        visible: true,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal:5,vertical: 10),
-                                          child: InkWell(
-                                            onTap: (){
-                                              VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
-                                              listenVM.stopListening();
-                                              App().navigate(context,  const AIChat());
-                                              // App().navigate(context,  VoiceAssistant());
-                                            },
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                color: AppColor.blue,
-                                                borderRadius: BorderRadius.circular(5),
-                                              ),
-                                              child: const Center(child: Padding(
-                                                padding: EdgeInsets.all(8.0),
-                                                child: Text("Chat with AI",style: TextStyle(color: Colors.white,fontSize: 18),),
-                                              )),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: true,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal:5,vertical: 10),
-                                          child: InkWell(
-                                            onTap: (){
-                                              VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
-                                              listenVM.stopListening();
-                                              //     aiCommandSheet();
-                                              // App().navigate(context,  VoiceAssistant());
-                                              aiCommandSheet(context);
-                                            },
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                color: AppColor.blue,
-                                                borderRadius: BorderRadius.circular(5),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children:  const [
-                                                    Icon(Icons.mic,color: Colors.white,size: 35,),
-                                                    Text("Voice Assistant",style: TextStyle(color: Colors.white,fontSize: 18),),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: false,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
-                                          child: InkWell(
-                                            onTap: (){
-
-                                              App().navigate(context,  LoginThroughOtp(index: '',registerOrLogin: 'Login',));
-                                            },
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                color: AppColor.green,
-                                                borderRadius: BorderRadius.circular(5),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children:  const [
-                                                    Icon(Icons.mic,color: Colors.white,size: 35,),
-                                                    Text('login',style: TextStyle(color: Colors.white,fontSize: 18),),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: true,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
-                                          child: InkWell(
-                                            onTap: (){
-                                              VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
-                                              listenVM.stopListening();
-                                              App().navigate(context,  Speech());
-                                            },
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                color: AppColor.green,
-                                                borderRadius: BorderRadius.circular(5),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children:  [
-                                                    const Icon(Icons.mic,color: Colors.white,size: 35,),
-                                                    Text(localization.getLocaleData.alertToast!.searchSymptomsByVoice.toString(),style: const TextStyle(color: Colors.white,fontSize: 18),),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(top: 40),
-                                //   child: Visibility(
-                                //     visible: UserData().getUserData.isEmpty ||
-                                //         controller.getContainerIndex.isNotEmpty,
-                                //     child: MyButton(
-                                //       title: localization.getLocaleData.next.toString(),
-                                //       // onPress: () {
-                                //       //   if (UserData().getUserData.isNotEmpty) {
-                                //       //     if (controller.getContainerIndex.toString() ==
-                                //       //         "0") {
-                                //       //       App().navigate(
-                                //       //           context,  TopSpecialitiesView());
-                                //       //     } else if (controller.getContainerIndex
-                                //       //             .toString() ==
-                                //       //         "1") {
-                                //       //       App()
-                                //       //           .navigate(context, const DeviceView());
-                                //       //      // alertToast(context, "Coming Soon...");
-                                //       //     } else {
-                                //       //       App()
-                                //       //           .navigate(context, const MyAppointmentView());
-                                //       //     }
-                                //       //   } else {
-                                //       //     App().navigate(context,  LogIn(index:controller.getContainerIndex));
-                                //       //   }
-                                //       //
-                                //       //   print("Login Page");
-                                //       // },
-                                //     ),
-                                //   ),
-                                // ),
-                                Orientation.portrait==MediaQuery.of(context).orientation?const SizedBox(height: 1,):  const Spacer(),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(bottom: 45, left: 30),
-                                //   child: Row(
-                                //     children: [
-                                //       Image.asset(
-                                //         "assets/kiosk_tech.png",
-                                //         scale: 2,
-                                //       ),
-                                //     ],
-                                //   ),
-                                // )
-                              ],
+                                  Visibility(
+                                    visible: true,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          VoiceAssistantProvider listenVM =
+                                              Provider.of<
+                                                      VoiceAssistantProvider>(
+                                                  context,
+                                                  listen: false);
+                                          listenVM.stopListening();
+                                          //     aiCommandSheet();
+                                          // App().navigate(context,  VoiceAssistant());
+                                          aiCommandSheet(context);
+                                        },
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            color: AppColor.blue,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: const [
+                                                Icon(
+                                                  Icons.mic,
+                                                  color: Colors.white,
+                                                  size: 35,
+                                                ),
+                                                Text(
+                                                  "Voice Assistant",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: false,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 5,
+                                          right: 5,
+                                          top: 10,
+                                          bottom: 10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          App().navigate(
+                                              context,
+                                              LoginThroughOtp(
+                                                index: '',
+                                                registerOrLogin: 'Login',
+                                              ));
+                                        },
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            color: AppColor.green,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: const [
+                                                Icon(
+                                                  Icons.mic,
+                                                  color: Colors.white,
+                                                  size: 35,
+                                                ),
+                                                Text(
+                                                  'login',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: true,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 5,
+                                          right: 5,
+                                          top: 10,
+                                          bottom: 10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          VoiceAssistantProvider listenVM =
+                                              Provider.of<
+                                                      VoiceAssistantProvider>(
+                                                  context,
+                                                  listen: false);
+                                          listenVM.stopListening();
+                                          App().navigate(context, Speech());
+                                        },
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            color: AppColor.green,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                const Icon(
+                                                  Icons.mic,
+                                                  color: Colors.white,
+                                                  size: 35,
+                                                ),
+                                                Text(
+                                                  localization
+                                                      .getLocaleData
+                                                      .alertToast!
+                                                      .searchSymptomsByVoice
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          );
-                        }
-                    ),
-                  ),
-                )
-            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(top: 40),
+                            //   child: Visibility(
+                            //     visible: UserData().getUserData.isEmpty ||
+                            //         controller.getContainerIndex.isNotEmpty,
+                            //     child: MyButton(
+                            //       title: localization.getLocaleData.next.toString(),
+                            //       // onPress: () {
+                            //       //   if (UserData().getUserData.isNotEmpty) {
+                            //       //     if (controller.getContainerIndex.toString() ==
+                            //       //         "0") {
+                            //       //       App().navigate(
+                            //       //           context,  TopSpecialitiesView());
+                            //       //     } else if (controller.getContainerIndex
+                            //       //             .toString() ==
+                            //       //         "1") {
+                            //       //       App()
+                            //       //           .navigate(context, const DeviceView());
+                            //       //      // alertToast(context, "Coming Soon...");
+                            //       //     } else {
+                            //       //       App()
+                            //       //           .navigate(context, const MyAppointmentView());
+                            //       //     }
+                            //       //   } else {
+                            //       //     App().navigate(context,  LogIn(index:controller.getContainerIndex));
+                            //       //   }
+                            //       //
+                            //       //   print("Login Page");
+                            //       // },
+                            //     ),
+                            //   ),
+                            // ),
+                            Orientation.portrait ==
+                                    MediaQuery.of(context).orientation
+                                ? const SizedBox(
+                                    height: 1,
+                                  )
+                                : const Spacer(),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(bottom: 45, left: 30),
+                            //   child: Row(
+                            //     children: [
+                            //       Image.asset(
+                            //         "assets/kiosk_tech.png",
+                            //         scale: 2,
+                            //       ),
+                            //     ],
+                            //   ),
+                            // )
+                          ],
+                        ),
+                      );
+                    }),
+              ),
+            )),
           );
-        }
-    );
+        });
   }
 
   // void goToHome(context) => App().replaceNavigate(context, const LogIn());
 
   Widget buildImage(String path) => Center(
-    child: SvgPicture.asset(
-      path,
-      width: 350,
-    ),
-  );
+        child: SvgPicture.asset(
+          path,
+          width: 350,
+        ),
+      );
 
   DotsDecorator getDotDecoration() => DotsDecorator(
       color: const Color(0xFFBDBDBD),
@@ -531,28 +714,31 @@ class _StartupPageState extends State<StartupPage> {
       ));
 
   PageDecoration getPageDecoration() => const PageDecoration(
-    titleTextStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.normal),
-    bodyTextStyle: TextStyle(fontSize: 16),
-    imagePadding: EdgeInsets.only(top: 20.0),
-    pageColor: Colors.white,
-  );
+        titleTextStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.normal),
+        bodyTextStyle: TextStyle(fontSize: 16),
+        imagePadding: EdgeInsets.only(top: 20.0),
+        pageColor: Colors.white,
+      );
 
   logoutAlert() {
     return AlertDialogue2()
-        .show(context, title: "", showCancelButton: true,fullScreenWidget: [
+        .show(context, title: "", showCancelButton: true, fullScreenWidget: [
       SizedBox(
         //height: 500,
         width: 200,
         child: Column(
           children: [
-            Image.asset("assets/kiosk_logout.gif",width: Get.width*0.9,height: Get.height*0.3),
-
+            Image.asset("assets/kiosk_logout.gif",
+                width: Get.width * 0.9, height: Get.height * 0.3),
             Padding(
-              padding: const EdgeInsets.only(top: 10,bottom: 20),
-              child: Text("Are you sure you want to logout Kiosk?",style: MyTextTheme().mediumBCB,),
+              padding: const EdgeInsets.only(top: 10, bottom: 20),
+              child: Text(
+                "Are you sure you want to logout Kiosk?",
+                style: MyTextTheme().mediumBCB,
+              ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: Get.width*0.15),
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -560,19 +746,18 @@ class _StartupPageState extends State<StartupPage> {
                     width: 80,
                     color: AppColor.greyLight,
                     title: 'Cancel',
-                    onPress: (){
+                    onPress: () {
                       Navigator.of(context, rootNavigator: true).pop();
                     },
                   ),
-
                   MyButton2(
                     width: 80,
                     color: AppColor.blue,
                     title: 'Logout',
-                    onPress: (){
-                      MedvantageLogin userdata=Provider.of<MedvantageLogin>(context,listen: false);
-                      setState(() {
-                      });
+                    onPress: () {
+                      MedvantageLogin userdata =
+                          Provider.of<MedvantageLogin>(context, listen: false);
+                      setState(() {});
                       userdata.logOut();
                       Navigator.of(context, rootNavigator: true).pop();
                     },
@@ -583,25 +768,24 @@ class _StartupPageState extends State<StartupPage> {
           ],
         ),
       )
-    ]
-    );
+    ]);
   }
 
   changeLanguage() {
     ScreenUtil.init(context);
     ApplicationLocalizations localization =
-    Provider.of<ApplicationLocalizations>(context, listen: false);
+        Provider.of<ApplicationLocalizations>(context, listen: false);
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title:  Text(localization.getLocaleData.alertToast!.language.toString()),
+          title:
+              Text(localization.getLocaleData.alertToast!.language.toString()),
           contentPadding: const EdgeInsets.all(8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          content:
-          Stack(
+          content: Stack(
             clipBehavior: Clip.none,
             children: <Widget>[
               Row(

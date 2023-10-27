@@ -22,6 +22,7 @@ import 'package:get/get.dart';
 import '../../../AppManager/widgets/my_button.dart';
 import '../../../Localization/app_localization.dart';
 import '../../Dashboard/dashboard_modal.dart';
+import '../../Specialities/NewBookAppintment/NewBookAppointemtView.dart';
 import '../../Specialities/SpecialistDoctors/TimeSlot/time_slot_view.dart';
 import '../../voiceAssistantProvider.dart';
 
@@ -197,19 +198,8 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                           // ),
 
                         Expanded(
-                          child: CommonWidgets().showNoData(
-                            title: localization.getLocaleData.doctorDataNotFound
-                                .toString(),
-                            show: (modal.controller.getShowNoData &&
-                                modal
-                                    .controller.get_popular_Doctors_Data.isEmpty),
-                            loaderTitle: localization
-                                .getLocaleData.loadingDoctorData
-                                .toString(),
-                            showLoader: (!modal.controller.getShowNoData &&
-                                modal
-                                    .controller.get_popular_Doctors_Data.isEmpty),
-                            child: Column(
+                          child:
+                            Column(
                               // crossAxisAlignment: CrossAxisAlignment.start,
                               // mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -355,29 +345,43 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                                         decoration: const BoxDecoration(
                                             color: Colors.white30
                                         ),
-                                        child: ListView.builder(
-                                          physics: const NeverScrollableScrollPhysics(),
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount:controller.getNLPData.disease?.finalDiseaseList?.length??0,
-                                          //itemCount:1,
-                                          itemBuilder: (BuildContext context, int index) {
-                                         return   Padding(
-                                           padding: const EdgeInsets.all(8.0),
-                                           child: Container(
-                                             height: 20,
-                                               decoration: BoxDecoration(
-                                                 borderRadius: BorderRadius.circular(10),
-                                                 color: Colors.white,
-                                               ),
-                                               child: Padding(
-                                                 padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal:8),
-                                                 child: Center(
-                                                   child:
-                                                  Text(controller.getNLPData.disease!.finalDiseaseList![index].problemNames.toString(),
-                                                     style: MyTextTheme().customLargePCB.copyWith(fontSize: 14),),),
-                                               ),),
-                                         );
-                                          }),
+                                        child: CommonWidgets().showNoData(
+                                          title: localization.getLocaleData.doctorDataNotFound
+                                              .toString(),
+                                          show: (modal.controller.getShowNoData &&
+                                              modal
+                                                  .controller.get_popular_Doctors_Data.isEmpty),
+                                          loaderTitle: localization
+                                              .getLocaleData.loadingDoctorData
+                                              .toString(),
+                                          showLoader: (!modal.controller.getShowNoData &&
+                                              modal
+                                                  .controller.get_popular_Doctors_Data.isEmpty),
+
+                                          child: ListView.builder(
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount:controller.getNLPData.disease?.finalDiseaseList?.length??0,
+                                            //itemCount:1,
+                                            itemBuilder: (BuildContext context, int index) {
+                                           return   Padding(
+                                             padding: const EdgeInsets.all(8.0),
+                                             child: Container(
+                                               height: 20,
+                                                 decoration: BoxDecoration(
+                                                   borderRadius: BorderRadius.circular(10),
+                                                   color: Colors.white,
+                                                 ),
+                                                 child: Padding(
+                                                   padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal:8),
+                                                   child: Center(
+                                                     child:
+                                                    Text(controller.getNLPData.disease!.finalDiseaseList![index].problemNames.toString(),
+                                                       style: MyTextTheme().customLargePCB.copyWith(fontSize: 14),),),
+                                                 ),),
+                                           );
+                                            }),
+                                        ),
                                       ),
                                     ),
                                     Expanded(
@@ -468,6 +472,16 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                                                               width: 70,
                                                               child: MyButton(title: localization.getLocaleData.hintText!.book.toString(),
                                                                 onPress: (){
+                                                                  App().navigate(context, TimeSlotView(profilePhoto: '',degree:'' ,doctorId:doctor.id.toString(),
+                                                                    drName:doctor.name.toString(),
+                                                                    fees: 0,
+                                                                    iSEraDoctor:'',
+                                                                    speciality:  '',
+                                                                    timeSlots:const [],
+                                                                    selectedDay:null,
+                                                                    departmentId: doctor.departmentId??0,
+                                                                    // departmentId: doctor.departmentId??0
+                                                                  ));
 //**//*********
    ///                                                               App().navigate(context, TimeSlotView(profilePhoto: doctor.imagePath.toString(),degree:doctor.degree.toString() ,doctorId:doctor.id.toString(),
    ///                                                                 drName:doctor.doctorName.toString(),
@@ -1043,7 +1057,7 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                                 // ),
                               ],
                             ),
-                          ),
+
                         )
                       ],),
                     ),

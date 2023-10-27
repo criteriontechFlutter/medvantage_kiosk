@@ -21,6 +21,8 @@ import '../../../AppManager/user_data.dart';
 import '../../../AppManager/widgets/MyCustomSD.dart';
 import '../../../AppManager/widgets/MyTextField.dart';
 import '../../../AppManager/widgets/my_button2.dart';
+import '../../Symptoms/Select_Doctor/select_doctor_controller.dart';
+import '../../Symptoms/Select_Doctor/select_doctor_modal.dart';
 import '../../voiceAssistantProvider.dart';
 import '../dashboard_modal.dart';
 import 'DataModal/body_organ_data_modal.dart';
@@ -36,6 +38,7 @@ class OrganListView extends StatefulWidget {
 
 class _OrganListViewState extends State<OrganListView> {
   OrganModal modal = OrganModal();
+  SelectDoctorModal modal2 = SelectDoctorModal();
   DashboardModal dashboardModal = DashboardModal();
   List languageList = [
     {
@@ -271,8 +274,13 @@ class _OrganListViewState extends State<OrganListView> {
                             padding: Platform.isAndroid
                                 ? const EdgeInsets.all(0)
                                 : const EdgeInsets.all(8.0),
-                            child: _body(selectedSymptomsSorted,
-                                modal.controller.listItemsOne[0]),
+                            child: GetBuilder(
+                                init: SelectDoctorController(),
+                                builder: (_) {
+                                return _body(selectedSymptomsSorted,
+                                    modal.controller.listItemsOne[0]);
+                              }
+                            ),
                           ),
                         ),
                       ],
@@ -296,7 +304,7 @@ class _OrganListViewState extends State<OrganListView> {
     return Column(
       children: [
         Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child:
             GridView.count(
               physics: const NeverScrollableScrollPhysics(),
@@ -304,8 +312,8 @@ class _OrganListViewState extends State<OrganListView> {
               //Orientation.portrait==MediaQuery.of(context).orientation?60:2
               crossAxisCount: Orientation.portrait==MediaQuery.of(context).orientation?5:5,
               crossAxisSpacing: 0,
-              mainAxisSpacing:Orientation.portrait==MediaQuery.of(context).orientation?4:0.01,
-                childAspectRatio: Orientation.portrait==MediaQuery.of(context).orientation?1.7:2.5,
+              mainAxisSpacing:Orientation.portrait==MediaQuery.of(context).orientation?1:0.01,
+              childAspectRatio: Orientation.portrait==MediaQuery.of(context).orientation?1.7:2.5,
               //           crossAxisSpacing: 0.5,
               //           mainAxisSpacing:0.1,
               // scrollDirection: Axis.vertical,
@@ -313,15 +321,30 @@ class _OrganListViewState extends State<OrganListView> {
               //itemBuilder:
               children:
                   List.generate(modal.controller.getListItemsOne.length, (index) {
-                BodyOrganDataModal oragans =
-                    modal.controller.getListItemsOne[index];
+                BodyOrganDataModal oragans = modal.controller.getListItemsOne[index];
                 return Column(
                   children: [
                     InkWell(
                       onTap: () {
+
+
                         for (var element in modal.controller.listItemsOne) {
                           element["isSelected"] = false;
                         }
+                      var a =  modal.controller.listItemsOne[index]["id"];
+
+
+                        // Create a new map with a different organId
+                        Map<String, String> newOrgan = {"organId": a}; // Change 30 to your desired value
+
+                        // Add the new map to the list
+                        modal2.controller.organList.add(newOrgan);
+
+                        // Now, organList contains [{"organId": 50}, {"organId": 19}, {"organId": 30}]
+
+                        print(modal2.controller.organList.toString()+'abcd');
+
+
                         modal.controller.listItemsOne[index]['isSelected'] = true;
 
                         modal.controller.updateSelectedLangId =
@@ -332,9 +355,9 @@ class _OrganListViewState extends State<OrganListView> {
                         // modal.getBodyPartList(context);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(0.0),
                         child: Container(
-                          width: 153,
+                          width: 150,
                           // height: 120,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
@@ -344,16 +367,17 @@ class _OrganListViewState extends State<OrganListView> {
                                   : AppColor.white,
                               border: Border.all(color: AppColor.greyLight)),
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                            padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: SvgPicture.asset(
-                                        oragans.img.toString())),
+                                    width: 60,
+                                    height: 60,
+                                    child:oragans.id.toString()=='50'? SvgPicture.asset(
+                    oragans.img.toString(),color: Colors.orange,):SvgPicture.asset(
+                                        oragans.img.toString(),)),
                                 const SizedBox(width: 5),
                                 Text(
                                   oragans.title.toString(),

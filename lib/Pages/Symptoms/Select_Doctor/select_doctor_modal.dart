@@ -4,6 +4,7 @@ import 'package:digi_doctor/Pages/Symptoms/Select_Doctor/select_doctor_controlle
 import 'package:get/get.dart';
 import '../../../AppManager/alert_dialogue.dart';
 import '../../../AppManager/raw_api.dart';
+import '../../Dashboard/OrganSymptom/organ_modal.dart';
 import '../../VitalPage/LiveVital/stetho_master/AppManager/raw_api.dart';
 import '../top_symptoms_controller.dart';
 
@@ -49,15 +50,19 @@ class SelectDoctorModal {
     }
   }
 
+
+
   Future<void>getDoctorsList(context)async{
-    var body=[{"organId":50},{"organId":19}];
+
+  var body=  controller.getOrganSelectedList;
+    //var body=[{"organId":50},{"organId":19}];
     var b = jsonEncode(body);
+    print(b.toString()+'qwertyuiop');
     var data = await RawDataApi().getapi('/api/OrganDepartmentMapping/GetDoctorBySymptoms?JsonOrgan=$b', context);
     print(data['responseValue'].toString());
     if(data["status"].toString()=='1'){
       print('${data}abcd');
       List<dynamic> responseValue=data['responseValue'];
-
       controller.update_recommended_doctors = responseValue;
       print(responseValue.toString()+'12345678901234567890');
       print(controller.get_popular_Doctors_Data.toString()+'12345678901234567890');

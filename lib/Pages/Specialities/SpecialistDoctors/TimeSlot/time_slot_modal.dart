@@ -83,23 +83,23 @@ class TimeSlotModal {
       'serviceProviderDetailsId': controller.doctorId.value.toString(),
     };
     print(body.toString());
-    var data = await rawData
-        .api('Patient/getOnlineAppointmentSlots', body, context, token: true);
-    controller.updateShowNoData = true;
-    if (data['responseCode'] == 1) {
-      //   final uniqueJsonList = data['responseValue'][0]['slotBookedDetails']??
-      //       []
-      //       .toSet()
-      //       .toList();
-      //
-      //   //print("------------"+uniqueJsonList.toString());
-      //   var result = uniqueJsonList.map((item) => item['slotType'].toString()).toSet().toList();
-      //
-      // controller.updateSlotTypeList = result;
-
-      controller.updateSlotList = data['responseValue'].isEmpty? []:data['responseValue'];
-      print("###########${controller.getSlotList.length}");
-    }
+    // var data = await rawData
+    //     .api('Patient/getOnlineAppointmentSlots', body, context, token: true);
+    // controller.updateShowNoData = true;
+    // if (data['responseCode'] == 1) {
+    //   //   final uniqueJsonList = data['responseValue'][0]['slotBookedDetails']??
+    //   //       []
+    //   //       .toSet()
+    //   //       .toList();
+    //   //
+    //   //   //print("------------"+uniqueJsonList.toString());
+    //   //   var result = uniqueJsonList.map((item) => item['slotType'].toString()).toSet().toList();
+    //   //
+    //   // controller.updateSlotTypeList = result;
+    //
+    //   controller.updateSlotList = data['responseValue'].isEmpty? []:data['responseValue'];
+    //   print("###########${controller.getSlotList.length}");
+    // }
   }
 
   onPressedCfm(context) async {

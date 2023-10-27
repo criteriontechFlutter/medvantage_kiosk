@@ -121,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  barcode:
+    dependency: transitive
+    description:
+      name: barcode
+      sha256: "789f898eef0bd88312470bdb2cc996f895ad7dd5f89e9adde84b204546a90b45"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.4"
   blur:
     dependency: "direct main"
     description:
@@ -1480,6 +1488,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.7"
+  pdf:
+    dependency: "direct main"
+    description:
+      name: pdf
+      sha256: "10659b915e65832b106f6d1d213e09b789cc1f24bf282ee911e49db35b96be4d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.8.4"
   pedantic:
     dependency: transitive
     description:
@@ -1584,6 +1600,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.3"
+  printing:
+    dependency: "direct main"
+    description:
+      name: printing
+      sha256: "4df9e22bd4cb2ecea67183e5b328711b10276127b8878d9d5cb60ccd4c24a77c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.9.3"
   process:
     dependency: transitive
     description:
@@ -1616,6 +1640,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      sha256: "64957a3930367bf97cc211a5af99551d630f2f4625e38af10edd6b19131b64b3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   razorpay_flutter:
     dependency: "direct main"
     description:
