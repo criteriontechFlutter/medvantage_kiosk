@@ -21,6 +21,8 @@ class SelectUser extends StatefulWidget {
 }
 
 class _SelectUserState extends State<SelectUser> {
+  List<UsersDataModal>? allusers;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -33,8 +35,8 @@ class _SelectUserState extends State<SelectUser> {
   getSavedUsers() async {
     final medvantageUser = GetStorage();
     var users = await medvantageUser.read('allUsersList');
-    List<UsersDataModal> allusers = users as List<UsersDataModal>;
-    print(allusers[0].patientName);
+   allusers = List<UsersDataModal>.from(users.map((element) => UsersDataModal.fromJson(element)));
+    print(allusers![0].patientName);
     setState(() {
 
     });
@@ -45,6 +47,9 @@ class _SelectUserState extends State<SelectUser> {
 
   @override
   Widget build(BuildContext context) {
+    final medvantageUser = GetStorage();
+
+    allusers =  medvantageUser.read('allUsersList');
     LoginThroughOTPModal modal = LoginThroughOTPModal();
     ApplicationLocalizations localization =
         Provider.of<ApplicationLocalizations>(context, listen: true);
@@ -62,14 +67,13 @@ class _SelectUserState extends State<SelectUser> {
                       height: Get.height - 100,
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: modal.controller.getUsersList.length,
+                        itemCount: allusers!.length,
                         itemBuilder: (BuildContext context, int index) {
-                          final medvantageUser = GetStorage();
-                          var users =  medvantageUser.read('allUsersList');
-                          List<UsersDataModal> allusers = users as List<UsersDataModal>;
-                            UsersDataModal user = allusers[index];
 
-                          print(allusers[0].uhID);
+                       //   List<UsersDataModal> allusers = users as List<UsersDataModal>;
+                            UsersDataModal user = allusers![index];
+
+                          print(allusers![0].uhID);
                           return Padding(
                             padding: const EdgeInsets.all(20),
                             child: Container(

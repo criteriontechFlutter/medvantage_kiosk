@@ -349,7 +349,8 @@ class _StartupPageState extends State<StartupPage> {
                             ),
 
                             Visibility(
-                              visible: UserData().getUserData.isEmpty,
+                              visible: (userdata.getLoggedIn !=
+                                  true),
                               child: InkWell(
                                 onTap: () {
                                   setState(() {
@@ -394,249 +395,252 @@ class _StartupPageState extends State<StartupPage> {
                                 ),
                               ),
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Visibility(
-                                    visible: true,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5, vertical: 10),
-                                      child: InkWell(
-                                        onTap: () {
-                                          VoiceAssistantProvider listenVM =
-                                              Provider.of<
-                                                      VoiceAssistantProvider>(
-                                                  context,
-                                                  listen: false);
-                                          listenVM.stopListening();
-                                          // App().navigate(context,  const MicStreamExampleApp());
-                                          bhojpuriSheet(context);
-                                          // App().navigate(context,  VoiceAssistant());
-                                        },
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: AppColor.blue,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: const [
-                                                Icon(
-                                                  Icons.mic,
-                                                  color: Colors.white,
-                                                  size: 35,
-                                                ),
-                                                Text(
-                                                  "Bhojpuri",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: true,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5, vertical: 10),
-                                      child: InkWell(
-                                        onTap: () {
-                                          VoiceAssistantProvider listenVM =
-                                              Provider.of<
-                                                      VoiceAssistantProvider>(
-                                                  context,
-                                                  listen: false);
-                                          listenVM.stopListening();
-                                          App().navigate(
-                                              context, const AIChat());
-                                          // App().navigate(context,  VoiceAssistant());
-                                        },
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: AppColor.blue,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: const Center(
-                                              child: Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "Chat with AI",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18),
-                                            ),
-                                          )),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: true,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5, vertical: 10),
-                                      child: InkWell(
-                                        onTap: () {
-                                          VoiceAssistantProvider listenVM =
-                                              Provider.of<
-                                                      VoiceAssistantProvider>(
-                                                  context,
-                                                  listen: false);
-                                          listenVM.stopListening();
-                                          //     aiCommandSheet();
-                                          // App().navigate(context,  VoiceAssistant());
-                                          aiCommandSheet(context);
-                                        },
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: AppColor.blue,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: const [
-                                                Icon(
-                                                  Icons.mic,
-                                                  color: Colors.white,
-                                                  size: 35,
-                                                ),
-                                                Text(
-                                                  "Voice Assistant",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: false,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5,
-                                          right: 5,
-                                          top: 10,
-                                          bottom: 10),
-                                      child: InkWell(
-                                        onTap: () {
-                                          App().navigate(
-                                              context,
-                                              LoginThroughOtp(
-                                                index: '',
-                                                registerOrLogin: 'Login',
-                                              ));
-                                        },
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: AppColor.green,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: const [
-                                                Icon(
-                                                  Icons.mic,
-                                                  color: Colors.white,
-                                                  size: 35,
-                                                ),
-                                                Text(
-                                                  'login',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: true,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5,
-                                          right: 5,
-                                          top: 10,
-                                          bottom: 10),
-                                      child: InkWell(
-                                        onTap: () {
-                                          VoiceAssistantProvider listenVM =
-                                              Provider.of<
-                                                      VoiceAssistantProvider>(
-                                                  context,
-                                                  listen: false);
-                                          listenVM.stopListening();
-                                          App().navigate(context, Speech());
-                                        },
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: AppColor.green,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Icon(
-                                                  Icons.mic,
-                                                  color: Colors.white,
-                                                  size: 35,
-                                                ),
-                                                Text(
-                                                  localization
-                                                      .getLocaleData
-                                                      .alertToast!
-                                                      .searchSymptomsByVoice
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Expanded(
+                            //   flex: 1,
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       Visibility(
+                            //         visible: true,
+                            //         child: Padding(
+                            //           padding: const EdgeInsets.symmetric(
+                            //               horizontal: 5, vertical: 10),
+                            //           child: InkWell(
+                            //             onTap: () {
+                            //               VoiceAssistantProvider listenVM =
+                            //                   Provider.of<
+                            //                           VoiceAssistantProvider>(
+                            //                       context,
+                            //                       listen: false);
+                            //               listenVM.stopListening();
+                            //               // App().navigate(context,  const MicStreamExampleApp());
+                            //               bhojpuriSheet(context);
+                            //               // App().navigate(context,  VoiceAssistant());
+                            //             },
+                            //             child: Container(
+                            //               height: 50,
+                            //               decoration: BoxDecoration(
+                            //                 color: AppColor.blue,
+                            //                 borderRadius:
+                            //                     BorderRadius.circular(5),
+                            //               ),
+                            //               child: Padding(
+                            //                 padding: const EdgeInsets.all(8.0),
+                            //                 child: Row(
+                            //                   mainAxisAlignment:
+                            //                       MainAxisAlignment.center,
+                            //                   children: const [
+                            //                     Icon(
+                            //                       Icons.mic,
+                            //                       color: Colors.white,
+                            //                       size: 35,
+                            //                     ),
+                            //                     Text(
+                            //                       "Bhojpuri",
+                            //                       style: TextStyle(
+                            //                           color: Colors.white,
+                            //                           fontSize: 18),
+                            //                     ),
+                            //                   ],
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Visibility(
+                            //         visible: true,
+                            //         child: Padding(
+                            //           padding: const EdgeInsets.symmetric(
+                            //               horizontal: 5, vertical: 10),
+                            //           child: InkWell(
+                            //             onTap: () {
+                            //               VoiceAssistantProvider listenVM =
+                            //                   Provider.of<
+                            //                           VoiceAssistantProvider>(
+                            //                       context,
+                            //                       listen: false);
+                            //               listenVM.stopListening();
+                            //               App().navigate(
+                            //                   context, const AIChat());
+                            //               // App().navigate(context,  VoiceAssistant());
+                            //             },
+                            //             child: Container(
+                            //               height: 50,
+                            //               decoration: BoxDecoration(
+                            //                 color: AppColor.blue,
+                            //                 borderRadius:
+                            //                     BorderRadius.circular(5),
+                            //               ),
+                            //               child: const Center(
+                            //                   child: Padding(
+                            //                 padding: EdgeInsets.all(8.0),
+                            //                 child: Text(
+                            //                   "Chat with AI",
+                            //                   style: TextStyle(
+                            //                       color: Colors.white,
+                            //                       fontSize: 18),
+                            //                 ),
+                            //               )),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Visibility(
+                            //         visible: true,
+                            //         child: Padding(
+                            //           padding: const EdgeInsets.symmetric(
+                            //               horizontal: 5, vertical: 10),
+                            //           child: InkWell(
+                            //             onTap: () {
+                            //               VoiceAssistantProvider listenVM =
+                            //                   Provider.of<
+                            //                           VoiceAssistantProvider>(
+                            //                       context,
+                            //                       listen: false);
+                            //               listenVM.stopListening();
+                            //               //     aiCommandSheet();
+                            //               // App().navigate(context,  VoiceAssistant());
+                            //               aiCommandSheet(context);
+                            //             },
+                            //             child: Container(
+                            //               height: 50,
+                            //               decoration: BoxDecoration(
+                            //                 color: AppColor.blue,
+                            //                 borderRadius:
+                            //                     BorderRadius.circular(5),
+                            //               ),
+                            //               child: Padding(
+                            //                 padding: const EdgeInsets.all(8.0),
+                            //                 child: Row(
+                            //                   mainAxisAlignment:
+                            //                       MainAxisAlignment.center,
+                            //                   children: const [
+                            //                     Icon(
+                            //                       Icons.mic,
+                            //                       color: Colors.white,
+                            //                       size: 35,
+                            //                     ),
+                            //                     Text(
+                            //                       "Voice Assistant",
+                            //                       style: TextStyle(
+                            //                           color: Colors.white,
+                            //                           fontSize: 18),
+                            //                     ),
+                            //                   ],
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Visibility(
+                            //         visible: false,
+                            //         child: Padding(
+                            //           padding: const EdgeInsets.only(
+                            //               left: 5,
+                            //               right: 5,
+                            //               top: 10,
+                            //               bottom: 10),
+                            //           child: InkWell(
+                            //             onTap: () {
+                            //               App().navigate(
+                            //                   context,
+                            //                   LoginThroughOtp(
+                            //                     index: '',
+                            //                     registerOrLogin: 'Login',
+                            //                   ));
+                            //             },
+                            //             child: Container(
+                            //               height: 50,
+                            //               decoration: BoxDecoration(
+                            //                 color: AppColor.green,
+                            //                 borderRadius:
+                            //                     BorderRadius.circular(5),
+                            //               ),
+                            //               child: Padding(
+                            //                 padding: const EdgeInsets.all(8.0),
+                            //                 child: Row(
+                            //                   mainAxisAlignment:
+                            //                       MainAxisAlignment.center,
+                            //                   children: const [
+                            //                     Icon(
+                            //                       Icons.mic,
+                            //                       color: Colors.white,
+                            //                       size: 35,
+                            //                     ),
+                            //                     Text(
+                            //                       'login',
+                            //                       style: TextStyle(
+                            //                           color: Colors.white,
+                            //                           fontSize: 18),
+                            //                     ),
+                            //                   ],
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Visibility(
+                            //         visible: true,
+                            //         child: Padding(
+                            //           padding: const EdgeInsets.only(
+                            //               left: 5,
+                            //               right: 5,
+                            //               top: 10,
+                            //               bottom: 10),
+                            //           child: InkWell(
+                            //             onTap: () {
+                            //               VoiceAssistantProvider listenVM =
+                            //                   Provider.of<
+                            //                           VoiceAssistantProvider>(
+                            //                       context,
+                            //                       listen: false);
+                            //               listenVM.stopListening();
+                            //               App().navigate(context, Speech());
+                            //             },
+                            //             child: Container(
+                            //               height: 50,
+                            //               decoration: BoxDecoration(
+                            //                 color: AppColor.green,
+                            //                 borderRadius:
+                            //                     BorderRadius.circular(5),
+                            //               ),
+                            //               child: Padding(
+                            //                 padding: const EdgeInsets.all(8.0),
+                            //                 child: Row(
+                            //                   mainAxisAlignment:
+                            //                       MainAxisAlignment.center,
+                            //                   children: [
+                            //                     const Icon(
+                            //                       Icons.mic,
+                            //                       color: Colors.white,
+                            //                       size: 35,
+                            //                     ),
+                            //                     Text(
+                            //                       localization
+                            //                           .getLocaleData
+                            //                           .alertToast!
+                            //                           .searchSymptomsByVoice
+                            //                           .toString(),
+                            //                       style: const TextStyle(
+                            //                           color: Colors.white,
+                            //                           fontSize: 18),
+                            //                     ),
+                            //                   ],
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+
+
+
                             // Padding(
                             //   padding: const EdgeInsets.only(top: 40),
                             //   child: Visibility(

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'MyAppointmentDataModal/my_appointment_data_modal.dart';
 import 'appointmentDataModal.dart';
+import 'my_appointment_modal.dart';
 
 class MyAppointmentController extends GetxController{
 
@@ -58,6 +59,13 @@ List<AppointmentHistoryDataModal> get getAppointmentList=>List<AppointmentHistor
 
   }
 
+
+List medVitalsList = [];
+ get getMedVitalsList=>medVitalsList;
+  set updateSetMedVitalList(val){
+    medVitalsList=val;
+    update();
+  }
 
 
 

@@ -229,7 +229,7 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(localization.getLocaleData.hintText!.findDoctor.toString(),style: MyTextTheme().mediumGCN.copyWith(fontSize: 20)),
+                                Text(localization.getLocaleData.hintText!.findDoctor.toString(),style: MyTextTheme().mediumGCB.copyWith(fontSize: 20)),
                                 Column(
                                   children: [
                                     Padding(
@@ -238,8 +238,8 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children:  [
-                                          Text("${localization.getLocaleData.hintText!.Selected.toString()} \n${localization.getLocaleData.hintText!.specialist.toString()}",style: MyTextTheme().mediumGCN.copyWith(fontSize: 20),),
-                                          const SizedBox(width: 130,),Expanded(child: Text(localization.getLocaleData.hintText!.doctorList.toString(), style: MyTextTheme().mediumGCN.copyWith(fontSize: 20),)),
+                                          Text("${localization.getLocaleData.hintText!.Selected.toString()} \n${localization.getLocaleData.hintText!.specialist.toString()}",style: MyTextTheme().mediumGCB.copyWith(fontSize: 20),),
+                                          const SizedBox(width: 130,),Expanded(child: Text(localization.getLocaleData.hintText!.doctorList.toString(), style: MyTextTheme().mediumGCB.copyWith(fontSize: 20),)),
                                           // Expanded(flex: 3,child: Column(
                                           //   crossAxisAlignment: CrossAxisAlignment.start,
                                           //   children: [
@@ -382,16 +382,18 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                       height:
                                                                                       10,
                                                                                     ),
-                                                                                    Text(
-                                                                                      details
-                                                                                          .departmentName
-                                                                                          .toString(),
-                                                                                      style:modal.controller.getSelectedIndex == index?MyTextTheme()
-                                                                                          .mediumWCB:MyTextTheme(). mediumGCN ,
-                                                                                      // textAlign:
-                                                                                      //     TextAlign.center,
-                                                                                      overflow: TextOverflow.clip,
+                                                                                    Expanded(
+                                                                                      child: Text(
+                                                                                        details
+                                                                                            .departmentName
+                                                                                            .toString(),
+                                                                                        style:modal.controller.getSelectedIndex == index?MyTextTheme()
+                                                                                            .largeWCB:MyTextTheme(). largePCB ,
+                                                                                        // textAlign:
+                                                                                        //     TextAlign.center,
+                                                                                        overflow: TextOverflow.ellipsis,
 
+                                                                                      ),
                                                                                     ),
                                                                                   ],
                                                                                 ),
@@ -556,7 +558,7 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                     child: Padding(
                                                                                       padding: const EdgeInsets.all(8.0),
                                                                                       child: Container(
-                                                                                        height: 80,
+                                                                                        height: 100,
                                                                                         decoration: BoxDecoration(
                                                                                             color: AppColor.white,
                                                                                             borderRadius:const BorderRadius.all( Radius.circular(5))
@@ -582,19 +584,22 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                                 child: Column(
                                                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                                                   children: [
-                                                                                                    Text(
-                                                                                                      doctor.name
-                                                                                                          .toString(),
-                                                                                                      style: MyTextTheme()
-                                                                                                          .smallBCB,
-                                                                                                    ),
-                                                                                                    Expanded(
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.only(left: 10.0,top: 5),
                                                                                                       child: Text(
-                                                                                                        doctor.titleName.toString(),
-                                                                                                        style:
-                                                                                                        MyTextTheme().smallBCN,
+                                                                                                        doctor.name
+                                                                                                            .toString(),
+                                                                                                        style: MyTextTheme()
+                                                                                                            .largeBCB,
                                                                                                       ),
-                                                                                                    )
+                                                                                                    ),
+                                                                                                    // Expanded(
+                                                                                                    //   child: Text(
+                                                                                                    //     doctor.titleName.toString(),
+                                                                                                    //     style:
+                                                                                                    //     MyTextTheme().smallBCN,
+                                                                                                    //   ),
+                                                                                                    // )
                                                                                                   ],
                                                                                                 ),
                                                                                               ),
@@ -608,10 +613,11 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                               //   ),
                                                                                               // ),
                                                                                               SizedBox(
-                                                                                                  width: 80,
+                                                                                                  width: 150,
                                                                                                   child: MyButton(title:localization.getLocaleData.hintText!.book.toString(),height: 100,
                                                                                                     onPress: (){
                                                                                                     modal2.controller.updateDoctorId=doctor.id;
+                                                                                                    modal2.getDays(context,doctor.id.toString());
                                                                                                   //  App().navigate(context, NewBookAppointment(doctorName: doctor.name.toString(),doctorId:doctor.id,departmentId: doctor.departmentId));
 //**//**********
                                                                                                       App().navigate(context, TimeSlotView(profilePhoto: '',degree:'' ,doctorId:doctor.id.toString(),

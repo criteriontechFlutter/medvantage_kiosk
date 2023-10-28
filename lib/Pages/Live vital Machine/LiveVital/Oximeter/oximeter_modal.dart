@@ -24,34 +24,18 @@ class OximeterModal {
 
 
   void saveData(context) async{
-    ApplicationLocalizations localization=Provider.of<ApplicationLocalizations>(context,listen: false);
+
+    AddVitalsModel vitalModal=AddVitalsModel();
+
+
     if(controller.getOximeterData.spo2==null){
       alertToast(context, 'No data to save.');
     }
     else{
-      vitalModal.onPressedClear(context);
-      // vitalModal.controller.vitalTextX[2].text=controller.getOximeterData.spo2.toString() ;
-      // vitalModal.controller.vitalTextX[0].text=controller.getOximeterData.heartRate.toString();
-      // vitalModal.controller.vitalsList[6]['controller'].text=controller.getOximeterData.hrv.toString();
-      // vitalModal.controller.vitalsList[6]['controller'].text=controller.getOximeterData.perfusionIndex.toString();
+      await vitalModal.medvantageAddVitals(context,
+      SPO2: controller.getOximeterData.spo2.toString(),
+      Pulse: controller.getOximeterData.heartRate.toString());
 
-
-          var data= await vitalModal.saveDeviceVital(context,spo2: controller.getOximeterData.spo2.toString(),
-         pr: controller.getOximeterData.heartRate.toString(),
-          );
-
-
-      if(data['status']==0){
-        alertToast( context,data['message']);
-      }
-      else{
-        if(data['responseCode']==1){
-          alertToast( context,localization.getLocaleData.dataSavedSuccessfully.toString());
-        }
-        else{
-          alertToast( context,data['message']);
-        }
-      }
     }
   }
 

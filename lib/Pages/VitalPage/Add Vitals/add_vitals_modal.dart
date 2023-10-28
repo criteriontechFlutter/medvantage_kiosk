@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http;
+import '../../../AppManager/app_color.dart';
+import '../../../AppManager/app_util.dart';
 import '../../../AppManager/progress_dialogue.dart';
 import '../../../Localization/app_localization.dart';
 import 'package:digi_doctor/AppManager/alert_dialogue.dart';
@@ -12,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../Specialities/SpecialistDoctors/TimeSlot/AppointmentBookedDetails/appointment_booked_controller.dart';
+import '../../StartUpScreen/startup_screen.dart';
 
 class AddVitalsModel {
   AddVitalsController controller = Get.put(AddVitalsController());
@@ -173,6 +178,8 @@ print('----------'+sys.toString());
             body,
             context,
           );
+
+
           ProgressDialogue().hide();
           if (data['responseCode'] == 1) {
 
@@ -185,6 +192,87 @@ print('----------'+sys.toString());
 
 
         }, showCancelButton: true);
+
+  }
+
+
+  medvantageAddVitals(context,{
+    String BPSys='0',
+    String BPDias='0',
+    String RespiratoryRate='0',
+    String SPO2='0',
+    String Pulse='0',
+    String Temperature='0',
+    String HeartRate='0',
+    String BMI='0',
+    String BMR='0',
+    String weight='0',
+    String height='0',
+    String Rbs='0',
+  })  async {
+    final medvantageUser = GetStorage();
+    // var name = medvantageUser.read('medvantageUserName');
+    var uhid = medvantageUser.read('medvantageUserUHID');
+
+    // /api/PatientVital/InsertPatientVital
+
+    var headers = {
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    var request = http.Request('POST', Uri.parse('https://demo.medvantage.tech:7082/api/PatientVital/InsertPatientVital'));
+    DateTime now = DateTime.now();
+    DateTime parsedDate = DateTime.parse(now.toString());
+    String formattedDate = DateFormat('MMM dd, yyyy HH:mm:ss').format(parsedDate);
+
+    request.body =   json.encode({
+        "pmId": 0,
+        "userId": 99,
+        "vmValueBPSys": BPSys.toString(),
+        "vmValueBPDias": BPDias.toString(),
+        "vmValueRespiratoryRate": RespiratoryRate.toString(),
+        "vmValueSPO2": SPO2.toString(),
+        "vmValuePulse": Pulse.toString(),
+        "vmValueTemperature": Temperature.toString(),
+        "vmValueHeartRate": HeartRate.toString(),
+        "vmValueBMI": BMI.toString(),
+        "vmValueBMR": BMR.toString(),
+        "weight": weight.toString(),
+        "height": height.toString(),
+        "vmValueRbs": Rbs.toString(),
+        "vitalDate": formattedDate,
+        "uhid": uhid.toString(),
+        "clientId": 176
+      });
+
+    print(request.body.toString());
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    var data = await response.stream.bytesToString();
+    print(data);
+    Map<String, dynamic> responseData = jsonDecode(data);
+    print(responseData["responseValue"].toString()+'added');
+    print(responseData["message"].toString()=="success");
+    if(responseData["message"].toString()=="success"){
+      App().replaceNavigate(context, const StartupPage());
+    }
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 10),
+      backgroundColor:response.statusCode == 200?
+      AppColor.green: AppColor.secondaryColor,
+      content:  Text(response.statusCode == 200?
+      "Added"
+          :responseData["responseValue"].toString()),
+      action: SnackBarAction(
+        textColor: Colors.white,
+        label: 'Ok',
+        onPressed: () {
+
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+
 
   }
 }

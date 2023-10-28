@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../AppManager/raw_api.dart';
 import '../../../../AppManager/user_data.dart';
+import '../../../VitalPage/Add Vitals/add_vitals_modal.dart';
 import '../../../select_member/DataModal/select_member_data_modal.dart';
 
 class WellueViewModal extends ChangeNotifier {
@@ -225,40 +226,17 @@ Timer(const Duration(seconds: 4), () {
 
 
   saveVital(context,{ spo2,pr}) async {
-    try {
-      List dtDataTable = [];
-      if (getOximeterData.spo2 != null ) {
-        dtDataTable.add({
-          'vitalId': 56.toString(),
-          'vitalValue': getOximeterData.spo2.toString(),
-        });
-      }  if (getOximeterData.spo2 != null ) {
-        dtDataTable.add({
-          'vitalId': 3.toString(),
-          'vitalValue': getOximeterData.pr.toString(),
-        });
-      }
 
 
-      var body = {
-        "memberId":UserData().getUserMemberId,
-        'dtDataTable': jsonEncode(dtDataTable),
-        "date": DateFormat("yyyy-MM-dd").format(DateTime.now()).toString(),
-        "time": DateFormat("HH:mm:ss").format(DateTime.now()).toString(),
-      };
 
-      var data = await RawData().api(
-        "Patient/addVital",
-        body,
-        context,
-      );
+    AddVitalsModel vitalModal=AddVitalsModel();
 
-      if (data['responseCode'] == 1) {
-      }
-    }
-    catch(e){
+    await vitalModal.medvantageAddVitals(context,
+      SPO2: getOximeterData.spo2.toString(),
+     Pulse: getOximeterData.pr.toString(),);
 
-    }
+
+
 
   }
 

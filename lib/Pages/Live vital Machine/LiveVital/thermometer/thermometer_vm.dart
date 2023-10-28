@@ -9,6 +9,7 @@ import '../../../../AppManager/alert_dialogue.dart';
 import '../../../../AppManager/progress_dialogue.dart';
 import '../../../../AppManager/raw_api.dart';
 import '../../../../AppManager/user_data.dart';
+import '../../../VitalPage/Add Vitals/add_vitals_modal.dart';
 
 class ThermometerVM extends ChangeNotifier{
 
@@ -65,37 +66,12 @@ class ThermometerVM extends ChangeNotifier{
   saveDeviceVital(context) async {
 
 
+    AddVitalsModel vitalModal=AddVitalsModel();
+
+    await vitalModal.medvantageAddVitals(context,
+      Temperature: getmyv.toString(),);
 
 
-    if(getmyv.toString()!=''){
-      ProgressDialogue().show(context, loadingText: 'saving Vitals...');
-      var body = {
-        "memberId": UserData().getUserMemberId,
-        'dtDataTable': jsonEncode([
-          {
-            'vitalId': 6.toString(),
-            'vitalValue': getmyv.toString(),
-          }
-        ]),
-        "date": DateFormat("yyyy-MM-dd").format(DateTime.now()).toString(),
-        "time": DateFormat("HH:mm:ss").format(DateTime.now()).toString(),
-      };
-
-      var data = await RawData().api(
-        "Patient/addVital",
-        body,
-        context,
-      );
-      ProgressDialogue().hide();
-      if (data['responseCode'] == 1) {
-        alertToast(context,'vitals Saved Successfully');
-
-      } else {
-        alertToast(context, data['responseMessage'].toString());
-      }
-    }else{
-      alertToast(context, 'Please measure your temperature');
-    }
 
   }
 

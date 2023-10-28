@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
 import '../../../AppManager/app_color.dart';
 import '../../../AppManager/widgets/MyCustomSD.dart';
 import '../../../AppManager/widgets/my_button.dart';
 import '../../../AppManager/widgets/my_text_field_2.dart';
+import '../../../Localization/app_localization.dart';
 import '../../VitalPage/LiveVital/stetho_master/AppManager/widgets/date_time_field.dart';
 import 'NewBookAppointmentController.dart';
 import 'NewBookAppointmentModal.dart';
@@ -35,7 +37,7 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
     // TODO: implement initState
     super.initState();
     //modal.getTimeSlots(context, dayId: '', drId: '',);
-    modal.getDays(context,widget.doctorId.toString());
+   // modal.getDays(context,widget.doctorId.toString());
   }
   NewBookAppointmentModal modal = NewBookAppointmentModal();
   List abc  =[
@@ -58,6 +60,7 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
   ];
   @override
   Widget build(BuildContext context) {
+    ApplicationLocalizations localization=Provider.of<ApplicationLocalizations>(context,listen: true);
     final medvantageUser = GetStorage();
     var name = medvantageUser.read('medvantageUserName');
     var uhid = medvantageUser.read('medvantageUserUHID');
@@ -78,10 +81,8 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
-
-                              const Text("Patient Name",
-                                  style: TextStyle(
+                               Text(localization.getLocaleData.fullName.toString(),
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     )),
                                const SizedBox(height: 5),
@@ -129,7 +130,7 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
 
                       const SizedBox(height: 15),
 
-                              const Text('Doctor Name', style: TextStyle(
+                               Text(localization.getLocaleData.doctorsInformation.toString(), style: TextStyle(
                                 fontSize: 18,),),
                               const SizedBox(height: 5,),
                       MyTextField2(
@@ -152,7 +153,7 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
                               // Text('${localization.getLocaleData.hintText?.id.toString()}',
                               //     style: const TextStyle(
                               //       fontSize: 18, color: Colors.white,)),
-                              const Text("Appointment Date",style:TextStyle(
+                               Text(localization.getLocaleData.appointmentDate.toString(),style:TextStyle(
                                 fontSize: 18,) ,),
                               const SizedBox(height: 6,),
                   MyTextField2(
@@ -170,11 +171,10 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
                     },
                   ),
                   const SizedBox(height: 15),
-
                               // Text('${localization.getLocaleData.hintText?.id.toString()}',
                               //     style: const TextStyle(
                               //       fontSize: 18, color: Colors.white,)),
-                              const Text("day",style:TextStyle(
+                               Text(localization.getLocaleData.days.toString(),style:TextStyle(
                                 fontSize: 18,) ,),
                               const SizedBox(height: 6,),
                   MyTextField2(
@@ -200,7 +200,7 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
                             // Text('${localization.getLocaleData.hintText?.address.toString()}',
                             //     style: const TextStyle(
                             //       fontSize: 18, color: Colors.white,)),
-                            const Text("Time Slots",style: TextStyle(fontSize: 18, ),),
+                             Text(localization.getLocaleData.time.toString(),style: TextStyle(fontSize: 18, ),),
                             const SizedBox(height: 5,),
                   MyTextField2(
                     enabled: false,
@@ -224,7 +224,7 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
                         alignment: Alignment.centerRight,
                         child: SizedBox(
                             width: 200,
-                            child: MyButton(title:"Book Appointment",height: 50,
+                            child: MyButton(title:"Confirm",height: 50,
                               onPress: (){
 
                                 modal.bookAppointment(context,doctorId: widget.doctorId,departmentId: widget.departmentId,timeSlotsId: widget.timeSlotId,appointmentDate: widget.date,dayId:widget.dayid);

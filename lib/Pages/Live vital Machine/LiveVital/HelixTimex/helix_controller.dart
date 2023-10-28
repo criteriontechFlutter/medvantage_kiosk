@@ -206,8 +206,8 @@ class HelixController extends GetxController{
     timex.getHeartRateStream.listen((event) {
       readingData.value='';
       update();
-       vitalModal.controller.vitalTextX[0].text=event.toString();
-      vitalModal.getVitalsList(context,isHelix:true);
+       // vitalModal.controller.vitalTextX[0].text=event.toString();
+      vitalModal.medvantageAddVitals(context,Pulse:event.toString());
       if(selectedTimePeriod=='Repeat'){
         measureSpO2();
       }
@@ -222,8 +222,8 @@ class HelixController extends GetxController{
 
 
 
-        vitalModal.controller.vitalTextX[2].text=event.toString();
-      vitalModal.getVitalsList(context,isHelix:true);
+        // vitalModal.controller.vitalTextX[2].text=event.toString();
+      vitalModal.medvantageAddVitals(context,SPO2:event.toString());
 
 
       print('My SpO2'+event.toString());
@@ -240,9 +240,9 @@ class HelixController extends GetxController{
       update();
 
 
-      vitalModal.controller.vitalTextX[0].text=event['sbp'].toString();
-        vitalModal.controller.vitalTextX[1].text=event['dbp'].toString();
-      vitalModal.getVitalsList(context,isHelix:true);
+      // vitalModal.controller.vitalTextX[0].text=event['sbp'].toString();
+      //   vitalModal.controller.vitalTextX[1].text=event['dbp'].toString();
+      vitalModal.medvantageAddVitals(context,BPDias:event['dbp'].toString(),BPSys:event['sbp'].toString() );
 
 
       measureHR();

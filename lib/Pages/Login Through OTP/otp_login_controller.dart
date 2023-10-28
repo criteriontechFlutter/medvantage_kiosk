@@ -14,12 +14,14 @@ class OtpLoginController extends GetxController {
   Rx<TextEditingController> idC = TextEditingController().obs;
   Rx<TextEditingController> mobileController = TextEditingController().obs;
   Rx<TextEditingController> emailController = TextEditingController().obs;
-  Rx<TextEditingController> dobController = TextEditingController().obs;
+  Rx<TextEditingController> yearController = TextEditingController().obs;
   Rx<TextEditingController> idController = TextEditingController().obs;/// new
   Rx<TextEditingController> stateController = TextEditingController().obs;/// new
   Rx<TextEditingController> districtController = TextEditingController().obs;/// new
   Rx<TextEditingController> addressController = TextEditingController().obs;/// new
   Rx<TextEditingController> genderController = TextEditingController().obs;
+  Rx<TextEditingController> dobUnitId = TextEditingController().obs;
+  Rx<TextEditingController> dateOfBirth = TextEditingController().obs;
   Rx<TextEditingController> addrsController = TextEditingController().obs;
   Rx<TextEditingController> selectedGenderC = TextEditingController().obs;
   Rx<TextEditingController> passwordC = TextEditingController().obs;
@@ -44,6 +46,20 @@ class OtpLoginController extends GetxController {
     {
       'gen' : 'Female',
       'id' : '2'
+    },
+  ];
+  List dobType  =[
+    {
+      "id":1,
+      "name":"Year"
+    },
+    {
+      "id":2,
+      "name":"Month"
+    },
+    {
+      "id":3,
+      "name":"Day"
     },
   ];
 

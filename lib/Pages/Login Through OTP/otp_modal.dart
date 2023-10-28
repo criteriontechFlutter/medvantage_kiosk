@@ -66,7 +66,6 @@ class LoginThroughOTPModal {
         final medvantageUser = GetStorage();
         controller.updateUsersList = List<UsersDataModal>.from(((data['responseValue'])).map((e) => UsersDataModal.fromJson(e)));
         await medvantageUser.write('allUsersList',controller.usersList);
-
         print('1234567890${controller.getUsersList}');
         if ('${controller.getUsersList}' == '[]') {
        //   App().navigate(context, const Registration());
@@ -113,8 +112,8 @@ class LoginThroughOTPModal {
     }
   }
 
-// http://172.16.61.31:7082/api/PatientRegistration/InsertPatient
-// http://172.16.61.31:7082/api/PatientRegistrationkiosk/InsertPatient
+// http://demo.medvantage.tech:7082/api/PatientRegistration/InsertPatient
+// http://demo.medvantage.tech:7082/api/PatientRegistrationkiosk/InsertPatient
 
   sendOTPForRegistration(context, String phoneNumber) async {
     try {
@@ -182,13 +181,24 @@ class LoginThroughOTPModal {
       "patientName": controller.nameController.value.text,
       "emailID": controller.emailController.value.text.toString(),
       "genderId": controller.selectedGenderC.value.text,
-      "age": controller.dobController.value.text,
+      "age": controller.yearController.value.text,
       // "mobileNo": controller.mobileController.value.text,
       "mobileNo": phoneNumber,
       "userId": "99",
-      "isFromKiosk": 1
+      "isFromKiosk": 1,
+       "ageUnitId": controller.dobUnitId.value.text,
+       "dob": controller.dateOfBirth.value.text.toString(),
     };
-
+    // patientName: patientName,
+    // mobileNo: JSON.parse(sessionStorage.getItem('loginData')),
+    // emailID: emailID,
+    // genderId: selectedGender,
+    // age: age,
+    // dob: dob,
+    // ageUnitId: ageUnitId,
+    // isFromKiosk: 1,
+    // userId: 99,
+    // clientID:176
 
     print(body.toString());
 
@@ -196,7 +206,7 @@ class LoginThroughOTPModal {
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },
-      Uri.parse('http://172.16.61.31:7082/api/PatientRegistrationkiosk/InsertPatient'),
+      Uri.parse('https://demo.medvantage.tech:7082/api/PatientRegistrationkiosk/InsertPatient'),
       body: jsonEncode(body)
         );
     Map<String, dynamic> map = json.decode(data.body);

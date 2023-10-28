@@ -22,7 +22,7 @@ class UsersDataModal {
         this.guardianName,
         this.agetype});
 
-  UsersDataModal.fromJson(Map<String, dynamic> json) {
+  UsersDataModal.fromJson(Map json) {
     id = json['id'];
     uhID = json['uhID'];
     patientName = json['patientName'];

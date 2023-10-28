@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../AppManager/raw_api.dart';
 import '../../../../AppManager/user_data.dart';
+import '../../../VitalPage/Add Vitals/add_vitals_modal.dart';
 
 class YonkerOximeterController extends GetxController{
 
@@ -175,41 +176,14 @@ class YonkerOximeterController extends GetxController{
 
 
   saveVital(context,{ spo2,pr}) async {
-    try {
-      List dtDataTable = [];
-      if (spo2 != null && spo2 != '' ) {
-        dtDataTable.add({
-          'vitalId': 56.toString(),
-          'vitalValue': spo2.toString(),
-        });
-      }  if (pr != null && pr != '' ) {
-        dtDataTable.add({
-          'vitalId': 3.toString(),
-          'vitalValue': pr.toString(),
-        });
-      }
 
 
-      if(dtDataTable.isNotEmpty){
-        var body = {
-          "memberId": UserData().getUserMemberId,
-          'dtDataTable': jsonEncode(dtDataTable),
-          "date": DateFormat("yyyy-MM-dd").format(DateTime.now()).toString(),
-          "time": DateFormat("HH:mm:ss").format(DateTime.now()).toString(),
-        };
 
-        var data = await RawData().api(
-          "Patient/addVital",
-          body,
-          context,
-        );
+    AddVitalsModel vitalModal=AddVitalsModel();
 
-        if (data['responseCode'] == 1) {}
-      }
-    }
-    catch(e){
-
-    }
+    await vitalModal.medvantageAddVitals(context,
+      SPO2:  spo2.toString(),
+      Pulse: pr.toString(),);
 
   }
 

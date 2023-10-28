@@ -49,7 +49,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 25,left: 10),
-          child: Image.asset('assets/kiosk_logo.png',color: AppColor.white,width: 150,height: 40,),
+          child: Image.asset('assets/kiosk_logo2.png',color: AppColor.white,width: 150,height: 70,),
         ),
         // SizedBox(
         //   child:   Container(
@@ -178,46 +178,46 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        App().replaceNavigate(context, const SelectUser());
-                      });
-                    },
-                    child: Padding(
-                      padding:  const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 160,
-                          decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
-                          border: Border.all(
-                            color: AppColor.white
-                          ),
-                          ),
-                          child:Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-
-
-
-
-
-                                    Text(userName.toString(),style: MyTextTheme().mediumWCB,),
-                               //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
-                                    const Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
-                                  ],
-                                ),
-                            ),
-                          )
-                      ),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     setState(() {
+                  //       App().navigate(context, const SelectUser());
+                  //     });
+                  //   },
+                  //   child: Padding(
+                  //     padding:  const EdgeInsets.all(8.0),
+                  //     child: Container(
+                  //       width: 160,
+                  //         decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
+                  //         border: Border.all(
+                  //           color: AppColor.white
+                  //         ),
+                  //         ),
+                  //         child:Container(
+                  //           decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(20),
+                  //             border: Border.all(color: Colors.white),
+                  //           ),
+                  //           child: Padding(
+                  //             padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                  //             child: Row(
+                  //                 mainAxisAlignment: MainAxisAlignment.center,
+                  //                 children: [
+                  //
+                  //
+                  //
+                  //
+                  //
+                  //                   Text(userName.toString(),style: MyTextTheme().mediumWCB,),
+                  //              //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
+                  //                   const Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
+                  //                 ],
+                  //               ),
+                  //           ),
+                  //         )
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding:
                     const EdgeInsets.only(right: 15, left: 5),

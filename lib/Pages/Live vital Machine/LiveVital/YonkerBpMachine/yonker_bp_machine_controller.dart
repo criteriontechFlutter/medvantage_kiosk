@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:digi_doctor/Pages/VitalPage/Add%20Vitals/add_vitals_modal.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -203,49 +204,19 @@ class YonkerBpMachineController extends GetxController{
 
 
   saveVital(context,) async {
-    try {
-      List dtDataTable = [];
-      if (getBpData['sys'].toString() != '00' && getBpData['sys'].toString() != '' ) {
-        dtDataTable.add({
-          'vitalId': 4.toString(),
-          'vitalValue': getBpData['sys'].toString().toString(),
-        });
-      }
-      if (getBpData['dia'].toString() != null && getBpData['dia'].toString() != '' ) {
-        dtDataTable.add({
-          'vitalId': 6.toString(),
-          'vitalValue': getBpData['dia'].toString(),
-        });
-      }
-
-      if (getBpData['pr'].toString() != null && getBpData['pr'].toString() != '' ) {
-        dtDataTable.add({
-          'vitalId': 3.toString(),
-          'vitalValue': getBpData['pr'].toString(),
-        });
-      }
 
 
-      if(dtDataTable.isNotEmpty){
-        var body = {
-          "memberId": UserData().getUserMemberId,
-          'dtDataTable': jsonEncode(dtDataTable),
-          "date": DateFormat("yyyy-MM-dd").format(DateTime.now()).toString(),
-          "time": DateFormat("HH:mm:ss").format(DateTime.now()).toString(),
-        };
 
-        var data = await RawData().api(
-          "Patient/addVital",
-          body,
-          context,
-        );
 
-        if (data['responseCode'] == 1) {}
-      }
-    }
-    catch(e){
+    AddVitalsModel vitalModal=AddVitalsModel();
 
-    }
+    await vitalModal.medvantageAddVitals(context,
+      BPDias:  getBpData['dia'].toString(),
+      BPSys: getBpData['sys'].toString().toString(),
+    Pulse: getBpData['pr'].toString(),);
+
+
+
 
   }
 

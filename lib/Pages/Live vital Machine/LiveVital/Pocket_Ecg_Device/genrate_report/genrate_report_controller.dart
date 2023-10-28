@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../../AppManager/raw_api.dart';
+import '../../../../VitalPage/Add Vitals/add_vitals_modal.dart';
 import '../ecg_controller.dart';
 
 class GenerateReportController extends GetxController{
@@ -93,34 +94,10 @@ class GenerateReportController extends GetxController{
 
     List dtDataTable = [];
 
-    if(  getHrValue!='00'){
-      dtDataTable.add({
-        'vitalId': 74.toString(),
-        'vitalValue':getHrValue.toString(),
-      });}
+    AddVitalsModel vitalModal=AddVitalsModel();
 
-
-
-    var body = {
-      "memberId": UserData().getUserMemberId,
-      'dtDataTable': jsonEncode(dtDataTable),
-      "date": DateFormat("yyyy-MM-dd").format(DateTime.now()).toString(),
-      "time": DateFormat("HH:mm:ss").format(DateTime.now()).toString(),
-    };
-
-    var data = await RawData().api(
-      "Patient/addVital",
-      body,
-      context,
-    );
-    if (data['responseCode'] == 1) {
-
-      // alertToast(context,
-      //     localization.getLocaleData.vitalsSaveSuccessfully.toString());
-      // Navigator.pop(context);
-    }  else {
-      // alertToast(context, data['responseMessage'].toString());
-    }
+    await vitalModal.medvantageAddVitals(context,
+      HeartRate: getHrValue.toString(),);
 
 
   }

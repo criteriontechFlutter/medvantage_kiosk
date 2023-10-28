@@ -103,7 +103,7 @@ class _TimeSlotViewState extends State<TimeSlotView> {
     appointmentModal.controller.updateAvailableDays=[];
     appointmentModal.controller.updateTimeList=[];
     // appointmentModal.getTimeSlots(context,dayId: '', drId: '');
-    appointmentModal.getDays(context,widget.doctorId.toString());
+ //   appointmentModal.getDays(context,widget.doctorId.toString());
     VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
     listenVM.listeningPage="slot view";
     List<DateTime> dates = [];
@@ -605,8 +605,15 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                                                                                 TimeSlotDataModal  time=      appointmentModal.controller.getTimeList[index2];
                                                                                   return InkWell(
                                                                                     onTap: (){
+                                                                                      showDialog(
+                                                                                        context: context,
+                                                                                        builder: (BuildContext context) => _buildPopupDialog(context,selectedDay: selectedDay,time: time),
+                                                                                      );
 
-                                                                                      App().navigate(context, NewBookAppointment(doctorName: widget.drName.toString(),doctorId:widget.doctorId,departmentId: widget.departmentId,timeSlot: (time.fromTime.toString()+time.toTime.toString()),date: modal.controller.getSelectedDate.toString(),day: selectedDay,timeSlotId: time.id,dayid: time.dayId,));
+
+
+
+                                                                                   //   App().navigate(context, NewBookAppointment(doctorName: widget.drName.toString(),doctorId:widget.doctorId,departmentId: widget.departmentId,timeSlot: (time.fromTime.toString()+'  -  '+time.toTime.toString()),date: modal.controller.getSelectedDate.toString(),day: selectedDay,timeSlotId: time.timeslotId,dayid: time.dayId,));
 // //**//*******
                                                                                     },
                                                                                     child: Container(
@@ -630,7 +637,6 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                                                                             ),
                                                                           ),
                                                                         ),
-
                                                                         // Expanded(
                                                                         //   child: Center(
                                                                         //       child: CommonWidgets().showNoData(
@@ -1611,8 +1617,24 @@ class _TimeSlotViewState extends State<TimeSlotView> {
         ),
       ),
     );
-  }
 
+
+  }
+  Widget _buildPopupDialog(BuildContext context,{time,selectedDay}) {
+    return  AlertDialog(
+
+      content:  SizedBox(width:Get.width/2,child: NewBookAppointment(doctorName: widget.drName.toString(),doctorId:widget.doctorId,departmentId: widget.departmentId,timeSlot: (time.fromTime.toString()+'  -  '+time.toTime.toString()),date: modal.controller.getSelectedDate.toString(),day: selectedDay,timeSlotId: time.timeslotId,dayid: time.dayId,)),
+      actions: <Widget>[
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+
+          child: const Text('Close'),
+        ),
+      ],
+    );
+  }
   reScheduleAppointment(
       context,
       ) {

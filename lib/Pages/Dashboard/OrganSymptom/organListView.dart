@@ -99,30 +99,33 @@ class _OrganListViewState extends State<OrganListView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: InkWell(
-                            onTap: (){
-                              VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
-                              listenVM.stopListening();
-                              App().navigate(context,  Speech());
-                            },
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.green
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:  [
-                                  const Icon(Icons.mic,color: Colors.white,),
-                                  Text(localization.getLocaleData.alertToast!.searchSymptomsByVoice.toString(),style: const TextStyle(color: Colors.white,fontSize: 20),),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        const SizedBox(height: 10,),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(4.0),
+                        //   child: InkWell(
+                        //     onTap: (){
+                        //       VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
+                        //       listenVM.stopListening();
+                        //       App().navigate(context,  Speech());
+                        //     },
+                        //     child: Container(
+                        //       height: 50,
+                        //       decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(5),
+                        //         color: Colors.green
+                        //       ),
+                        //       child: Row(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children:  [
+                        //           const Icon(Icons.mic,color: Colors.white,),
+                        //           Text(localization.getLocaleData.alertToast!.searchSymptomsByVoice.toString(),style: const TextStyle(color: Colors.white,fontSize: 20),),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+
+
                         // Padding(
                         //   padding: const EdgeInsets.fromLTRB(16, 0, 5, 5),
                         //   child: Row(

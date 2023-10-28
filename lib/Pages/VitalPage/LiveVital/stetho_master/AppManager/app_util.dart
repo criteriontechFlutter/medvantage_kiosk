@@ -22,9 +22,9 @@ import 'my_text_theme.dart';
 
 // Local URL
 // String baseUrl='http://aws.edumation.in:5001/sthethoapi/';
-String baseUrl='http://172.16.61.31:7082';
-String baseUrl83='http://172.16.61.31:7083';
-String baseUrl84='http://172.16.61.31:7084';
+String baseUrl='https://demo.medvantage.tech:7082';
+String baseUrl83='https://demo.medvantage.tech:7083';
+String baseUrl84='https://demo.medvantage.tech:7084';
 String secretMapKey='AIzaSyBiCc5Juc52C8oAvuqo_y2rCQh6VU_802Q';
 
 

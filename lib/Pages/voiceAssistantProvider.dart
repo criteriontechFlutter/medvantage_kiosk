@@ -66,7 +66,7 @@ class VoiceAssistantProvider extends ChangeNotifier {
     });
 
     await _initSpeech();
-    _startListening();
+ //   _startListening();
   }
 
   SpeechToText _speechToText = SpeechToText();

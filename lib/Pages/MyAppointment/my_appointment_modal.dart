@@ -37,14 +37,57 @@ class MyAppointmentModal {
     if(data["status"].toString()=='1'){
       controller.updateAppointmentList =  data["responseValue"];
     }
-
-
-
   }
 
 
 
+  Future<void>  allPatientVitals(context) async {
+    final medvantageUser = GetStorage();
+    var uhid = medvantageUser.read('medvantageUserUHID');
+    var data =
+    await RawDataApi().getapi('/api/PatientVital/GetAllPatientVital?UHID=$uhid',context);
+    log(data.toString()+'abcdeeeeee');
+    if(data["status"].toString()=='1'){
+      controller.updateSetMedVitalList =  data["responseValue"]["allPatientVital"];
+    }
+  }
+}
 
 
 
+class MedvantageDataModal {
+  int? pmId;
+  String? vitalDateTime;
+  String? vitalName;
+  int? pid;
+  int? vmValue;
+  int? userId;
+
+  MedvantageDataModal(
+      {this.pmId,
+        this.vitalDateTime,
+        this.vitalName,
+        this.pid,
+        this.vmValue,
+        this.userId});
+
+  MedvantageDataModal.fromJson(Map<String, dynamic> json) {
+    pmId = json['pmId'];
+    vitalDateTime = json['vitalDateTime'];
+    vitalName = json['vitalName'];
+    pid = json['pid'];
+    vmValue = json['vmValue'];
+    userId = json['userId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['pmId'] = this.pmId;
+    data['vitalDateTime'] = this.vitalDateTime;
+    data['vitalName'] = this.vitalName;
+    data['pid'] = this.pid;
+    data['vmValue'] = this.vmValue;
+    data['userId'] = this.userId;
+    return data;
+  }
 }

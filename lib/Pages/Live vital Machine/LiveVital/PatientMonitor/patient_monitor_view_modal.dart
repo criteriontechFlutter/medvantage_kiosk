@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../AppManager/raw_api.dart';
 import '../../../../AppManager/user_data.dart';
+import '../../../VitalPage/Add Vitals/add_vitals_modal.dart';
 
 class PatientMonitorViewModal  extends ChangeNotifier {
 
@@ -313,67 +314,16 @@ class PatientMonitorViewModal  extends ChangeNotifier {
 
 
 
+    AddVitalsModel vitalModal=AddVitalsModel();
 
 
-    List dtDataTable = [];
+    await vitalModal.medvantageAddVitals(context,SPO2: spo2.toString(),
+      Pulse: pr.toString(),
+      BPDias: dys.toString() ,
+      BPSys: sys.toString(),
+      Temperature: temp.toString(),
+      HeartRate: hr.toString(),);
 
-    if(spo2!=null && spo2.toString()!='00'){
-      dtDataTable.add({
-        'vitalId': 56.toString(),
-        'vitalValue': spo2.toString(),
-      });}
-
-    if(pr!=null && pr!=0.0){
-      dtDataTable.add({
-        'vitalId': 3.toString(),
-        'vitalValue':pr.toString(),
-      });}
-
-    if(sys!=null && sys!=0.0){
-      dtDataTable.add({
-        'vitalId': 4.toString(),
-        'vitalValue':sys.toString(),
-      });}
-
-    if(dys!=null && dys!=0.0){
-      dtDataTable.add({
-        'vitalId': 6.toString(),
-        'vitalValue':dys.toString(),
-      });}
-
-    if(temp!=null && temp!=0.0){
-      dtDataTable.add({
-        'vitalId': 5.toString(),
-        'vitalValue':temp.toString(),
-      });}
-    if(hr!=null && hr!='00'){
-      dtDataTable.add({
-        'vitalId': 74.toString(),
-        'vitalValue':hr.toString(),
-      });}
-
-
-
-    var body = {
-      "memberId": UserData().getUserMemberId,
-      'dtDataTable': jsonEncode(dtDataTable),
-      "date": DateFormat("yyyy-MM-dd").format(DateTime.now()).toString(),
-      "time": DateFormat("HH:mm:ss").format(DateTime.now()).toString(),
-    };
-
-    var data = await RawData().api(
-      "Patient/addVital",
-      body,
-      context,
-    );
-    if (data['responseCode'] == 1) {
-
-      // alertToast(context,
-      //     localization.getLocaleData.vitalsSaveSuccessfully.toString());
-      // Navigator.pop(context);
-    }  else {
-      // alertToast(context, data['responseMessage'].toString());
-    }
 
 
   }

@@ -323,7 +323,7 @@ class _InvestigationViewState extends State<InvestigationView> {
                             ),
                           ),
                         ),
-                        Expanded(child: FooterView())
+                        // Expanded(child: FooterView())
                       ],
                     ),
                   );

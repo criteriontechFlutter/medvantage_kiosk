@@ -113,12 +113,12 @@ class _OximeterState extends State<Oximeter> {
                           ),
                         ),
                       ]),
-                  child: const SizedBox(
-                    height: 60,
-                    child: Image(
-                      image: AssetImage('assets/oximeter_ct.webp'),
-                    ),
-                  ),
+                  // child: const SizedBox(
+                  //   height: 60,
+                  //   child: Image(
+                  //     image: AssetImage('assets/oximeter_ct.webp'),
+                  //   ),
+                  // ),
                 ),
               ),
             ]

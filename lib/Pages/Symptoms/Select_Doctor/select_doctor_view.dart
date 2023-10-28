@@ -334,7 +334,8 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                                                 child: Row(
                                                   children: [
                                                     Icon(Icons.arrow_back,size: 30,color: AppColor.primaryColor,),
-                                                    Expanded(child: Center(child: Text(widget.speechText??'Back', style: MyTextTheme().customLargePCB.copyWith(fontSize: 20),))),
+                                                    Expanded(child: Center(child: Text(widget.speechText??localization.getLocaleData.doctorDataNotFound
+                                                        .toString(), style: MyTextTheme().customLargePCB.copyWith(fontSize: 20),))),
                                                   ],
                                                 )))),
                                       )),
@@ -384,104 +385,108 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      //height: 800,
-                                      child: ListView.builder(
-                                         // physics: NeverScrollableScrollPhysics(),
-                                          itemCount:
-                                          modal.controller
-                                              .get_popular_Doctors_Data.length,
-                                          itemBuilder: (BuildContext context,int index){
-                                            // PopularDoctorDataModal doctor = modal
-                                            //     .controller
-                                            //     .get_popular_Doctors_Data[index];
-                                            DoctorsListDataModal doctor = modal
-                                                .controller
-                                                .get_popular_Doctors_Data[index];
-                                            return
-                                              Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  height: 80,
-                                                  decoration: BoxDecoration(
-                                                      color: AppColor.white,
-                                                      borderRadius:const BorderRadius.all( Radius.circular(5))
-                                                  )
-                                                  ,child:Padding(
-                                                  padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 5),
-                                                  child: Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                      children: [
-                                                        // Expanded(flex: 1,
-                                                        //   child: CachedNetworkImage(height: 25,imageUrl: doctor.imagePath
-                                                        //       .toString(),
-                                                        //       // progressIndicatorBuilder: (context,
-                                                        //       //         url,
-                                                        //       //         downloadProgress) =>
-                                                        //       //     CircularProgressIndicator(
-                                                        //       //         value:
-                                                        //       //             downloadProgress
-                                                        //       //                 .progress),
-                                                        //       errorWidget: (context,
-                                                        //           url, error) =>
-                                                        //           Image.asset(
-                                                        //               "assets/doctorSign.png")
-                                                        //     // Icon(Icons.error),
-                                                        //   ),
-                                                        // ),
-                                                        Expanded(flex: 2,
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Text(
-                                                                doctor.name
-                                                                    .toString(),
-                                                                style: MyTextTheme()
-                                                                    .smallBCB,
-                                                              ),
-                                                              // Expanded(
-                                                              //   child: Text(
-                                                              //     doctor.degree.toString(),
-                                                              //     style:
-                                                              //     MyTextTheme().smallBCN,
-                                                              //   ),
-                                                              // )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        // const Text("20 years of experience"),
-                                                        Expanded(flex: 2,
-                                                          child: Center(
-                                                            child: Text(
-                                                              doctor.departmentName
-                                                                  .toString(),
-                                                              style: MyTextTheme()
-                                                                  .mediumPCB,
+                                    Visibility(
+                                      visible: modal.controller
+                                          .get_popular_Doctors_Data.isEmpty,
+                                      child: Expanded(
+                                        //height: 800,
+                                        child: ListView.builder(
+                                           // physics: NeverScrollableScrollPhysics(),
+                                            itemCount:
+                                            modal.controller
+                                                .get_popular_Doctors_Data.length,
+                                            itemBuilder: (BuildContext context,int index){
+                                              // PopularDoctorDataModal doctor = modal
+                                              //     .controller
+                                              //     .get_popular_Doctors_Data[index];
+                                              DoctorsListDataModal doctor = modal
+                                                  .controller
+                                                  .get_popular_Doctors_Data[index];
+                                              return
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    height: 100,
+                                                    decoration: BoxDecoration(
+                                                        color: AppColor.white,
+                                                        borderRadius:const BorderRadius.all( Radius.circular(5))
+                                                    )
+                                                    ,child:Padding(
+                                                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 5),
+                                                    child: Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                        children: [
+                                                          // Expanded(flex: 1,
+                                                          //   child: CachedNetworkImage(height: 25,imageUrl: doctor.imagePath
+                                                          //       .toString(),
+                                                          //       // progressIndicatorBuilder: (context,
+                                                          //       //         url,
+                                                          //       //         downloadProgress) =>
+                                                          //       //     CircularProgressIndicator(
+                                                          //       //         value:
+                                                          //       //             downloadProgress
+                                                          //       //                 .progress),
+                                                          //       errorWidget: (context,
+                                                          //           url, error) =>
+                                                          //           Image.asset(
+                                                          //               "assets/doctorSign.png")
+                                                          //     // Icon(Icons.error),
+                                                          //   ),
+                                                          // ),
+                                                          Expanded(flex: 2,
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                Text(
+                                                                  doctor.name
+                                                                      .toString(),
+                                                                  style: MyTextTheme()
+                                                                      .smallBCB,
+                                                                ),
+                                                                // Expanded(
+                                                                //   child: Text(
+                                                                //     doctor.degree.toString(),
+                                                                //     style:
+                                                                //     MyTextTheme().smallBCN,
+                                                                //   ),
+                                                                // )
+                                                              ],
                                                             ),
                                                           ),
-                                                        ),
-                                                        // Text(
-                                                        //   '\u{20B9}  ${doctor.drFee}',
-                                                        //   style:
-                                                        //   MyTextTheme().mediumPCB,
-                                                        // ),
-                                                        const Expanded(child: SizedBox()),
-                                                        Expanded(flex: 1,
-                                                          child:  SizedBox(
-                                                              width: 70,
-                                                              child: MyButton(title: localization.getLocaleData.hintText!.book.toString(),
-                                                                onPress: (){
-                                                                  App().navigate(context, TimeSlotView(profilePhoto: '',degree:'' ,doctorId:doctor.id.toString(),
-                                                                    drName:doctor.name.toString(),
-                                                                    fees: 0,
-                                                                    iSEraDoctor:'',
-                                                                    speciality:  '',
-                                                                    timeSlots:const [],
-                                                                    selectedDay:null,
-                                                                    departmentId: doctor.departmentId??0,
-                                                                    // departmentId: doctor.departmentId??0
-                                                                  ));
+                                                          // const Text("20 years of experience"),
+                                                          Expanded(flex: 2,
+                                                            child: Center(
+                                                              child: Text(
+                                                                doctor.departmentName
+                                                                    .toString(),
+                                                                style: MyTextTheme()
+                                                                    .mediumPCB,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          // Text(
+                                                          //   '\u{20B9}  ${doctor.drFee}',
+                                                          //   style:
+                                                          //   MyTextTheme().mediumPCB,
+                                                          // ),
+                                                          const Expanded(child: SizedBox()),
+                                                          Expanded(flex: 1,
+                                                            child:  SizedBox(
+                                                                width: 70,
+                                                                height: 100,
+                                                                child: MyButton(title: localization.getLocaleData.hintText!.book.toString(),
+                                                                  onPress: (){
+                                                                    App().navigate(context, TimeSlotView(profilePhoto: '',degree:'' ,doctorId:doctor.id.toString(),
+                                                                      drName:doctor.name.toString(),
+                                                                      fees: 0,
+                                                                      iSEraDoctor:'',
+                                                                      speciality:  '',
+                                                                      timeSlots:const [],
+                                                                      selectedDay:null,
+                                                                      departmentId: doctor.departmentId??0,
+                                                                      // departmentId: doctor.departmentId??0
+                                                                    ));
 //**//*********
    ///                                                               App().navigate(context, TimeSlotView(profilePhoto: doctor.imagePath.toString(),degree:doctor.degree.toString() ,doctorId:doctor.id.toString(),
    ///                                                                 drName:doctor.doctorName.toString(),
@@ -496,19 +501,20 @@ class _RecommendedDoctorsState extends State<RecommendedDoctors> {
 //                                                                   iSEraDoctor:doctor.isEraUser.toString(),
 //                                                                   speciality:  doctor.degree.toString()
 //                                                                   ,timeSlots:doctor.sittingDays??[],selectedDay:null,));
-                                                                },
+                                                                  },
 
-                                                              )),
-                                                        )
+                                                                )),
+                                                          )
 
 
-                                                      ]
+                                                        ]
+                                                    ),
                                                   ),
-                                                ),
 
 
-                                                ),
-                                              );}
+                                                  ),
+                                                );}
+                                        ),
                                       ),
                                     ),
                                   ],),

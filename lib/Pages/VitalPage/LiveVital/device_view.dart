@@ -147,6 +147,7 @@ class _DeviceViewState extends State<DeviceView> {
 
   @override
   Widget build(BuildContext context) {
+    AddVitalsModel medvantagemodal =AddVitalsModel();
     ApplicationLocalizations localization =
         Provider.of<ApplicationLocalizations>(context, listen: true);
     SignalRViewModel signalRVM =
@@ -160,43 +161,287 @@ class _DeviceViewState extends State<DeviceView> {
             child: Scaffold(
               backgroundColor: AppColor.primaryColor,
                 //********
-                body: WillPopScope(
+                body: DefaultTabController(
+                  length: 2,
+                  child: WillPopScope(
               onWillPop: () {
-                return onPressedBack();
+                  return onPressedBack();
               },
               child: GetBuilder(
-                init: DeviceController(),
-                builder: (_) {
-                  return Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                            "assets/kiosk_bg.png",
-                          ),
-                          fit: BoxFit.fill),
-                    ),
-                    child: SingleChildScrollView(
+                  init: DeviceController(),
+                  builder: (_) {
+                    return Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                              "assets/kiosk_bg.png",
+                            ),
+                            fit: BoxFit.fill),
+                      ),
                       child: Column(
                         children: [
                           SizedBox(
                               height: Get.height * 0.1,
                               child: const ProfileInfoWidget()),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: InkWell(
-                              onTap:(){
-                                App().navigate(context, DeviceViewMachine());
+                          // Padding(
+                          //   padding: const EdgeInsets.all(8.0),
+                          //   child: InkWell(
+                          //     onTap:(){
+                          //       App().navigate(context, DeviceViewMachine());
+                          //
+                          //     },
+                          //     child: Container(
+                          //       height: 50,
+                          //        width: 200,
+                          //       decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(5),
+                          //         color: Colors.lightGreen,
+                          //       ),
+                          //       child: Center(child: Text("Connect device",style: MyTextTheme().largeWCB,)),
+                          //     ),
+                          //   ),
+                          // ),
 
-                              },
-                              child: Container(
-                                height: 50,
-                                 width: 200,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.lightGreen,
-                                ),
-                                child: Center(child: Text("Connect device",style: MyTextTheme().largeWCB,)),
+                          SizedBox(
+                            height: 50,
+                            child: AppBar(
+                              backgroundColor: AppColor.primaryColorLight,
+
+                              bottom: const TabBar(
+                                indicatorColor: Colors.white,
+                                tabs: [
+                                  Tab(
+                                    icon: Text('Add Manually'),
+                                  ),
+                                  Tab(
+                                    icon: Text('Add By Machine'),
+                                  ),
+                                ],
                               ),
+                            ),
+                          ),
+                          Expanded(
+                            child: TabBarView(
+                              children: [
+                                // first tab bar view widget
+                                Padding(
+                                  padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/5),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white54,
+                                    ),
+
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 20),
+                                      child: SizedBox(
+                                        height:MediaQuery.of(context).size.height-250,
+                                        //********
+                                        width:MediaQuery.of(context).size.width-20,
+                                        //width: double.maxFinite,
+                                        child:
+                                        GetBuilder(
+                                          init: AddVitalsController(),
+                                          builder: (AddVitalsController controller) {
+                                            return ListView(
+                                              // crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(localization.getLocaleData.addVitals.toString(),style: MyTextTheme().mediumGCN.copyWith(fontSize: 20),),
+                                                    // InkWell(
+                                                    //     onTap: (){
+                                                    //       Navigator.pop(context);
+                                                    //     },
+                                                    //     child: const Icon(Icons.close,size: 30,)),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 600,
+                                                  child: ListView(
+                                                    physics: const NeverScrollableScrollPhysics(),
+                                                    children: [
+                                                      //  const SizedBox(height: 15,),
+                                                      Row(
+                                                        children: [
+                                                          CircleAvatar(
+                                                              radius: 15,
+                                                              backgroundColor: Colors.white,
+                                                              child: SvgPicture.asset(
+                                                                  'assets/bloodPressureImage.svg')),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                            localization.getLocaleData.bloodPressure.toString(),
+                                                            style: MyTextTheme()
+                                                                .mediumGCN
+                                                                .copyWith(fontSize: 20),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      const SizedBox(height: 5,),
+                                                      Container(
+                                                        width: double.infinity,
+                                                        decoration:  BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius: BorderRadius.circular(10)
+                                                        ),
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: MyTextField2(
+                                                                controller: addVitalsModel.controller.systolicC.value,
+                                                                hintText: localization.getLocaleData.hintText!.systolic.toString(),
+                                                                maxLength: 3,
+                                                                keyboardType: TextInputType.number,
+                                                                borderColor: Colors.white,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              width: 5,
+                                                            ),
+                                                            Container(height: 40,
+                                                              width: 1,
+                                                              decoration: BoxDecoration(
+                                                                  border: Border.all(color: Colors.black54)
+                                                              ),),
+                                                            Expanded(
+                                                              child: MyTextField2(
+                                                                //       controller: addVitalsModel.controller.diastolicC.value,
+                                                                hintText:  localization.getLocaleData.hintText!.diastolic.toString(),
+                                                                maxLength: 3,
+                                                                keyboardType: TextInputType.number,
+                                                                borderColor: Colors.white,
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      ListView.builder(
+                                                        physics: const NeverScrollableScrollPhysics(),
+                                                        shrinkWrap: true,
+                                                        itemCount: addVitalsModel.controller.getVitalsList(context).length,
+                                                        itemBuilder: (BuildContext context, int index) {
+                                                          // print('-------------'+modal.controller.getVitalsList(context)[index]['controller'].value.text.toString());
+                                                          return Column(
+                                                            children: [
+                                                              const SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  CircleAvatar(
+                                                                      radius: 15,
+                                                                      backgroundColor: Colors.white,
+                                                                      child: SvgPicture.asset(addVitalsModel
+                                                                          .controller
+                                                                          .getVitalsList(context)[index]['image']
+                                                                          .toString())),
+                                                                  const SizedBox(
+                                                                    width: 10,
+                                                                  ),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      addVitalsModel.controller
+                                                                          .getVitalsList(context)[index]['title']
+                                                                          .toString(),
+                                                                      style: MyTextTheme()
+                                                                          .mediumGCN
+                                                                          .copyWith(fontSize: 20),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 5,
+                                                              ),
+
+                                                              MyTextField2(
+                                                                    controller:addVitalsModel.controller.vitalTextX[index],
+                                                                hintText: addVitalsModel.controller
+                                                                    .getVitalsList(context)[index]['leading']
+                                                                    .toString(),
+                                                                maxLength:index==1? 6:3,
+                                                                onChanged: (val){
+                                                                  setState(() {
+                                                                  });
+                                                                },
+                                                                keyboardType: TextInputType.number,
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      ),
+
+                                                      const SizedBox(height: 5,),
+                                                      Text('${localization.getLocaleData.hintText!.yourHeight} / ${localization.getLocaleData.hintText!.yourWeight}', style: MyTextTheme().mediumGCN.copyWith(fontSize: 20)),
+                                                      const SizedBox(height: 5,),
+                                                      Container(
+                                                        width: double.infinity,
+                                                        decoration:  BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius: BorderRadius.circular(10)
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Expanded(child: MyTextField2(hintText:localization.getLocaleData.hintText!.yourHeight.toString(),controller: addVitalsModel.controller.heightC.value, borderColor: Colors.white,)),
+                                                            Container(height: 40,
+                                                              width: 1,
+                                                              decoration: BoxDecoration(
+                                                                  border: Border.all(color: Colors.black54)
+                                                              ),),
+                                                            Expanded(child: MyTextField2(hintText: localization.getLocaleData.hintText!.yourWeight.toString(),
+                                                              // controller: addVitalsModel.controller.weightC.value,
+                                                              borderColor: Colors.white,)),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                    child: MyButton(
+                                                      title: localization.getLocaleData.save.toString(),
+                                                      //localization.getLocaleData.submit.toString(),
+                                                      //   buttonRadius: 25,
+                                                      color: AppColor.primaryColor,
+                                                      onPress: () {
+                                                        // addVitalsModel.onPressedSubmit(context);
+                                                        medvantagemodal.medvantageAddVitals(context,
+                                                          BPSys:addVitalsModel.controller.systolicC.value.text.toString(),
+                                                          BPDias:addVitalsModel.controller.diastolicC.value.text.toString(),
+                                                          RespiratoryRate:addVitalsModel.controller.vitalTextX[3].value.text.toString(),
+                                                          SPO2:addVitalsModel.controller.vitalTextX[2].value.text.toString(),
+                                                          Pulse:addVitalsModel.controller.vitalTextX[0].value.text.toString(),
+                                                          Temperature:addVitalsModel.controller.vitalTextX[1].value.text.toString(),
+                                                          HeartRate:'',
+
+                                                          BMR:'',
+                                                          weight:addVitalsModel.controller.weightC.value.text.toString(),
+                                                          height:addVitalsModel.controller.heightC.value.text.toString(),
+                                                          Rbs:'',
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                // second tab bar viiew widget
+                                DeviceViewMachine()
+                              ],
                             ),
                           ),
                           /// DON'T REMOVE THE CODE BELOW , THAT IS COMMENTED TEMPORARILY!!!
@@ -1024,204 +1269,7 @@ class _DeviceViewState extends State<DeviceView> {
                           ///         ||
                           ///         ||
                           /// DON'T REMOVE THE CODE ABOVE , THAT IS COMMENTED TEMPORARILY!!!
-                          Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white54,
-                              ),
 
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 20),
-                                child: SizedBox(
-                                  height:MediaQuery.of(context).size.height-250,
-                                  //********
-                                  width:MediaQuery.of(context).size.width-20,
-                                  //width: double.maxFinite,
-                                  child:
-                                  GetBuilder(
-                                    init: AddVitalsController(),
-                                    builder: (AddVitalsController controller) {
-                                      return ListView(
-                                        // crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(localization.getLocaleData.addVitals.toString(),style: MyTextTheme().mediumGCN.copyWith(fontSize: 20),),
-                                              // InkWell(
-                                              //     onTap: (){
-                                              //       Navigator.pop(context);
-                                              //     },
-                                              //     child: const Icon(Icons.close,size: 30,)),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 600,
-                                            child: ListView(
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              children: [
-                                                //  const SizedBox(height: 15,),
-                                                Row(
-                                                  children: [
-                                                    CircleAvatar(
-                                                        radius: 15,
-                                                        backgroundColor: Colors.white,
-                                                        child: SvgPicture.asset(
-                                                            'assets/bloodPressureImage.svg')),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      localization.getLocaleData.bloodPressure.toString(),
-                                                      style: MyTextTheme()
-                                                          .mediumGCN
-                                                          .copyWith(fontSize: 20),
-                                                    )
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 5,),
-                                                Container(
-                                                  width: double.infinity,
-                                                  decoration:  BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius: BorderRadius.circular(10)
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: MyTextField2(
-                                                          controller: addVitalsModel.controller.systolicC.value,
-                                                          hintText: localization.getLocaleData.hintText!.systolic.toString(),
-                                                          maxLength: 3,
-                                                          keyboardType: TextInputType.number,
-                                                          borderColor: Colors.white,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Container(height: 40,
-                                                        width: 1,
-                                                        decoration: BoxDecoration(
-                                                            border: Border.all(color: Colors.black54)
-                                                        ),),
-                                                      Expanded(
-                                                        child: MyTextField2(
-                                                          controller: addVitalsModel.controller.diastolicC.value,
-                                                          hintText:  localization.getLocaleData.hintText!.diastolic.toString(),
-                                                          maxLength: 3,
-                                                          keyboardType: TextInputType.number,
-                                                          borderColor: Colors.white,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                ListView.builder(
-                                                  physics: const NeverScrollableScrollPhysics(),
-                                                  shrinkWrap: true,
-                                                  itemCount: addVitalsModel.controller.getVitalsList(context).length,
-                                                  itemBuilder: (BuildContext context, int index) {
-                                                    // print('-------------'+modal.controller.getVitalsList(context)[index]['controller'].value.text.toString());
-                                                    return Column(
-                                                      children: [
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            CircleAvatar(
-                                                                radius: 15,
-                                                                backgroundColor: Colors.white,
-                                                                child: SvgPicture.asset(addVitalsModel
-                                                                    .controller
-                                                                    .getVitalsList(context)[index]['image']
-                                                                    .toString())),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Expanded(
-                                                              child: Text(
-                                                                addVitalsModel.controller
-                                                                    .getVitalsList(context)[index]['title']
-                                                                    .toString(),
-                                                                style: MyTextTheme()
-                                                                    .mediumGCN
-                                                                    .copyWith(fontSize: 20),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-
-                                                        MyTextField2(
-                                                          controller:addVitalsModel.controller.vitalTextX[index],
-                                                          hintText: addVitalsModel.controller
-                                                              .getVitalsList(context)[index]['leading']
-                                                              .toString(),
-                                                          maxLength:index==1? 6:3,
-                                                          onChanged: (val){
-                                                            setState(() {
-                                                            });
-                                                          },
-                                                          keyboardType: TextInputType.number,
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                ),
-
-                                                const SizedBox(height: 5,),
-                                                Text('${localization.getLocaleData.hintText!.yourHeight} / ${localization.getLocaleData.hintText!.yourWeight}', style: MyTextTheme().mediumGCN.copyWith(fontSize: 20)),
-                                                const SizedBox(height: 5,),
-                                                Container(
-                                                  width: double.infinity,
-                                                  decoration:  BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius: BorderRadius.circular(10)
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(child: MyTextField2(hintText:localization.getLocaleData.hintText!.yourHeight.toString(),controller: addVitalsModel.controller.heightC.value, borderColor: Colors.white,)),
-                                                      Container(height: 40,
-                                                        width: 1,
-                                                        decoration: BoxDecoration(
-                                                            border: Border.all(color: Colors.black54)
-                                                        ),),
-                                                      Expanded(child: MyTextField2(hintText: localization.getLocaleData.hintText!.yourWeight.toString(),controller: addVitalsModel.controller.weightC.value, borderColor: Colors.white,)),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Center(
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                              child: MyButton(
-                                                title: localization.getLocaleData.save.toString(),
-                                                //localization.getLocaleData.submit.toString(),
-                                                //   buttonRadius: 25,
-                                                color: AppColor.primaryColor,
-                                                onPress: () {
-                                                  addVitalsModel.onPressedSubmit(context);
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
                           // Container(
                           //   color: Colors.white54,
                           //   child: Padding(
@@ -1394,551 +1442,551 @@ class _DeviceViewState extends State<DeviceView> {
                           //     ),
                           //   ),
                           // ),
-                          SizedBox(
-                              height: Get.height * 0.11, child:  FooterView())
+                          // SizedBox(
+                          //     height: Get.height * 0.11, child:  FooterView())
                         ],
                       ),
-                    ),
-                  );
-                  // return Row(
-                  //   children: [
-                  //
-                  //     Container(
-                  //       alignment: Alignment.center,
-                  //       color: AppColor.primaryColorDark,
-                  //       child: Column(
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
-                  //           Padding(
-                  //             padding: const EdgeInsets.only(left: 15,top: 30),
-                  //             child: Image.asset("assets/kiosk_logo.png",height: 30,color: Colors.white,),
-                  //           ),
-                  //
-                  //           Expanded(
-                  //             child: Container(
-                  //               padding: const EdgeInsets.all(8.0),
-                  //               child: Column(
-                  //                 crossAxisAlignment: CrossAxisAlignment.center,
-                  //                 mainAxisAlignment: MainAxisAlignment.center,
-                  //                 children: [
-                  //                   // Row(
-                  //                   //   children: [
-                  //                   //     Padding(
-                  //                   //       padding: const EdgeInsets.all(8.0),
-                  //                   //       child: Container(
-                  //                   //         height: 120,
-                  //                   //         width: 120,
-                  //                   //         decoration: BoxDecoration(
-                  //                   //             color: AppColor.white,
-                  //                   //             borderRadius: BorderRadius.circular(5)
-                  //                   //         ),
-                  //                   //
-                  //                   //         child: InkWell(
-                  //                   //           onTap: () {
-                  //                   //             _enableBluetooth(context,
-                  //                   //                 route: const HelixTimexPage());
-                  //                   //           },
-                  //                   //           child: Padding(
-                  //                   //             padding: const EdgeInsets.fromLTRB(
-                  //                   //                 8, 8, 8, 8),
-                  //                   //             child: Container(
-                  //                   //               padding: const EdgeInsets.all(8),
-                  //                   //               height: 100,
-                  //                   //               decoration: BoxDecoration(
-                  //                   //                   color: AppColor.white,
-                  //                   //                   borderRadius: BorderRadius.circular(5)
-                  //                   //               ),
-                  //                   //               child: Column(
-                  //                   //                 mainAxisAlignment: MainAxisAlignment.center,
-                  //                   //                 children: [
-                  //                   //                   Image.asset("assets/helix_black.png",height: 40,width: 40,),
-                  //                   //                   const SizedBox(height: 5,),
-                  //                   //                   Text(
-                  //                   //                       localization
-                  //                   //                           .getLocaleData.helix
-                  //                   //                           .toString(),
-                  //                   //                       style: MyTextTheme()
-                  //                   //                           .mediumBCB
-                  //                   //                           .copyWith(
-                  //                   //                           color: AppColor
-                  //                   //                               .greyDark)),
-                  //                   //                 ],
-                  //                   //               ),
-                  //                   //             ),
-                  //                   //           ),
-                  //                   //         ),
-                  //                   //       ),
-                  //                   //     ),
-                  //                       InkWell(
-                  //                         onTap: () {
-                  //                           _enableBluetooth(context,
-                  //                               route: const ScanCTBpMachine());
-                  //                           // App().navigate(context, ScanCTBpMachine( ));
-                  //                         },
-                  //                         child: Padding(
-                  //                           padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                  //                           child: Container(
-                  //                             height: 120,
-                  //                             width: 120,
-                  //                             decoration: BoxDecoration(
-                  //                                 color: AppColor.white,
-                  //                                 borderRadius: BorderRadius.circular(5)
-                  //                             ),
-                  //                             padding: const EdgeInsets.all(8),
-                  //                             // color: Colors.white,
-                  //                             child: Column(
-                  //                                mainAxisAlignment: MainAxisAlignment.center,
-                  //                                crossAxisAlignment: CrossAxisAlignment.center,
-                  //                               children: [
-                  //                                 Image.asset("assets/BPchartbg.png",height: 40,width: 40,),
-                  //                                 Expanded(
-                  //                                   child: Text(
-                  //                                       localization
-                  //                                           .getLocaleData.ctBloodPressure
-                  //                                           .toString(),textAlign: TextAlign.center,
-                  //                                       style: MyTextTheme().mediumBCB.copyWith(
-                  //                                           color: AppColor.greyDark)),
-                  //                                 ),
-                  //                               ],
-                  //                             ),
-                  //                           ),
-                  //                         ),
-                  //                       ),
-                  //                   //   ],
-                  //                   // ),
-                  //                   Row(
-                  //                     children: [
-                  //                       Row(
-                  //                         children: [
-                  //                           // Platform.isAndroid
-                  //                           //
-                  //                           //     //?
-                  //                           Column(
-                  //                             children: const [
-                  //                               // InkWell(
-                  //                               //   onTap: () {
-                  //                               //     _enableBluetooth(context,
-                  //                               //         route: const HelixTimexPage());
-                  //                               //   },
-                  //                               //   child: Padding(
-                  //                               //     padding: const EdgeInsets.fromLTRB(
-                  //                               //         8, 8, 8, 8),
-                  //                               //     child: Container(
-                  //                               //       padding: const EdgeInsets.all(8),
-                  //                               //       color: Colors.white,
-                  //                               //       child: Row(
-                  //                               //         mainAxisAlignment:
-                  //                               //         MainAxisAlignment.center,
-                  //                               //         children: [
-                  //                               //           Text(
-                  //                               //               localization
-                  //                               //                   .getLocaleData.helix
-                  //                               //                   .toString(),
-                  //                               //               style: MyTextTheme()
-                  //                               //                   .mediumBCB
-                  //                               //                   .copyWith(
-                  //                               //                   color: AppColor
-                  //                               //                       .primaryColorLight)),
-                  //                               //         ],
-                  //                               //       ),
-                  //                               //     ),
-                  //                               //   ),
-                  //                               // ),
-                  //                               // const SizedBox(
-                  //                               //   height: 10,
-                  //                               // ),
-                  //                             ],
-                  //                           ), Visibility(
-                  //                             visible: Platform.isAndroid,
-                  //                             child: InkWell(
-                  //                               onTap: () {
-                  //                                 // deviceType();
-                  //                                 App().navigate(context, const Tester());
-                  //                               },
-                  //                               child: Padding(
-                  //                                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  //                                 child: Container(
-                  //                                   padding: const EdgeInsets.all(8),
-                  //                                   height: 120,
-                  //                                   width: 120,
-                  //                                   decoration: BoxDecoration(
-                  //                                       color: AppColor.white,
-                  //                                       borderRadius: BorderRadius.circular(5)
-                  //                                   ),
-                  //                                   child: Column(
-                  //                                     mainAxisAlignment: MainAxisAlignment.center,
-                  //                                     children: [
-                  //                                       Image.asset("assets/stethoscope.png",height: 40,width: 40,),
-                  //                                       Text( 'Stethoscope',
-                  //                                           style: MyTextTheme().mediumBCB.copyWith(
-                  //                                               color: AppColor.greyDark)),
-                  //                                     ],
-                  //                                   ),
-                  //                                 ),
-                  //                               ),
-                  //                             ),
-                  //                           ),
-                  //                           Visibility(
-                  //                             visible: Platform.isAndroid,
-                  //                             child: InkWell(
-                  //                               onTap: () {
-                  //                                 // deviceType();
-                  //                                 App().navigate(context, const ECGScreen());
-                  //                               },
-                  //                               child: Padding(
-                  //                                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  //                                 child: Container(
-                  //                                   padding: const EdgeInsets.all(8),
-                  //                                   height: 120,
-                  //                                   width: 120,
-                  //                                   decoration: BoxDecoration(
-                  //                                       color: AppColor.white,
-                  //                                       borderRadius: BorderRadius.circular(5)
-                  //                                   ),
-                  //                                   child: Column(
-                  //                                     mainAxisAlignment: MainAxisAlignment.center,
-                  //                                     children: [
-                  //                                       Image.asset("assets/ecg.png",height: 40,width: 40,),
-                  //                                       Text( 'ECG',
-                  //                                           style: MyTextTheme().mediumBCB.copyWith(
-                  //                                               color: AppColor.greyDark)),
-                  //                                     ],
-                  //                                   ),
-                  //                                 ),
-                  //                               ),
-                  //                             ),
-                  //                           ),
-                  //                           //: SizedBox(),
-                  //                           // InkWell(
-                  //                           //   onTap: () {
-                  //                           //     _enableBluetooth(context,
-                  //                           //         route: const ScanCTBpMachine());
-                  //                           //     // App().navigate(context, ScanCTBpMachine( ));
-                  //                           //   },
-                  //                           //   child: Padding(
-                  //                           //     padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  //                           //     child: Container(
-                  //                           //       padding: const EdgeInsets.all(8),
-                  //                           //       color: Colors.white,
-                  //                           //       child: Row(
-                  //                           //         mainAxisAlignment: MainAxisAlignment.center,
-                  //                           //         children: [
-                  //                           //           Text(
-                  //                           //               localization
-                  //                           //                   .getLocaleData.ctBloodPressure
-                  //                           //                   .toString(),
-                  //                           //               style: MyTextTheme().mediumBCB.copyWith(
-                  //                           //                   color: AppColor.primaryColorLight)),
-                  //                           //         ],
-                  //                           //       ),
-                  //                           //     ),
-                  //                           //   ),
-                  //                           // ),
-                  //                           const SizedBox(
-                  //                             height: 10,
-                  //                           ),
-                  //
-                  //                         ],
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   Row(
-                  //                     children: [
-                  //                       const SizedBox(
-                  //                         height: 10,
-                  //                       ),
-                  //                       Visibility(
-                  //                         visible: Platform.isAndroid,
-                  //                         child: InkWell(
-                  //                           onTap: () {
-                  //                             _enableBluetooth(context, route: BluetoothDeviceView(
-                  //                               deviceName: localization.getLocaleData.patientMonitor.toString(),
-                  //                               child: const PatientMonitorView(),
-                  //                             ));
-                  //
-                  //                           },
-                  //                           child: Padding(
-                  //                             padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  //                             child: Container(
-                  //                               padding: const EdgeInsets.all(8),
-                  //                               height: 100,
-                  //                               width: 120,
-                  //                               decoration: BoxDecoration(
-                  //                                   color: AppColor.white,
-                  //                                   borderRadius: BorderRadius.circular(5)
-                  //                               ),
-                  //                               child: Column(
-                  //                                 mainAxisAlignment: MainAxisAlignment.center,
-                  //                                 crossAxisAlignment:CrossAxisAlignment.center,
-                  //                                 children: [
-                  //
-                  //                                   Image.asset("assets/ecg.png",height: 40,width: 40,),
-                  //                                   Expanded(
-                  //                                     child: Text( localization.getLocaleData.patientMonitor.toString(),textAlign: TextAlign.center,
-                  //                                         style: MyTextTheme().mediumBCB.copyWith(
-                  //                                             color: AppColor.primaryColorLight)),
-                  //                                   ),
-                  //                                 ],
-                  //                               ),
-                  //                             ),
-                  //                           ),
-                  //                         ),
-                  //                       ),
-                  //                       InkWell(
-                  //                         onTap: () {
-                  //
-                  //                           //**
-                  //                           _enableBluetooth(context,
-                  //                               route: const Oximeter());
-                  //                           //**
-                  //                           // _enableBluetooth(context, route: BluetoothDeviceView(
-                  //                           //   deviceName: localization.getLocaleData.patientMonitor.toString(),
-                  //                           //   child: const PatientMonitorView(),
-                  //                           // )
-                  //                           //
-                  //                           // );
-                  //
-                  //                         },
-                  //                         child: Padding(
-                  //                           padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                  //                           child: Container(
-                  //                             padding: const EdgeInsets.all(8),
-                  //                             height: 100,
-                  //                             width: 120,
-                  //                             decoration: BoxDecoration(
-                  //                                 color: AppColor.white,
-                  //                                 borderRadius: BorderRadius.circular(5)
-                  //                             ),
-                  //                             child: Column(
-                  //                               mainAxisAlignment: MainAxisAlignment.center,
-                  //                               children: [
-                  //                                 Image.asset("assets/ecg.png",height: 40,width: 40,),
-                  //                                 Text( localization
-                  //                                     .getLocaleData.viaOximeter
-                  //                                     .toString(),
-                  //                                     style: MyTextTheme().mediumBCB.copyWith(
-                  //                                         color: AppColor.primaryColorLight)),
-                  //                               ],
-                  //                             ),
-                  //                           ),
-                  //                         ),
-                  //                       ),
-                  //
-                  //                     ],
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ),
-                  //
-                  //           Padding(
-                  //             padding: const EdgeInsets.only(left: 30,bottom: 20),
-                  //             child: Image.asset("assets/kiosk_tech.png",height: 20,color: Colors.white,),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //
-                  //     Expanded(
-                  //         flex: 6,
-                  //         child: Container(
-                  //           decoration: const BoxDecoration(
-                  //             image: DecorationImage(image: AssetImage('assets/kiosk_health_check_bgImg.png'),fit: BoxFit.fill)
-                  //           ),
-                  //           child: Column(
-                  //             children: [
-                  //               Row(
-                  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //                 children: [
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15,top: 10),
-                  //               child: Column(
-                  //                   crossAxisAlignment: CrossAxisAlignment.start,
-                  //                   children: [
-                  //                     Text(UserData().getUserName.toString(),style: MyTextTheme().largePCB.copyWith(color: AppColor.primaryColorLight,fontSize: 25)),
-                  //                     Row(
-                  //                       children: [
-                  //
-                  //                         Text(UserData().getUserGender.toString()=='1'? 'Male':'Female',style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
-                  //                         Text(" ${DateTime.now().year-int.parse(UserData().getUserDob.split('/')[2])} years ",style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
-                  //                       ],
-                  //                     ),
-                  //                     Text(UserData().getUserMobileNo,style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
-                  //                     Text(UserData().getUserEmailId,style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
-                  //                   ],
-                  //                 ),
-                  //             ),
-                  //
-                  //                   const ProfileInfoWidget(),
-                  //
-                  //                 ],
-                  //               ),
-                  //               SizedBox(height: 10,),
-                  //
-                  //               Stack(
-                  //                 children: [
-                  //                   Row(
-                  //                     //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //                     children: [
-                  //                       Expanded(
-                  //                         flex:1,
-                  //                         child: Container(
-                  //                           color:Colors.transparent,
-                  //                             //child: Text("devfdv"),
-                  //                             child: Image.asset('assets/kiosk_text_animation.gif',width: 200,)
-                  //                         ),
-                  //                       ),
-                  //                       Expanded(
-                  //                         flex: 3,
-                  //                         child: Padding(
-                  //                           padding: const EdgeInsets.fromLTRB(10,10,10,20),
-                  //                           child: Container(
-                  //                               color:Colors.transparent,
-                  //                               // child: Text("devfdv"),
-                  //                               child: Image.asset('assets/kiosk_check_machine.gif',fit: BoxFit.contain,height: 520,)
-                  //                           ),
-                  //                         ),
-                  //                       )
-                  //
-                  //                     ],
-                  //                   ),
-                  //
-                  //                 ],
-                  //               )
-                  //             ],
-                  //           ),
-                  //         )
-                  //
-                  //         // SingleChildScrollView(
-                  //         //   child: Column(
-                  //         //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //         //     mainAxisAlignment: MainAxisAlignment.start,
-                  //         //     children: [
-                  //         //       Padding(
-                  //         //         padding: const EdgeInsets.fromLTRB(16,0,5,5),
-                  //         //         child: Row(
-                  //         //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //         //           children: [
-                  //         //             Padding(
-                  //         //               padding: const EdgeInsets.only(top: 0),
-                  //         //               child:
-                  //         //               Column(
-                  //         //                 crossAxisAlignment: CrossAxisAlignment.start,
-                  //         //                 children: [
-                  //         //                   Text(UserData().getUserName.toString(),style: MyTextTheme().largePCB.copyWith(color: AppColor.primaryColorLight,fontSize: 25)),
-                  //         //                   Row(
-                  //         //                     children: [
-                  //         //
-                  //         //                       Text(UserData().getUserGender.toString()=='1'? 'Male':'Female',style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
-                  //         //                       Text(" ${DateTime.now().year-int.parse(UserData().getUserDob.split('/')[2])} years ",style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
-                  //         //                     ],
-                  //         //                   ),
-                  //         //                   Text(UserData().getUserMobileNo,style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
-                  //         //                   Text(UserData().getUserEmailId,style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
-                  //         //                 ],
-                  //         //               ),
-                  //         //             ),
-                  //         //             Row(
-                  //         //               mainAxisAlignment: MainAxisAlignment.end,
-                  //         //               children: const [
-                  //         //                 ProfileInfoWidget()
-                  //         //               ],
-                  //         //             )
-                  //         //
-                  //         //           ],
-                  //         //         ),
-                  //         //       ),
-                  //         //
-                  //         //
-                  //         //       Padding(
-                  //         //         padding: const EdgeInsets.only(left: 20,top: 3,bottom: 20),
-                  //         //         child: Column(
-                  //         //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //         //           children: [
-                  //         //             Row(
-                  //         //               children: [
-                  //         //                 Text(localization.getLocaleData.hintText!.Welcometo.toString()+" ".toString(),style: MyTextTheme().veryLargeBCN,),
-                  //         //                 Text(localization.getLocaleData.hintText!.ProvideHealthKiosk.toString(),style: MyTextTheme().veryLargePCB.copyWith(color: AppColor.blue),)
-                  //         //               ],
-                  //         //             ),
-                  //         //             const SizedBox(height: 10,),
-                  //         //             Text(localization.getLocaleData.hintText!.thankyou.toString(),style: MyTextTheme().mediumGCN),
-                  //         //             const SizedBox(height: 10,),
-                  //         //             Text(localization.getLocaleData.hintText!.askQuestions.toString(),style: MyTextTheme().mediumGCN),
-                  //         //             const SizedBox(height: 10,),
-                  //         //             Text(localization.getLocaleData.hintText!.consultOnline.toString(),style: MyTextTheme().mediumGCN),
-                  //         //           ],
-                  //         //         ),
-                  //         //       ),
-                  //         //
-                  //         //       Row(
-                  //         //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //         //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         //         children: [
-                  //         //           Column(
-                  //         //             crossAxisAlignment: CrossAxisAlignment.start,
-                  //         //             children: [
-                  //         //               Row(
-                  //         //                 children: [
-                  //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
-                  //         //                   // Text('Calculate BMI',style: MyTextTheme().mediumGCN,)
-                  //         //                   Text(localization.getLocaleData.hintText!.calculateBMI.toString(),style: MyTextTheme().mediumGCN,)
-                  //         //                 ],
-                  //         //               ),
-                  //         //               Row(
-                  //         //                 children: [
-                  //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
-                  //         //                   //    Text('Get instant report of ECG',style: MyTextTheme().mediumGCN)
-                  //         //                   Text(localization.getLocaleData.hintText!.instantReport.toString(),style: MyTextTheme().mediumGCN)
-                  //         //                 ],
-                  //         //               ),
-                  //         //               Row(
-                  //         //                 children: [
-                  //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
-                  //         //                   //Text('Know your vitals without appointment',style: MyTextTheme().mediumGCN)
-                  //         //                   Text(localization.getLocaleData.hintText!.yourVitals.toString(),style: MyTextTheme().mediumGCN)
-                  //         //                 ],
-                  //         //               ),
-                  //         //               Row(
-                  //         //                 children: [
-                  //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
-                  //         //                   //  Text('Avaliable 24/7',style: MyTextTheme().mediumGCN)
-                  //         //                   Text("${localization.getLocaleData.hintText!.available.toString()} 24/7",style: MyTextTheme().mediumGCN)
-                  //         //                 ],
-                  //         //               ),
-                  //         //               Row(
-                  //         //                 children: [
-                  //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
-                  //         //                   // Text('get any query within a minute',style: MyTextTheme().mediumGCN)
-                  //         //                   Text(localization.getLocaleData.hintText!.anyQuery.toString(),style: MyTextTheme().mediumGCN)
-                  //         //                 ],
-                  //         //               ),
-                  //         //             ],),
-                  //         //           Padding(
-                  //         //             padding: const EdgeInsets.only(right: 60),
-                  //         //             child: Image.asset("assets/male_model.gif",scale: 3,),
-                  //         //           )
-                  //         //
-                  //         //         ],
-                  //         //       ),
-                  //         //       SizedBox(height: 160,)
-                  //         //
-                  //         //
-                  //         //
-                  //         //
-                  //         //
-                  //         //
-                  //         //     ],
-                  //         //   ),
-                  //         // )
-                  //     )
-                  //
-                  //
-                  //   ],
-                  // );
-                },
+                    );
+                    // return Row(
+                    //   children: [
+                    //
+                    //     Container(
+                    //       alignment: Alignment.center,
+                    //       color: AppColor.primaryColorDark,
+                    //       child: Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           Padding(
+                    //             padding: const EdgeInsets.only(left: 15,top: 30),
+                    //             child: Image.asset("assets/kiosk_logo.png",height: 30,color: Colors.white,),
+                    //           ),
+                    //
+                    //           Expanded(
+                    //             child: Container(
+                    //               padding: const EdgeInsets.all(8.0),
+                    //               child: Column(
+                    //                 crossAxisAlignment: CrossAxisAlignment.center,
+                    //                 mainAxisAlignment: MainAxisAlignment.center,
+                    //                 children: [
+                    //                   // Row(
+                    //                   //   children: [
+                    //                   //     Padding(
+                    //                   //       padding: const EdgeInsets.all(8.0),
+                    //                   //       child: Container(
+                    //                   //         height: 120,
+                    //                   //         width: 120,
+                    //                   //         decoration: BoxDecoration(
+                    //                   //             color: AppColor.white,
+                    //                   //             borderRadius: BorderRadius.circular(5)
+                    //                   //         ),
+                    //                   //
+                    //                   //         child: InkWell(
+                    //                   //           onTap: () {
+                    //                   //             _enableBluetooth(context,
+                    //                   //                 route: const HelixTimexPage());
+                    //                   //           },
+                    //                   //           child: Padding(
+                    //                   //             padding: const EdgeInsets.fromLTRB(
+                    //                   //                 8, 8, 8, 8),
+                    //                   //             child: Container(
+                    //                   //               padding: const EdgeInsets.all(8),
+                    //                   //               height: 100,
+                    //                   //               decoration: BoxDecoration(
+                    //                   //                   color: AppColor.white,
+                    //                   //                   borderRadius: BorderRadius.circular(5)
+                    //                   //               ),
+                    //                   //               child: Column(
+                    //                   //                 mainAxisAlignment: MainAxisAlignment.center,
+                    //                   //                 children: [
+                    //                   //                   Image.asset("assets/helix_black.png",height: 40,width: 40,),
+                    //                   //                   const SizedBox(height: 5,),
+                    //                   //                   Text(
+                    //                   //                       localization
+                    //                   //                           .getLocaleData.helix
+                    //                   //                           .toString(),
+                    //                   //                       style: MyTextTheme()
+                    //                   //                           .mediumBCB
+                    //                   //                           .copyWith(
+                    //                   //                           color: AppColor
+                    //                   //                               .greyDark)),
+                    //                   //                 ],
+                    //                   //               ),
+                    //                   //             ),
+                    //                   //           ),
+                    //                   //         ),
+                    //                   //       ),
+                    //                   //     ),
+                    //                       InkWell(
+                    //                         onTap: () {
+                    //                           _enableBluetooth(context,
+                    //                               route: const ScanCTBpMachine());
+                    //                           // App().navigate(context, ScanCTBpMachine( ));
+                    //                         },
+                    //                         child: Padding(
+                    //                           padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                    //                           child: Container(
+                    //                             height: 120,
+                    //                             width: 120,
+                    //                             decoration: BoxDecoration(
+                    //                                 color: AppColor.white,
+                    //                                 borderRadius: BorderRadius.circular(5)
+                    //                             ),
+                    //                             padding: const EdgeInsets.all(8),
+                    //                             // color: Colors.white,
+                    //                             child: Column(
+                    //                                mainAxisAlignment: MainAxisAlignment.center,
+                    //                                crossAxisAlignment: CrossAxisAlignment.center,
+                    //                               children: [
+                    //                                 Image.asset("assets/BPchartbg.png",height: 40,width: 40,),
+                    //                                 Expanded(
+                    //                                   child: Text(
+                    //                                       localization
+                    //                                           .getLocaleData.ctBloodPressure
+                    //                                           .toString(),textAlign: TextAlign.center,
+                    //                                       style: MyTextTheme().mediumBCB.copyWith(
+                    //                                           color: AppColor.greyDark)),
+                    //                                 ),
+                    //                               ],
+                    //                             ),
+                    //                           ),
+                    //                         ),
+                    //                       ),
+                    //                   //   ],
+                    //                   // ),
+                    //                   Row(
+                    //                     children: [
+                    //                       Row(
+                    //                         children: [
+                    //                           // Platform.isAndroid
+                    //                           //
+                    //                           //     //?
+                    //                           Column(
+                    //                             children: const [
+                    //                               // InkWell(
+                    //                               //   onTap: () {
+                    //                               //     _enableBluetooth(context,
+                    //                               //         route: const HelixTimexPage());
+                    //                               //   },
+                    //                               //   child: Padding(
+                    //                               //     padding: const EdgeInsets.fromLTRB(
+                    //                               //         8, 8, 8, 8),
+                    //                               //     child: Container(
+                    //                               //       padding: const EdgeInsets.all(8),
+                    //                               //       color: Colors.white,
+                    //                               //       child: Row(
+                    //                               //         mainAxisAlignment:
+                    //                               //         MainAxisAlignment.center,
+                    //                               //         children: [
+                    //                               //           Text(
+                    //                               //               localization
+                    //                               //                   .getLocaleData.helix
+                    //                               //                   .toString(),
+                    //                               //               style: MyTextTheme()
+                    //                               //                   .mediumBCB
+                    //                               //                   .copyWith(
+                    //                               //                   color: AppColor
+                    //                               //                       .primaryColorLight)),
+                    //                               //         ],
+                    //                               //       ),
+                    //                               //     ),
+                    //                               //   ),
+                    //                               // ),
+                    //                               // const SizedBox(
+                    //                               //   height: 10,
+                    //                               // ),
+                    //                             ],
+                    //                           ), Visibility(
+                    //                             visible: Platform.isAndroid,
+                    //                             child: InkWell(
+                    //                               onTap: () {
+                    //                                 // deviceType();
+                    //                                 App().navigate(context, const Tester());
+                    //                               },
+                    //                               child: Padding(
+                    //                                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                    //                                 child: Container(
+                    //                                   padding: const EdgeInsets.all(8),
+                    //                                   height: 120,
+                    //                                   width: 120,
+                    //                                   decoration: BoxDecoration(
+                    //                                       color: AppColor.white,
+                    //                                       borderRadius: BorderRadius.circular(5)
+                    //                                   ),
+                    //                                   child: Column(
+                    //                                     mainAxisAlignment: MainAxisAlignment.center,
+                    //                                     children: [
+                    //                                       Image.asset("assets/stethoscope.png",height: 40,width: 40,),
+                    //                                       Text( 'Stethoscope',
+                    //                                           style: MyTextTheme().mediumBCB.copyWith(
+                    //                                               color: AppColor.greyDark)),
+                    //                                     ],
+                    //                                   ),
+                    //                                 ),
+                    //                               ),
+                    //                             ),
+                    //                           ),
+                    //                           Visibility(
+                    //                             visible: Platform.isAndroid,
+                    //                             child: InkWell(
+                    //                               onTap: () {
+                    //                                 // deviceType();
+                    //                                 App().navigate(context, const ECGScreen());
+                    //                               },
+                    //                               child: Padding(
+                    //                                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                    //                                 child: Container(
+                    //                                   padding: const EdgeInsets.all(8),
+                    //                                   height: 120,
+                    //                                   width: 120,
+                    //                                   decoration: BoxDecoration(
+                    //                                       color: AppColor.white,
+                    //                                       borderRadius: BorderRadius.circular(5)
+                    //                                   ),
+                    //                                   child: Column(
+                    //                                     mainAxisAlignment: MainAxisAlignment.center,
+                    //                                     children: [
+                    //                                       Image.asset("assets/ecg.png",height: 40,width: 40,),
+                    //                                       Text( 'ECG',
+                    //                                           style: MyTextTheme().mediumBCB.copyWith(
+                    //                                               color: AppColor.greyDark)),
+                    //                                     ],
+                    //                                   ),
+                    //                                 ),
+                    //                               ),
+                    //                             ),
+                    //                           ),
+                    //                           //: SizedBox(),
+                    //                           // InkWell(
+                    //                           //   onTap: () {
+                    //                           //     _enableBluetooth(context,
+                    //                           //         route: const ScanCTBpMachine());
+                    //                           //     // App().navigate(context, ScanCTBpMachine( ));
+                    //                           //   },
+                    //                           //   child: Padding(
+                    //                           //     padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                    //                           //     child: Container(
+                    //                           //       padding: const EdgeInsets.all(8),
+                    //                           //       color: Colors.white,
+                    //                           //       child: Row(
+                    //                           //         mainAxisAlignment: MainAxisAlignment.center,
+                    //                           //         children: [
+                    //                           //           Text(
+                    //                           //               localization
+                    //                           //                   .getLocaleData.ctBloodPressure
+                    //                           //                   .toString(),
+                    //                           //               style: MyTextTheme().mediumBCB.copyWith(
+                    //                           //                   color: AppColor.primaryColorLight)),
+                    //                           //         ],
+                    //                           //       ),
+                    //                           //     ),
+                    //                           //   ),
+                    //                           // ),
+                    //                           const SizedBox(
+                    //                             height: 10,
+                    //                           ),
+                    //
+                    //                         ],
+                    //                       ),
+                    //                     ],
+                    //                   ),
+                    //                   Row(
+                    //                     children: [
+                    //                       const SizedBox(
+                    //                         height: 10,
+                    //                       ),
+                    //                       Visibility(
+                    //                         visible: Platform.isAndroid,
+                    //                         child: InkWell(
+                    //                           onTap: () {
+                    //                             _enableBluetooth(context, route: BluetoothDeviceView(
+                    //                               deviceName: localization.getLocaleData.patientMonitor.toString(),
+                    //                               child: const PatientMonitorView(),
+                    //                             ));
+                    //
+                    //                           },
+                    //                           child: Padding(
+                    //                             padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                    //                             child: Container(
+                    //                               padding: const EdgeInsets.all(8),
+                    //                               height: 100,
+                    //                               width: 120,
+                    //                               decoration: BoxDecoration(
+                    //                                   color: AppColor.white,
+                    //                                   borderRadius: BorderRadius.circular(5)
+                    //                               ),
+                    //                               child: Column(
+                    //                                 mainAxisAlignment: MainAxisAlignment.center,
+                    //                                 crossAxisAlignment:CrossAxisAlignment.center,
+                    //                                 children: [
+                    //
+                    //                                   Image.asset("assets/ecg.png",height: 40,width: 40,),
+                    //                                   Expanded(
+                    //                                     child: Text( localization.getLocaleData.patientMonitor.toString(),textAlign: TextAlign.center,
+                    //                                         style: MyTextTheme().mediumBCB.copyWith(
+                    //                                             color: AppColor.primaryColorLight)),
+                    //                                   ),
+                    //                                 ],
+                    //                               ),
+                    //                             ),
+                    //                           ),
+                    //                         ),
+                    //                       ),
+                    //                       InkWell(
+                    //                         onTap: () {
+                    //
+                    //                           //**
+                    //                           _enableBluetooth(context,
+                    //                               route: const Oximeter());
+                    //                           //**
+                    //                           // _enableBluetooth(context, route: BluetoothDeviceView(
+                    //                           //   deviceName: localization.getLocaleData.patientMonitor.toString(),
+                    //                           //   child: const PatientMonitorView(),
+                    //                           // )
+                    //                           //
+                    //                           // );
+                    //
+                    //                         },
+                    //                         child: Padding(
+                    //                           padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                    //                           child: Container(
+                    //                             padding: const EdgeInsets.all(8),
+                    //                             height: 100,
+                    //                             width: 120,
+                    //                             decoration: BoxDecoration(
+                    //                                 color: AppColor.white,
+                    //                                 borderRadius: BorderRadius.circular(5)
+                    //                             ),
+                    //                             child: Column(
+                    //                               mainAxisAlignment: MainAxisAlignment.center,
+                    //                               children: [
+                    //                                 Image.asset("assets/ecg.png",height: 40,width: 40,),
+                    //                                 Text( localization
+                    //                                     .getLocaleData.viaOximeter
+                    //                                     .toString(),
+                    //                                     style: MyTextTheme().mediumBCB.copyWith(
+                    //                                         color: AppColor.primaryColorLight)),
+                    //                               ],
+                    //                             ),
+                    //                           ),
+                    //                         ),
+                    //                       ),
+                    //
+                    //                     ],
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           ),
+                    //
+                    //           Padding(
+                    //             padding: const EdgeInsets.only(left: 30,bottom: 20),
+                    //             child: Image.asset("assets/kiosk_tech.png",height: 20,color: Colors.white,),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //
+                    //     Expanded(
+                    //         flex: 6,
+                    //         child: Container(
+                    //           decoration: const BoxDecoration(
+                    //             image: DecorationImage(image: AssetImage('assets/kiosk_health_check_bgImg.png'),fit: BoxFit.fill)
+                    //           ),
+                    //           child: Column(
+                    //             children: [
+                    //               Row(
+                    //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //                 children: [
+                    //             Padding(
+                    //               padding: const EdgeInsets.only(left: 15,top: 10),
+                    //               child: Column(
+                    //                   crossAxisAlignment: CrossAxisAlignment.start,
+                    //                   children: [
+                    //                     Text(UserData().getUserName.toString(),style: MyTextTheme().largePCB.copyWith(color: AppColor.primaryColorLight,fontSize: 25)),
+                    //                     Row(
+                    //                       children: [
+                    //
+                    //                         Text(UserData().getUserGender.toString()=='1'? 'Male':'Female',style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
+                    //                         Text(" ${DateTime.now().year-int.parse(UserData().getUserDob.split('/')[2])} years ",style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
+                    //                       ],
+                    //                     ),
+                    //                     Text(UserData().getUserMobileNo,style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
+                    //                     Text(UserData().getUserEmailId,style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
+                    //                   ],
+                    //                 ),
+                    //             ),
+                    //
+                    //                   const ProfileInfoWidget(),
+                    //
+                    //                 ],
+                    //               ),
+                    //               SizedBox(height: 10,),
+                    //
+                    //               Stack(
+                    //                 children: [
+                    //                   Row(
+                    //                     //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //                     children: [
+                    //                       Expanded(
+                    //                         flex:1,
+                    //                         child: Container(
+                    //                           color:Colors.transparent,
+                    //                             //child: Text("devfdv"),
+                    //                             child: Image.asset('assets/kiosk_text_animation.gif',width: 200,)
+                    //                         ),
+                    //                       ),
+                    //                       Expanded(
+                    //                         flex: 3,
+                    //                         child: Padding(
+                    //                           padding: const EdgeInsets.fromLTRB(10,10,10,20),
+                    //                           child: Container(
+                    //                               color:Colors.transparent,
+                    //                               // child: Text("devfdv"),
+                    //                               child: Image.asset('assets/kiosk_check_machine.gif',fit: BoxFit.contain,height: 520,)
+                    //                           ),
+                    //                         ),
+                    //                       )
+                    //
+                    //                     ],
+                    //                   ),
+                    //
+                    //                 ],
+                    //               )
+                    //             ],
+                    //           ),
+                    //         )
+                    //
+                    //         // SingleChildScrollView(
+                    //         //   child: Column(
+                    //         //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //         //     mainAxisAlignment: MainAxisAlignment.start,
+                    //         //     children: [
+                    //         //       Padding(
+                    //         //         padding: const EdgeInsets.fromLTRB(16,0,5,5),
+                    //         //         child: Row(
+                    //         //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         //           children: [
+                    //         //             Padding(
+                    //         //               padding: const EdgeInsets.only(top: 0),
+                    //         //               child:
+                    //         //               Column(
+                    //         //                 crossAxisAlignment: CrossAxisAlignment.start,
+                    //         //                 children: [
+                    //         //                   Text(UserData().getUserName.toString(),style: MyTextTheme().largePCB.copyWith(color: AppColor.primaryColorLight,fontSize: 25)),
+                    //         //                   Row(
+                    //         //                     children: [
+                    //         //
+                    //         //                       Text(UserData().getUserGender.toString()=='1'? 'Male':'Female',style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
+                    //         //                       Text(" ${DateTime.now().year-int.parse(UserData().getUserDob.split('/')[2])} years ",style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
+                    //         //                     ],
+                    //         //                   ),
+                    //         //                   Text(UserData().getUserMobileNo,style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
+                    //         //                   Text(UserData().getUserEmailId,style: MyTextTheme().mediumGCN.copyWith(fontSize: 18)),
+                    //         //                 ],
+                    //         //               ),
+                    //         //             ),
+                    //         //             Row(
+                    //         //               mainAxisAlignment: MainAxisAlignment.end,
+                    //         //               children: const [
+                    //         //                 ProfileInfoWidget()
+                    //         //               ],
+                    //         //             )
+                    //         //
+                    //         //           ],
+                    //         //         ),
+                    //         //       ),
+                    //         //
+                    //         //
+                    //         //       Padding(
+                    //         //         padding: const EdgeInsets.only(left: 20,top: 3,bottom: 20),
+                    //         //         child: Column(
+                    //         //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //         //           children: [
+                    //         //             Row(
+                    //         //               children: [
+                    //         //                 Text(localization.getLocaleData.hintText!.Welcometo.toString()+" ".toString(),style: MyTextTheme().veryLargeBCN,),
+                    //         //                 Text(localization.getLocaleData.hintText!.ProvideHealthKiosk.toString(),style: MyTextTheme().veryLargePCB.copyWith(color: AppColor.blue),)
+                    //         //               ],
+                    //         //             ),
+                    //         //             const SizedBox(height: 10,),
+                    //         //             Text(localization.getLocaleData.hintText!.thankyou.toString(),style: MyTextTheme().mediumGCN),
+                    //         //             const SizedBox(height: 10,),
+                    //         //             Text(localization.getLocaleData.hintText!.askQuestions.toString(),style: MyTextTheme().mediumGCN),
+                    //         //             const SizedBox(height: 10,),
+                    //         //             Text(localization.getLocaleData.hintText!.consultOnline.toString(),style: MyTextTheme().mediumGCN),
+                    //         //           ],
+                    //         //         ),
+                    //         //       ),
+                    //         //
+                    //         //       Row(
+                    //         //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         //         children: [
+                    //         //           Column(
+                    //         //             crossAxisAlignment: CrossAxisAlignment.start,
+                    //         //             children: [
+                    //         //               Row(
+                    //         //                 children: [
+                    //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
+                    //         //                   // Text('Calculate BMI',style: MyTextTheme().mediumGCN,)
+                    //         //                   Text(localization.getLocaleData.hintText!.calculateBMI.toString(),style: MyTextTheme().mediumGCN,)
+                    //         //                 ],
+                    //         //               ),
+                    //         //               Row(
+                    //         //                 children: [
+                    //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
+                    //         //                   //    Text('Get instant report of ECG',style: MyTextTheme().mediumGCN)
+                    //         //                   Text(localization.getLocaleData.hintText!.instantReport.toString(),style: MyTextTheme().mediumGCN)
+                    //         //                 ],
+                    //         //               ),
+                    //         //               Row(
+                    //         //                 children: [
+                    //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
+                    //         //                   //Text('Know your vitals without appointment',style: MyTextTheme().mediumGCN)
+                    //         //                   Text(localization.getLocaleData.hintText!.yourVitals.toString(),style: MyTextTheme().mediumGCN)
+                    //         //                 ],
+                    //         //               ),
+                    //         //               Row(
+                    //         //                 children: [
+                    //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
+                    //         //                   //  Text('Avaliable 24/7',style: MyTextTheme().mediumGCN)
+                    //         //                   Text("${localization.getLocaleData.hintText!.available.toString()} 24/7",style: MyTextTheme().mediumGCN)
+                    //         //                 ],
+                    //         //               ),
+                    //         //               Row(
+                    //         //                 children: [
+                    //         //                   Icon(Icons.arrow_right_sharp,size: 60,color: AppColor.greyDark,),
+                    //         //                   // Text('get any query within a minute',style: MyTextTheme().mediumGCN)
+                    //         //                   Text(localization.getLocaleData.hintText!.anyQuery.toString(),style: MyTextTheme().mediumGCN)
+                    //         //                 ],
+                    //         //               ),
+                    //         //             ],),
+                    //         //           Padding(
+                    //         //             padding: const EdgeInsets.only(right: 60),
+                    //         //             child: Image.asset("assets/male_model.gif",scale: 3,),
+                    //         //           )
+                    //         //
+                    //         //         ],
+                    //         //       ),
+                    //         //       SizedBox(height: 160,)
+                    //         //
+                    //         //
+                    //         //
+                    //         //
+                    //         //
+                    //         //
+                    //         //     ],
+                    //         //   ),
+                    //         // )
+                    //     )
+                    //
+                    //
+                    //   ],
+                    // );
+                  },
               ),
-            )),
+            ),
+                )),
           ),
         );
       }

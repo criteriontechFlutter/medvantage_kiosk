@@ -347,7 +347,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
    // _initPicovoice();
     VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
-   listenVM.awake();
+  // listenVM.awake();
     listenVM.listeningPage='main dashboard';
    //  listenVM.startListening();
 

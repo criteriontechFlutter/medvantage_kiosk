@@ -65,6 +65,7 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
     listenVM.listeningPage="My appointment";
   //  await modal.getPatientAppointmentList(context);
     await modal.getMedvantageUserAppointment(context);
+    await modal.allPatientVitals(context);
   }
 
   @override
@@ -364,8 +365,6 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                                 child: Text(localization.getLocaleData.hintText!.appointment.toString(),style: MyTextTheme().largeBCB,),
                                               ),
                                       const Expanded(child: SizedBox()),
-
-
                                           Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -393,6 +392,7 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                             Expanded(child: Text(localization.getLocaleData.patient.toString(),style: MyTextTheme().mediumBCB,),),
                                             Expanded(child: Text(localization.getLocaleData.hintText!.doctor.toString(),style: MyTextTheme().mediumBCB,),),
                                            Expanded(child:  Text(localization.getLocaleData.hintText!.department.toString(),style: MyTextTheme().mediumBCB,),),
+                                            Expanded(child: Text(localization.getLocaleData.mobileNumber.toString(),style: MyTextTheme().mediumBCB,),),
                                             Expanded(child: Text(localization.getLocaleData.hintText!.appointment.toString(),style: MyTextTheme().mediumBCB,),),
 
                                           ],
@@ -444,10 +444,21 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                                                 Expanded(child: Text(appointmentData.doctorName.toString(),style: MyTextTheme().mediumBCN,),),
                                                                 Expanded(child: Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),),
                                                                 Expanded(child: Text(appointmentData.mobileNo.toString(),style: MyTextTheme().mediumBCN,),),
-
+                                                                Expanded(child: Container(
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(8),
+                                                                    border: Border.all(width: 2,
+                                                                        color: appointmentData.appointmentStatus.toString().toLowerCase()=='ongoing'?Colors.lightGreen: Colors.orangeAccent),
+                                                                     color: Colors.white
+                                                                  ),
+                                                                    child: Center(child: Padding(
+                                                                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                                                      child: Text(appointmentData.appointmentStatus.toString(),style: TextStyle(
+                                                                          color: appointmentData.appointmentStatus.toString().toLowerCase()=='ongoing'?Colors.lightGreen: Colors.orangeAccent,fontSize: 18,fontWeight: FontWeight.bold
+                                                                      )),
+                                                                    ))),),
 
                                                                 // Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),
-
 
                                                       //
                                                       // appointmentData.expiredStatus !=
@@ -569,216 +580,244 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(localization.getLocaleData.vitalHistory.toString(),style: MyTextTheme().largeBCB,),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(4, 8, 170,5),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          children:  [
-                                            Expanded(
-                                                child: Text(localization.getLocaleData.hintText!.fromDate.toString(), style: MyTextTheme()
-                                                    .mediumGCN
-                                                    .copyWith(fontSize: 16))),
-                                            // const SizedBox(
-                                            //   width: 10,
-                                            // ),
-                                            Expanded(
-                                                child: Text(localization.getLocaleData.hintText!.toDate.toString(), style: MyTextTheme()
-                                                    .mediumGCN
-                                                    .copyWith(fontSize: 16))),
-
-                                          ],
-                                        ),
-                                      ),
-
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Expanded(flex: 2,
-                                              child: MyDateTimeField(
-                                                controller:
-                                                vitalsmodal.controller.dateFromC.value,
-                                                onChanged: (val) async {
-                                                  await vitalsmodal
-                                                      .getPatientVitalsDateWiseHistory(
-                                                      context);
-                                                },
-                                              )),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(flex: 2,
-                                              child: MyDateTimeField(
-                                                controller:
-                                                vitalsmodal.controller.dateToC.value,
-                                                onChanged: (val) async {
-                                                  await vitalsmodal
-                                                      .getPatientVitalsDateWiseHistory(
-                                                      context);
-                                                },
-                                              )),
-                                          const SizedBox(width: 50,),
-                                          Expanded(child: MyButton(
-                                            color: AppColor.primaryColor,
-                                            onPress: (){
-                                               //App().navigate(context, AddVitalsView());
-                                              showAlertDialog(context);
-                                            },title:localization.getLocaleData.addManually.toString(),))
-                                        ],
-                                      ),
-
-
-                                      Expanded(
-                                        child: AnimationLimiter(
-                                          child: ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: vitalsmodal.controller
-                                                  .getVitalHistoryList.length,
-                                              itemBuilder: (BuildContext context, int index) {
-                                                VitalHistoryDataModal historyData = vitalsmodal.controller.getVitalHistoryList[index];
-                                                return AnimationConfiguration.staggeredList(
-                                                  position: index,
-                                                  duration: const Duration(milliseconds: 800),
-                                                  child: SlideAnimation(
-                                                    verticalOffset: 50.0,
-                                                    child: FadeInAnimation(
-                                                      child: Visibility(  
-                                                        visible: historyData.vitalName.toString()!="RBS" && historyData.vitalName.toString()!="TEMPERATURE"&&
-                                                            historyData.vitalName.toString()!="RESPRATE",
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.all(8.0),
-                                                          child: Container(
-                                                            color: AppColor.white,
-                                                            padding: const EdgeInsets.all(8),
-                                                            child: Column(
-                                                              children: [
-                                                                GestureDetector(
-                                                                  onTap: () async {
-                                                                    await vitalsmodal.controller
-                                                                        .updateHistoryData(index, historyData.isSelected as bool);
-                                                                  },
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Expanded(
-                                                                        flex: 1,
-                                                                        child:
-                                                                        CachedNetworkImage(
-                                                                          placeholder: (context,
-                                                                              url) =>
-                                                                              Image.asset(
-                                                                                  'assets/image_unavailable.jpg'),
-                                                                          imageUrl: historyData
-                                                                              .iconPath
-                                                                              .toString(),
-                                                                          errorWidget: (context,
-                                                                              url, error) =>
-                                                                              Image.asset(
-                                                                                  'assets/image_unavailable.jpg'),
-                                                                        ),
-                                                                      ),
-                                                                      const SizedBox(
-                                                                        width: 10,
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 7,
-                                                                        child: Text(
-                                                                          historyData.vitalName
-                                                                              .toString()
-                                                                              .toUpperCase(),
-                                                                          style: MyTextTheme()
-                                                                              .smallBCB,
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                          flex: 2,
-                                                                          child: Text(localization.getLocaleData.hintText!.viewDetails.toString(),style: MyTextTheme().mediumGCN,)
-                                                                        // Icon(
-                                                                        //   Icons.info_outline,
-                                                                        //   color: AppColor
-                                                                        //       .primaryColor,
-                                                                        //   size: 20,
-                                                                        // ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Visibility(
-                                                                    visible: historyData
-                                                                        .isSelected ==
-                                                                        true,
-                                                                    child: Padding(
-                                                                      padding:
-                                                                      const EdgeInsets.all(
-                                                                          8.0),
-                                                                      child: Row(
-                                                                        children: [
-                                                                          Expanded(
-                                                                            child: SizedBox(
-                                                                              width: 300,
-                                                                              child: (vitalsmodal
-                                                                                  .controller
-                                                                                  .getVitalHistoryList[
-                                                                              index]
-                                                                                  .vitalDetails!
-                                                                                  .isEmpty ==
-                                                                                  true)
-                                                                                  ? Padding(
-                                                                                padding:
-                                                                                const EdgeInsets.all(
-                                                                                    8.0),
-                                                                                child:
-                                                                                Text(
-                                                                                  "NO Data Found",
-                                                                                  textAlign:
-                                                                                  TextAlign.center,
-                                                                                  style: MyTextTheme()
-                                                                                      .smallGCN,
-                                                                                ),
-                                                                              )
-                                                                                  : Column(
-                                                                                children: List.generate(
-                                                                                    historyData
-                                                                                        .vitalDetails!
-                                                                                        .length,
-                                                                                        (index) {
-                                                                                      return Row(
-                                                                                        children: [
-                                                                                          Expanded(
-                                                                                            child: Padding(
-                                                                                              padding: const EdgeInsets.all(8.0),
-                                                                                              child: Text(
-                                                                                                historyData.vitalDetails![index].vitalDate.toString(),
-                                                                                                style: MyTextTheme().smallBCN,
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                          Text(
-                                                                                            historyData.vitalDetails![index].vitalValue.toString(),
-                                                                                            style: MyTextTheme().smallBCN,
-                                                                                          ),
-                                                                                        ],
-                                                                                      );
-                                                                                    }),
-                                                                              ),
-                                                                            ),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                    ))
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              }),
-                                        ),
-                                      ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.fromLTRB(4, 8, 170,5),
+                                      //   child: Row(
+                                      //     mainAxisAlignment:
+                                      //     MainAxisAlignment.center,
+                                      //     children:  [
+                                      //       Expanded(
+                                      //           child: Text(localization.getLocaleData.hintText!.fromDate.toString(), style: MyTextTheme()
+                                      //               .mediumGCN
+                                      //               .copyWith(fontSize: 16))),
+                                      //       // const SizedBox(
+                                      //       //   width: 10,
+                                      //       // ),
+                                      //       Expanded(
+                                      //           child: Text(localization.getLocaleData.hintText!.toDate.toString(), style: MyTextTheme()
+                                      //               .mediumGCN
+                                      //               .copyWith(fontSize: 16))),
+                                      //
+                                      //     ],
+                                      //   ),
+                                      // ),
+                                      //
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //   MainAxisAlignment.spaceAround,
+                                      //   children: [
+                                      //     Expanded(flex: 2,
+                                      //         child: MyDateTimeField(
+                                      //           controller:
+                                      //           vitalsmodal.controller.dateFromC.value,
+                                      //           onChanged: (val) async {
+                                      //             await vitalsmodal
+                                      //                 .getPatientVitalsDateWiseHistory(
+                                      //                 context);
+                                      //           },
+                                      //         )),
+                                      //     const SizedBox(
+                                      //       width: 10,
+                                      //     ),
+                                      //     Expanded(flex: 2,
+                                      //         child: MyDateTimeField(
+                                      //           controller:
+                                      //           vitalsmodal.controller.dateToC.value,
+                                      //           onChanged: (val) async {
+                                      //             await vitalsmodal
+                                      //                 .getPatientVitalsDateWiseHistory(
+                                      //                 context);
+                                      //           },
+                                      //         )),
+                                      //     const SizedBox(width: 50,),
+                                      //     Expanded(child: MyButton(
+                                      //       color: AppColor.primaryColor,
+                                      //       onPress: (){
+                                      //          //App().navigate(context, AddVitalsView());
+                                      //         showAlertDialog(context);
+                                      //       },title:localization.getLocaleData.addManually.toString(),))
+                                      //   ],
+                                      // ),
 
 
+                                      // Expanded(
+                                      //   child: AnimationLimiter(
+                                      //     child: ListView.builder(
+                                      //         shrinkWrap: true,
+                                      //         itemCount: vitalsmodal.controller
+                                      //             .getVitalHistoryList.length,
+                                      //         itemBuilder: (BuildContext context, int index) {
+                                      //           VitalHistoryDataModal historyData = vitalsmodal.controller.getVitalHistoryList[index];
+                                      //           return AnimationConfiguration.staggeredList(
+                                      //             position: index,
+                                      //             duration: const Duration(milliseconds: 800),
+                                      //             child: SlideAnimation(
+                                      //               verticalOffset: 50.0,
+                                      //               child: FadeInAnimation(
+                                      //                 child: Visibility(
+                                      //                   visible: historyData.vitalName.toString()!="RBS" && historyData.vitalName.toString()!="TEMPERATURE"&&
+                                      //                       historyData.vitalName.toString()!="RESPRATE",
+                                      //                   child: Padding(
+                                      //                     padding: const EdgeInsets.all(8.0),
+                                      //                     child: Container(
+                                      //                       color: AppColor.white,
+                                      //                       padding: const EdgeInsets.all(8),
+                                      //                       child: Column(
+                                      //                         children: [
+                                      //                           GestureDetector(
+                                      //                             onTap: () async {
+                                      //                               await vitalsmodal.controller
+                                      //                                   .updateHistoryData(index, historyData.isSelected as bool);
+                                      //                             },
+                                      //                             child: Row(
+                                      //                               children: [
+                                      //                                 Expanded(
+                                      //                                   flex: 1,
+                                      //                                   child:
+                                      //                                   CachedNetworkImage(
+                                      //                                     placeholder: (context,
+                                      //                                         url) =>
+                                      //                                         Image.asset(
+                                      //                                             'assets/image_unavailable.jpg'),
+                                      //                                     imageUrl: historyData
+                                      //                                         .iconPath
+                                      //                                         .toString(),
+                                      //                                     errorWidget: (context,
+                                      //                                         url, error) =>
+                                      //                                         Image.asset(
+                                      //                                             'assets/image_unavailable.jpg'),
+                                      //                                   ),
+                                      //                                 ),
+                                      //                                 const SizedBox(
+                                      //                                   width: 10,
+                                      //                                 ),
+                                      //                                 Expanded(
+                                      //                                   flex: 7,
+                                      //                                   child: Text(
+                                      //                                     historyData.vitalName
+                                      //                                         .toString()
+                                      //                                         .toUpperCase(),
+                                      //                                     style: MyTextTheme()
+                                      //                                         .smallBCB,
+                                      //                                   ),
+                                      //                                 ),
+                                      //                                 Expanded(
+                                      //                                     flex: 2,
+                                      //                                     child: Text(localization.getLocaleData.hintText!.viewDetails.toString(),style: MyTextTheme().mediumGCN,)
+                                      //                                   // Icon(
+                                      //                                   //   Icons.info_outline,
+                                      //                                   //   color: AppColor
+                                      //                                   //       .primaryColor,
+                                      //                                   //   size: 20,
+                                      //                                   // ),
+                                      //                                 ),
+                                      //                               ],
+                                      //                             ),
+                                      //                           ),
+                                      //                           Visibility(
+                                      //                               visible: historyData
+                                      //                                   .isSelected ==
+                                      //                                   true,
+                                      //                               child: Padding(
+                                      //                                 padding:
+                                      //                                 const EdgeInsets.all(
+                                      //                                     8.0),
+                                      //                                 child: Row(
+                                      //                                   children: [
+                                      //                                     Expanded(
+                                      //                                       child: SizedBox(
+                                      //                                         width: 300,
+                                      //                                         child: (vitalsmodal
+                                      //                                             .controller
+                                      //                                             .getVitalHistoryList[
+                                      //                                         index]
+                                      //                                             .vitalDetails!
+                                      //                                             .isEmpty ==
+                                      //                                             true)
+                                      //                                             ? Padding(
+                                      //                                           padding:
+                                      //                                           const EdgeInsets.all(
+                                      //                                               8.0),
+                                      //                                           child:
+                                      //                                           Text(
+                                      //                                             "NO Data Found",
+                                      //                                             textAlign:
+                                      //                                             TextAlign.center,
+                                      //                                             style: MyTextTheme()
+                                      //                                                 .smallGCN,
+                                      //                                           ),
+                                      //                                         )
+                                      //                                             : Column(
+                                      //                                           children: List.generate(
+                                      //                                               historyData
+                                      //                                                   .vitalDetails!
+                                      //                                                   .length,
+                                      //                                                   (index) {
+                                      //                                                 return Row(
+                                      //                                                   children: [
+                                      //                                                     Expanded(
+                                      //                                                       child: Padding(
+                                      //                                                         padding: const EdgeInsets.all(8.0),
+                                      //                                                         child: Text(
+                                      //                                                           historyData.vitalDetails![index].vitalDate.toString(),
+                                      //                                                           style: MyTextTheme().smallBCN,
+                                      //                                                         ),
+                                      //                                                       ),
+                                      //                                                     ),
+                                      //                                                     Text(
+                                      //                                                       historyData.vitalDetails![index].vitalValue.toString(),
+                                      //                                                       style: MyTextTheme().smallBCN,
+                                      //                                                     ),
+                                      //                                                   ],
+                                      //                                                 );
+                                      //                                               }),
+                                      //                                         ),
+                                      //                                       ),
+                                      //                                     )
+                                      //                                   ],
+                                      //                                 ),
+                                      //                               ))
+                                      //                         ],
+                                      //                       ),
+                                      //                     ),
+                                      //                   ),
+                                      //                 ),
+                                      //               ),
+                                      //             ),
+                                      //           );
+                                      //         }),
+                                      //   ),
+                                      // ),
+
+Expanded(child: ListView.builder(
+itemCount: modal.controller.getMedVitalsList.length,
+  itemBuilder: (BuildContext context, int index) {
+  var item = modal.controller.getMedVitalsList[index];
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      width: Get.width,
+color: Colors.white,
+      child: Column(
+        children:  [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text(item["vitalName"].toString(),style: MyTextTheme().largeBCB,),
+                const Text(" : "),
+                Text(item["vmValue"].toString(),style: MyTextTheme().largePCB,),
+                Expanded(child: SizedBox()),
+                Text(item["vitalDateTime"].toString(),style: MyTextTheme().mediumBCB,),
+              ],
+            ),
+          ),
+
+        ],
+      ),
+    ),
+  );
+  },))
 
                                     ],
                                   ),
@@ -979,9 +1018,9 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                               }
                           ),
                            ),
-                      SizedBox(
-                        height: Get.height*0.11,
-                          child:  FooterView())
+                      // SizedBox(
+                      //   height: Get.height*0.11,
+                      //     child:  FooterView())
                     ],
                   ),
                 );
@@ -1015,12 +1054,12 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
           //containerText: "Vital History",
           route: const VitalHistoryView()
       ),
-      AVIDataModal(
-        containerImage: 'assets/find_symptom_img.png',
-         containerText: localization.getLocaleData.investigation.toString(),
-        //containerText: "Investigation",
-        route: const InvestigationView(),
-      )
+      // AVIDataModal(
+      //   containerImage: 'assets/find_symptom_img.png',
+      //    containerText: localization.getLocaleData.investigation.toString(),
+      //   //containerText: "Investigation",
+      //   route: const InvestigationView(),
+      // )
     ];
   }
   RxString containerIndex ="".obs;

@@ -312,9 +312,9 @@ class CompletedCTBp extends StatelessWidget {
             // modal.controller.update();
 
             print('----------nn'+data.sys.toString());
-           await modal.saveDeviceVital(context,pr:data.pulseRate.toString(),
-               sys: data.sys.toString(),
-               dia: data.dia.toString(),
+           await modal.medvantageAddVitals(context,Pulse:data.pulseRate.toString(),
+               BPSys: data.sys.toString(),
+               BPDias: data.dia.toString(),
            );
 
           },)

@@ -122,10 +122,10 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
       color: AppColor.primaryColor,
       child: SafeArea(
         child: Scaffold(
-          appBar: MyWidget().myAppBar(
-            context,
-            title: localization.getLocaleData.selectDevice.toString(),
-          ),
+          // appBar: MyWidget().myAppBar(
+          //   context,
+          //   title: localization.getLocaleData.selectDevice.toString(),
+          // ),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -566,43 +566,6 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                           ),
                                         ),
                                       ),
-                                      Platform.isAndroid?  Column(
-                                        children: [
-                                          InkWell(
-                                            onTap: () async {
-                                              _enableBluetooth(context,
-                                                  route: const AppWebView(
-                                                    url:
-                                                        'https://www.fitbit.com/oauth2/authorize?client_id=238LH2&response_type=code&code_challenge=-4cf-Mzo_qg9-uq0F4QwWhRh4AjcAqNx7SbYVsdmyQM&code_challenge_method=S256&scope=weight%20location%20settings%20profile%20nutrition%20activity%20sleep%20heartrate%20social',
-                                                    title: 'FitBit',
-                                                  ));
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.fromLTRB(
-                                                  40, 8, 40, 8),
-                                              child: Container(
-                                                padding: const EdgeInsets.all(8.0),
-                                                color: Colors.blue.shade50,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                        localization
-                                                            .getLocaleData.fitBit
-                                                            .toString(),
-                                                        style: MyTextTheme()
-                                                            .mediumBCB
-                                                            .copyWith(
-                                                                color: AppColor
-                                                                    .primaryColorLight)),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ):const SizedBox(),
                                     ],
                                   ),
                                 ],
@@ -612,119 +575,7 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                         ],
                       ),
                     //: SizedBox(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    color: AppColor.white,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 14,
-                              backgroundColor: Colors.green.shade50,
-                              child: SvgPicture.asset(
-                                Platform.isAndroid
-                                    ? 'assets/googlefit.svg'
-                                    : 'assets/applehealthicon.svg',
-                                height: 15,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              Platform.isAndroid
-                                  ? localization.getLocaleData.googleFit.toString()
-                                  : localization.getLocaleData.appleHealth.toString(),
-                              style: MyTextTheme().mediumBCB,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () async {
-                                App().navigate(context,  GoogleFitView());
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
-                                child: Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  color: Colors.blue.shade50,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                          Platform.isAndroid
-                                              ? localization.getLocaleData.googleFit.toString()
-                                              : localization.getLocaleData.appleHealth.toString(),
-                                          style: MyTextTheme().mediumBCB.copyWith(
-                                              color: AppColor.primaryColorLight)),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    color: AppColor.white,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 14,
-                              backgroundColor: Colors.green.shade50,
-                              child: SvgPicture.asset(  'assets/applehealthicon.svg',
-                                height: 15,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(  'digi_doctorscope'.toString(),
-                              style: MyTextTheme().mediumBCB,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () async {
-                                getWebView(context, pid: UserData().getUserPid.toString());
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
-                                child: Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  color: Colors.blue.shade50,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('digi_doctorscope'.toString(),
-                                          style: MyTextTheme().mediumBCB.copyWith(
-                                              color: AppColor.primaryColorLight)),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+
               ],
             ),
           ),

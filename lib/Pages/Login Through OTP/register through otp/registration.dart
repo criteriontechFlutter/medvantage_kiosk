@@ -10,6 +10,7 @@ import '../../../AppManager/app_color.dart';
 import '../../../AppManager/app_util.dart';
 import '../../../AppManager/my_text_theme.dart';
 import '../../../AppManager/widgets/MyCustomSD.dart';
+import '../../../AppManager/widgets/date_time_field.dart';
 import '../../../AppManager/widgets/my_button.dart';
 import '../../../AppManager/widgets/my_text_field_2.dart';
 import '../../../Localization/language_change_widget.dart';
@@ -28,6 +29,8 @@ class Registration extends StatefulWidget {
   @override
   State<Registration> createState() => _RegistrationState();
 }
+
+
 
 class _RegistrationState extends State<Registration> {
   bool isChecked = false;
@@ -52,6 +55,7 @@ class _RegistrationState extends State<Registration> {
     Get.delete<RegistrationController>();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -175,6 +179,76 @@ class _RegistrationState extends State<Registration> {
                                                                     },
                                                                   ),
                                                                 ),
+
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          const SizedBox(width: 10),
+                                                          const SizedBox(width: 10),
+                                                          Expanded(
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                const Text(
+                                                                    'age',
+                                                                    style: TextStyle(fontSize: 18,color: Colors.white,)),
+                                                                const SizedBox(height: 3),
+                                                                MyTextField2(
+                                                                  controller: modal2.controller.yearController.value,
+                                                                  hintText: 'age',
+                                                                  validator: (value) {
+                                                                    if (value!.isEmpty) {
+                                                                      return localization.getLocaleData.validationText!.enterValidEmail.toString();
+                                                                    }
+                                                                    return null;
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                const Text(
+                                                                    "Select Type",
+                                                                    style: TextStyle(fontSize: 18, color: Colors.white,)),
+                                                                const SizedBox(height: 5,),
+                                                                SizedBox(
+                                                                  child: MyCustomSD(
+                                                                    borderColor: AppColor.greyLight,
+                                                                    listToSearch: modal2.controller.dobType,
+                                                                    hideSearch: true,
+                                                                    valFrom: 'name',
+                                                                    height: 70,
+                                                                    label: "Select type",
+                                                                    initialValue: [
+                                                                      {
+                                                                        'parameter':
+                                                                            'name',
+                                                                        'value': modal2
+                                                                            .controller
+                                                                            .dateOfBirth
+                                                                            .value
+                                                                            .text,
+                                                                      },
+                                                                    ],
+                                                                    onChanged:
+                                                                        (val) {
+                                                                      if (val != null) {
+                                                                        modal2.controller.dobUnitId.value.text = val['id'].toString();
+                                                                        //print(val['id']);
+                                                                      }
+                                                                    },
+                                                                  ),
+                                                                ),
+
                                                               ],
                                                             ),
                                                           ),
@@ -185,19 +259,24 @@ class _RegistrationState extends State<Registration> {
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Text(
-                                                                    localization.getLocaleData.add.toString(),
+                                                                    localization.getLocaleData.dateOfBirth.toString(),
                                                                     style: const TextStyle(fontSize: 18,color: Colors.white,)),
                                                                 const SizedBox(height: 3),
-                                                                MyTextField2(
-                                                                  controller: modal2.controller.dobController.value,
-                                                                  hintText: 'age',
-                                                                  validator: (value) {
-                                                                    if (value!.isEmpty) {
-                                                                      return localization.getLocaleData.validationText!.enterValidEmail.toString();
+                                                                MyDateTimeField(
+                                                                  controller: modal2.controller.dateOfBirth.value,
+                                                                  validator: (value){
+                                                                    print(value.toString());
+                                                                    if(value!.isEmpty){
+                                                                      return localization.getLocaleData.hintText!.dateOfBirth.toString();
                                                                     }
-                                                                    return null;
                                                                   },
+                                                                  hintText: localization.getLocaleData.hintText!.dateOfBirth.toString(),
+                                                                  borderColor: AppColor.greyLight,
+                                                                  prefixIcon:   const Icon(
+                                                                    Icons.calendar_today,color: Colors.blue, ),
+                                                                  // suffixIcon: Icon(Icons.person),
                                                                 ),
+
                                                               ],
                                                             ),
                                                           ),
@@ -240,7 +319,7 @@ class _RegistrationState extends State<Registration> {
                                                                 .currentState!
                                                                 .validate()) {
                                                               if (modal2.controller.nameController.value.text.toString() ==
-                                                                      '' && modal2.controller.dobController.value.text.toString() ==
+                                                                      '' && modal2.controller.yearController.value.text.toString() ==
                                                                       '' && modal2.controller.emailController.value.text.toString() ==
                                                                       '' &&
                                                                   //  modal.controller.mobileController.value.text.toString() == '' &&

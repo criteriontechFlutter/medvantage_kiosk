@@ -451,7 +451,7 @@ class _VitalHistoryViewState extends State<VitalHistoryView> {
                       ),
                     ),
 
-                     Expanded(child: FooterView())
+                     // Expanded(child: FooterView())
                   ],
                 ),
               );

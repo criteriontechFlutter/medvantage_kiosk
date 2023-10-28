@@ -14,6 +14,7 @@ import 'package:wakelock/wakelock.dart';
 import '../../../../AppManager/raw_api.dart';
 import '../../../../AppManager/user_data.dart';
 
+import '../../../VitalPage/Add Vitals/add_vitals_modal.dart';
 import '../../../select_member/DataModal/select_member_data_modal.dart';
 
 
@@ -530,65 +531,16 @@ class PatientMonitorController extends GetxController{
 
   saveDeviceVital(context,) async {
 
-    List dtDataTable = [];
 
-    if( getSpo2Value.toString()!='0'){
-      dtDataTable.add({
-        'vitalId': 56.toString(),
-        'vitalValue': getSpo2Value.toString(),
-      });}
-
-    if( getSpo2Value!='0'){
-      dtDataTable.add({
-        'vitalId': 3.toString(),
-        'vitalValue':getPrValue.toString(),
-      });}
-
-    if(  getBpData['mode']=='f' ){
-      dtDataTable.add({
-        'vitalId': 4.toString(),
-        'vitalValue':getBpData['systolic'].toString(),
-      });}
-
-    if( getBpData['mode']=='f' ){
-      dtDataTable.add({
-        'vitalId': 6.toString(),
-        'vitalValue':getBpData['diastolic'].toString(),
-      });}
-
-    if(getTempValue!='00.0'){
-      dtDataTable.add({
-        'vitalId': 5.toString(),
-        'vitalValue':getTempValue.toString(),
-      });}
-    if(  getHrValue!='00'){
-      dtDataTable.add({
-        'vitalId': 74.toString(),
-        'vitalValue':getHrValue.toString(),
-      });}
+    AddVitalsModel vitalModal=AddVitalsModel();
 
 
-
-    var body = {
-      "memberId": UserData().getUserMemberId,
-      'dtDataTable': jsonEncode(dtDataTable),
-      "date": DateFormat("yyyy-MM-dd").format(DateTime.now()).toString(),
-      "time": DateFormat("HH:mm:ss").format(DateTime.now()).toString(),
-    };
-
-    var data = await RawData().api(
-      "Patient/addVital",
-      body,
-      context,
-    );
-    if (data['responseCode'] == 1) {
-
-      // alertToast(context,
-      //     localization.getLocaleData.vitalsSaveSuccessfully.toString());
-      // Navigator.pop(context);
-    }  else {
-      // alertToast(context, data['responseMessage'].toString());
-    }
+   await vitalModal.medvantageAddVitals(context,SPO2: getSpo2Value.toString(),
+    Pulse: getPrValue.toString(),
+    BPDias:getBpData['diastolic'].toString() ,
+    BPSys: getBpData['systolic'].toString(),
+    Temperature: getTempValue.toString(),
+    HeartRate: getHrValue.toString(),);
 
 
   }
