@@ -1,3 +1,4 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digi_doctor/AppManager/app_color.dart';
 import 'package:digi_doctor/AppManager/my_text_theme.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../../Localization/app_localization.dart';
 import '../../AppManager/app_util.dart';
 import '../../AppManager/widgets/common_widgets.dart';
@@ -60,12 +60,12 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
   InvestigationModal investigationModel = InvestigationModal();
   PrescriptionHistoryModal prescriptionModal = PrescriptionHistoryModal();
 
-  get() async {
+  get()  {
     VoiceAssistantProvider listenVM=Provider.of<VoiceAssistantProvider>(context,listen: false);
     listenVM.listeningPage="My appointment";
-  //  await modal.getPatientAppointmentList(context);
-    await modal.getMedvantageUserAppointment(context);
-    await modal.allPatientVitals(context);
+    //  await modal.getPatientAppointmentList(context);
+     modal.getMedvantageUserAppointment(context);
+     modal.allPatientVitals(context);
   }
 
   @override
@@ -76,12 +76,12 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
       updateContainerIndex=widget.mainHeading??'0';
       get();
       getVitals();
-      getInvestigation();
+      //getInvestigation();
     });
   }
   getInvestigation() async {
-    await investigationModel.getManualInvestigation(context);
-    await investigationModel.getBMI(context);
+   // await investigationModel.getManualInvestigation(context);
+  //  await investigationModel.getBMI(context);
     if (investigationModel.controller.getIsNotification == 1){
       investigationModel.getRadioLogyReport(context);
       investigationModel.getMicrobiologyReport(context);
@@ -96,7 +96,7 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
         .format(DateTime.now().subtract(const Duration(days: 9)));
     vitalsmodal.controller.dateToC.value.text =
         DateFormat('yyyy-MM-dd').format(DateTime.now());
-    await vitalsmodal.getPatientVitalsDateWiseHistory(context);
+   // await vitalsmodal.getPatientVitalsDateWiseHistory(context);
     //**
     for(int i=0;i<addVitalsModel.controller.vitalTextX.length;i++){
       addVitalsModel.controller.vitalTextX[i].clear();
@@ -144,15 +144,14 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                   ),
                   child: Column(
                     children: [
-                     const SizedBox(
-                       height: 80,
-                         child: ProfileInfoWidget()),
+                      const SizedBox(
+                          height: 80,
+                          child: ProfileInfoWidget()),
 
                       SizedBox(
                         height: Get.height*0.12,
-                         child: ListView.builder(
+                        child: ListView.builder(
                             itemCount:getAVIData(context).length,
-
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index){
                               AVIDataModal data =getAVIData(context)[index];
@@ -169,7 +168,7 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                         vertical: 20,
                                         horizontal: 12),
                                     child: Container(
-                                    //  width: Get.width/3.3,
+                                      //  width: Get.width/3.3,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: getContainerIndex.toString()==index.toString()?AppColor
@@ -207,7 +206,7 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                 ),
                               );
                             }),
-                       ),
+                      ),
 
                       // Row(
                       //   children: [
@@ -345,40 +344,40 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                       getContainerIndex=="0"?
                       Expanded(
                         child: GetBuilder(
-                          init: MyAppointmentController(),
-                          builder: (_) {
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                              child: Container(
-                                width: Get.width,
-                                decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
-                                  borderRadius: BorderRadius.circular(5)
-                                ),
+                            init: MyAppointmentController(),
+                            builder: (_) {
+                              return Padding(
+                                padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                                child: Container(
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                      borderRadius: BorderRadius.circular(5)
+                                  ),
                                   child: Column(
                                     children: [
                                       Row(
                                         mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                         children: [
-                                    Padding(
-                                                padding: const EdgeInsets.all(20.0),
-                                                child: Text(localization.getLocaleData.hintText!.appointment.toString(),style: MyTextTheme().largeBCB,),
-                                              ),
-                                      const Expanded(child: SizedBox()),
+                                          Padding(
+                                            padding: const EdgeInsets.all(20.0),
+                                            child: Text(localization.getLocaleData.hintText!.appointment.toString(),style: MyTextTheme().largeBCB,),
+                                          ),
+                                          const Expanded(child: SizedBox()),
                                           Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: MyTextField2(
-                                      controller: modal.controller.search.value,
-                                      hintText: localization.getLocaleData.searchBy.toString(),
-                                      onChanged: (val){
-                                        print(val);
-                                        setState(() {
-                                        });
-                                      },
-                                    ),
-                                  ),
-                              ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: MyTextField2(
+                                                controller: modal.controller.search.value,
+                                                hintText: localization.getLocaleData.searchBy.toString(),
+                                                onChanged: (val){
+                                                  print(val);
+                                                  setState(() {
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       Padding(
@@ -386,638 +385,645 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-
                                             // Text(localization.getLocaleData.time.toString(),style: MyTextTheme().mediumBCB,),
                                             Expanded(child: Text(localization.getLocaleData.hintText!.date.toString(),style: MyTextTheme().mediumBCB,),),
                                             Expanded(child: Text(localization.getLocaleData.patient.toString(),style: MyTextTheme().mediumBCB,),),
                                             Expanded(child: Text(localization.getLocaleData.hintText!.doctor.toString(),style: MyTextTheme().mediumBCB,),),
-                                           Expanded(child:  Text(localization.getLocaleData.hintText!.department.toString(),style: MyTextTheme().mediumBCB,),),
+                                            Expanded(child:  Text(localization.getLocaleData.hintText!.department.toString(),style: MyTextTheme().mediumBCB,),),
                                             Expanded(child: Text(localization.getLocaleData.mobileNumber.toString(),style: MyTextTheme().mediumBCB,),),
                                             Expanded(child: Text(localization.getLocaleData.hintText!.appointment.toString(),style: MyTextTheme().mediumBCB,),),
 
                                           ],
                                         ),
                                       ),
-                                CommonWidgets().showNoData(
-                                  title: localization.getLocaleData.prescriptionHistoryNotFound.toString(),
-                                  show: (modal.controller.getShowNoData &&
-                                      modal.controller.getAppointmentList.isEmpty),
-                                  loaderTitle: localization.getLocaleData.loadingPrescriptionHistory.toString(),
-                                  showLoader: (!modal.controller.getShowNoData &&
-                                      modal.controller.getAppointmentList.isEmpty),
-                                      child:
-                                      modal.controller.getAppointmentList.isNotEmpty?
-                                      Expanded(
-                                          child: AnimationLimiter(
-                                            child: ListView.builder(
-                                              itemCount: modal.controller.getAppointmentList.length,
-                                                shrinkWrap: true,
-                                                itemBuilder: (BuildContext context, int index){
-                                                 // MyAppointmentDataModal appointmentData =modal.controller.getAppointmentList[index];
-                                                  AppointmentHistoryDataModal appointmentData =modal.controller.getAppointmentList[index];
-                                              return AnimationConfiguration.staggeredList(
-                                                position: index,
-                                                duration: const Duration(milliseconds: 800),
+                                      CommonWidgets().showNoData(
+                                          title: localization.getLocaleData.prescriptionHistoryNotFound.toString(),
+                                          show: (modal.controller.getShowNoData &&
+                                              modal.controller.getAppointmentList.isEmpty),
+                                          loaderTitle: localization.getLocaleData.loading.toString(),
+                                          // showLoader: (!modal.controller.getShowNoData &&
+                                          //     modal.controller.getAppointmentList.isEmpty),
+                                          child:
+                                          modal.controller.getAppointmentList.isNotEmpty?
+                                          Expanded(
+                                            child: AnimationLimiter(
+                                              child: ListView.builder(
+                                                  itemCount: modal.controller.getAppointmentList.length,
+                                                  shrinkWrap: true,
+                                                  itemBuilder: (BuildContext context, int index){
+                                                    // MyAppointmentDataModal appointmentData =modal.controller.getAppointmentList[index];
+                                                    AppointmentHistoryDataModal appointmentData =modal.controller.getAppointmentList[index];
+                                                    return AnimationConfiguration.staggeredList(
+                                                      position: index,
+                                                      duration: const Duration(milliseconds: 800),
 
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    // await prescriptionModal.getPrescriptionHistory(context,appointmentData.appointmentId);
-                                                    // showPrescription(context,appointmentData);
-                                                  },
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.fromLTRB(0,5,0,3),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        color: index.isOdd? AppColor.white:AppColor.greyLight
-                                                      ),
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 10),
-                                                        child: SlideAnimation(
-                                                          verticalOffset: 50.0,
-                                                          child: FadeInAnimation(
-                                                            child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              children: [
-                                                                 // Text((index+1).toString(),style: MyTextTheme().mediumBCN,),
-                                                                Expanded(child: Text(appointmentData.appointmentDate.toString(),style: MyTextTheme().mediumBCN,),),
-                                                                Expanded(child: Text(appointmentData.patientName.toString(),style: MyTextTheme().mediumBCN,),),
-                                                                Expanded(child: Text(appointmentData.doctorName.toString(),style: MyTextTheme().mediumBCN,),),
-                                                                Expanded(child: Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),),
-                                                                Expanded(child: Text(appointmentData.mobileNo.toString(),style: MyTextTheme().mediumBCN,),),
-                                                                Expanded(child: Container(
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(8),
-                                                                    border: Border.all(width: 2,
-                                                                        color: appointmentData.appointmentStatus.toString().toLowerCase()=='ongoing'?Colors.lightGreen: Colors.orangeAccent),
-                                                                     color: Colors.white
+                                                      child: InkWell(
+                                                        onTap: () async {
+                                                          // await prescriptionModal.getPrescriptionHistory(context,appointmentData.appointmentId);
+                                                          // showPrescription(context,appointmentData);
+                                                        },
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.fromLTRB(0,5,0,3),
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                                color: index.isOdd? AppColor.white:AppColor.greyLight
+                                                            ),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 10),
+                                                              child: SlideAnimation(
+                                                                verticalOffset: 50.0,
+                                                                child: FadeInAnimation(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    children: [
+                                                                      // Text((index+1).toString(),style: MyTextTheme().mediumBCN,),
+                                                                      Expanded(child: Text(appointmentData.appointmentDate.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                      Expanded(child: Text(appointmentData.patientName.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                      Expanded(child: Text(appointmentData.doctorName.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                      Expanded(child: Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                      Expanded(child: Text(appointmentData.mobileNo.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                      Expanded(child: Container(
+                                                                          decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(8),
+                                                                              border: Border.all(width: 2,
+                                                                                  color: appointmentData.appointmentStatus.toString().toLowerCase()=='ongoing'?Colors.lightGreen: Colors.orangeAccent),
+                                                                              color: Colors.white
+                                                                          ),
+                                                                          child: Center(child: Padding(
+                                                                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                                                            child: Text(appointmentData.appointmentStatus.toString(),style: TextStyle(
+                                                                                color: appointmentData.appointmentStatus.toString().toLowerCase()=='ongoing'?Colors.lightGreen: Colors.orangeAccent,fontSize: 18,fontWeight: FontWeight.bold
+                                                                            )),
+                                                                          ))),),
+                                                                      // Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),
+
+                                                                      //
+                                                                      // appointmentData.expiredStatus !=
+                                                                      //         0
+                                                                      //         ? Container(
+                                                                      //       width: 100,
+                                                                      //       padding:
+                                                                      //       const EdgeInsets
+                                                                      //           .symmetric(
+                                                                      //           horizontal: 10,
+                                                                      //           vertical: 5),
+                                                                      //       decoration: BoxDecoration(
+                                                                      //           color: AppColor.red,
+                                                                      //           borderRadius:
+                                                                      //           BorderRadius
+                                                                      //               .circular(
+                                                                      //               15)),
+                                                                      //       child: Text(
+                                                                      //         localization.getLocaleData.expired.toString(),
+                                                                      //         textAlign:
+                                                                      //         TextAlign.center,
+                                                                      //         style: MyTextTheme()
+                                                                      //             .smallWCB,
+                                                                      //       ),
+                                                                      // )
+                                                                      //         : appointmentData
+                                                                      //         .isPrescribed ==
+                                                                      //         true
+                                                                      //         ? Container(
+                                                                      //       width: 100,
+                                                                      //       padding:
+                                                                      //       const EdgeInsets
+                                                                      //           .symmetric(
+                                                                      //           horizontal:
+                                                                      //           10,
+                                                                      //           vertical:
+                                                                      //           5),
+                                                                      //       decoration: BoxDecoration(
+                                                                      //           color: AppColor
+                                                                      //               .green,
+                                                                      //           borderRadius:
+                                                                      //           BorderRadius
+                                                                      //               .circular(
+                                                                      //               15)),
+                                                                      //       child: Text(
+                                                                      //         textAlign: TextAlign.center,
+                                                                      //         localization.getLocaleData.prescribed.toString(),
+                                                                      //         style:
+                                                                      //         MyTextTheme()
+                                                                      //             .smallWCB,
+                                                                      //       ),
+                                                                      // )
+                                                                      //         : Container(
+                                                                      //       width: 100,
+                                                                      //       padding:
+                                                                      //       const EdgeInsets
+                                                                      //           .symmetric(
+                                                                      //           horizontal:
+                                                                      //           10,
+                                                                      //           vertical:
+                                                                      //           5),
+                                                                      //       decoration: BoxDecoration(
+                                                                      //           color:!appointmentData.isCancelled? AppColor
+                                                                      //               .orangeColorDark:AppColor.red,
+                                                                      //           borderRadius:
+                                                                      //           BorderRadius
+                                                                      //               .circular(
+                                                                      //               15)),
+                                                                      //       child: Text(
+                                                                      //         textAlign: TextAlign.center,
+                                                                      //         !appointmentData.isCancelled? localization.getLocaleData.confirmed.toString():"Cancelled",
+                                                                      //         style:
+                                                                      //         MyTextTheme()
+                                                                      //             .smallWCB,
+                                                                      //       ),
+                                                                      // )
+                                                                    ],
                                                                   ),
-                                                                    child: Center(child: Padding(
-                                                                      padding: const EdgeInsets.symmetric(vertical: 4.0),
-                                                                      child: Text(appointmentData.appointmentStatus.toString(),style: TextStyle(
-                                                                          color: appointmentData.appointmentStatus.toString().toLowerCase()=='ongoing'?Colors.lightGreen: Colors.orangeAccent,fontSize: 18,fontWeight: FontWeight.bold
-                                                                      )),
-                                                                    ))),),
-
-                                                                // Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),
-
-                                                      //
-                                                      // appointmentData.expiredStatus !=
-                                                      //         0
-                                                      //         ? Container(
-                                                      //       width: 100,
-                                                      //       padding:
-                                                      //       const EdgeInsets
-                                                      //           .symmetric(
-                                                      //           horizontal: 10,
-                                                      //           vertical: 5),
-                                                      //       decoration: BoxDecoration(
-                                                      //           color: AppColor.red,
-                                                      //           borderRadius:
-                                                      //           BorderRadius
-                                                      //               .circular(
-                                                      //               15)),
-                                                      //       child: Text(
-                                                      //         localization.getLocaleData.expired.toString(),
-                                                      //         textAlign:
-                                                      //         TextAlign.center,
-                                                      //         style: MyTextTheme()
-                                                      //             .smallWCB,
-                                                      //       ),
-                                                      // )
-                                                      //         : appointmentData
-                                                      //         .isPrescribed ==
-                                                      //         true
-                                                      //         ? Container(
-                                                      //       width: 100,
-                                                      //       padding:
-                                                      //       const EdgeInsets
-                                                      //           .symmetric(
-                                                      //           horizontal:
-                                                      //           10,
-                                                      //           vertical:
-                                                      //           5),
-                                                      //       decoration: BoxDecoration(
-                                                      //           color: AppColor
-                                                      //               .green,
-                                                      //           borderRadius:
-                                                      //           BorderRadius
-                                                      //               .circular(
-                                                      //               15)),
-                                                      //       child: Text(
-                                                      //         textAlign: TextAlign.center,
-                                                      //         localization.getLocaleData.prescribed.toString(),
-                                                      //         style:
-                                                      //         MyTextTheme()
-                                                      //             .smallWCB,
-                                                      //       ),
-                                                      // )
-                                                      //         : Container(
-                                                      //       width: 100,
-                                                      //       padding:
-                                                      //       const EdgeInsets
-                                                      //           .symmetric(
-                                                      //           horizontal:
-                                                      //           10,
-                                                      //           vertical:
-                                                      //           5),
-                                                      //       decoration: BoxDecoration(
-                                                      //           color:!appointmentData.isCancelled? AppColor
-                                                      //               .orangeColorDark:AppColor.red,
-                                                      //           borderRadius:
-                                                      //           BorderRadius
-                                                      //               .circular(
-                                                      //               15)),
-                                                      //       child: Text(
-                                                      //         textAlign: TextAlign.center,
-                                                      //         !appointmentData.isCancelled? localization.getLocaleData.confirmed.toString():"Cancelled",
-                                                      //         style:
-                                                      //         MyTextTheme()
-                                                      //             .smallWCB,
-                                                      //       ),
-                                                      // )
-                                                              ],
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
+                                                    );
+                                                  }),
+                                            ),
+                                          ):Expanded(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text("No data found",style: MyTextTheme().mediumBCB),
+                                              ],
+                                            ),
+                                          ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+                        ),
+                      ):
+                      getContainerIndex=="1"?
+                      Expanded(
+                        child: GetBuilder(
+                            init: VitalHistoryController(),
+                            builder: (_) {
+                              return Padding(
+                                padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                      borderRadius: BorderRadius.circular(5)
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(localization.getLocaleData.vitalHistory.toString(),style: MyTextTheme().largeBCB),
+                                        // Padding(
+                                        //   padding: const EdgeInsets.fromLTRB(4, 8, 170,5),
+                                        //   child: Row(
+                                        //     mainAxisAlignment:
+                                        //     MainAxisAlignment.center,
+                                        //     children:  [
+                                        //       Expanded(
+                                        //           child: Text(localization.getLocaleData.hintText!.fromDate.toString(), style: MyTextTheme()
+                                        //               .mediumGCN
+                                        //               .copyWith(fontSize: 16))),
+                                        //       // const SizedBox(
+                                        //       //   width: 10,
+                                        //       // ),
+                                        //       Expanded(
+                                        //           child: Text(localization.getLocaleData.hintText!.toDate.toString(), style: MyTextTheme()
+                                        //               .mediumGCN
+                                        //               .copyWith(fontSize: 16))),
+                                        //
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                        //
+                                        // Row(
+                                        //   mainAxisAlignment:
+                                        //   MainAxisAlignment.spaceAround,
+                                        //   children: [
+                                        //     Expanded(flex: 2,
+                                        //         child: MyDateTimeField(
+                                        //           controller:
+                                        //           vitalsmodal.controller.dateFromC.value,
+                                        //           onChanged: (val) async {
+                                        //             await vitalsmodal
+                                        //                 .getPatientVitalsDateWiseHistory(
+                                        //                 context);
+                                        //           },
+                                        //         )),
+                                        //     const SizedBox(
+                                        //       width: 10,
+                                        //     ),
+                                        //     Expanded(flex: 2,
+                                        //         child: MyDateTimeField(
+                                        //           controller:
+                                        //           vitalsmodal.controller.dateToC.value,
+                                        //           onChanged: (val) async {
+                                        //             await vitalsmodal
+                                        //                 .getPatientVitalsDateWiseHistory(
+                                        //                 context);
+                                        //           },
+                                        //         )),
+                                        //     const SizedBox(width: 50,),
+                                        //     Expanded(child: MyButton(
+                                        //       color: AppColor.primaryColor,
+                                        //       onPress: (){
+                                        //          //App().navigate(context, AddVitalsView());
+                                        //         showAlertDialog(context);
+                                        //       },title:localization.getLocaleData.addManually.toString(),))
+                                        //   ],
+                                        // ),
+
+
+                                        // Expanded(
+                                        //   child: AnimationLimiter(
+                                        //     child: ListView.builder(
+                                        //         shrinkWrap: true,
+                                        //         itemCount: vitalsmodal.controller
+                                        //             .getVitalHistoryList.length,
+                                        //         itemBuilder: (BuildContext context, int index) {
+                                        //           VitalHistoryDataModal historyData = vitalsmodal.controller.getVitalHistoryList[index];
+                                        //           return AnimationConfiguration.staggeredList(
+                                        //             position: index,
+                                        //             duration: const Duration(milliseconds: 800),
+                                        //             child: SlideAnimation(
+                                        //               verticalOffset: 50.0,
+                                        //               child: FadeInAnimation(
+                                        //                 child: Visibility(
+                                        //                   visible: historyData.vitalName.toString()!="RBS" && historyData.vitalName.toString()!="TEMPERATURE"&&
+                                        //                       historyData.vitalName.toString()!="RESPRATE",
+                                        //                   child: Padding(
+                                        //                     padding: const EdgeInsets.all(8.0),
+                                        //                     child: Container(
+                                        //                       color: AppColor.white,
+                                        //                       padding: const EdgeInsets.all(8),
+                                        //                       child: Column(
+                                        //                         children: [
+                                        //                           GestureDetector(
+                                        //                             onTap: () async {
+                                        //                               await vitalsmodal.controller
+                                        //                                   .updateHistoryData(index, historyData.isSelected as bool);
+                                        //                             },
+                                        //                             child: Row(
+                                        //                               children: [
+                                        //                                 Expanded(
+                                        //                                   flex: 1,
+                                        //                                   child:
+                                        //                                   CachedNetworkImage(
+                                        //                                     placeholder: (context,
+                                        //                                         url) =>
+                                        //                                         Image.asset(
+                                        //                                             'assets/image_unavailable.jpg'),
+                                        //                                     imageUrl: historyData
+                                        //                                         .iconPath
+                                        //                                         .toString(),
+                                        //                                     errorWidget: (context,
+                                        //                                         url, error) =>
+                                        //                                         Image.asset(
+                                        //                                             'assets/image_unavailable.jpg'),
+                                        //                                   ),
+                                        //                                 ),
+                                        //                                 const SizedBox(
+                                        //                                   width: 10,
+                                        //                                 ),
+                                        //                                 Expanded(
+                                        //                                   flex: 7,
+                                        //                                   child: Text(
+                                        //                                     historyData.vitalName
+                                        //                                         .toString()
+                                        //                                         .toUpperCase(),
+                                        //                                     style: MyTextTheme()
+                                        //                                         .smallBCB,
+                                        //                                   ),
+                                        //                                 ),
+                                        //                                 Expanded(
+                                        //                                     flex: 2,
+                                        //                                     child: Text(localization.getLocaleData.hintText!.viewDetails.toString(),style: MyTextTheme().mediumGCN,)
+                                        //                                   // Icon(
+                                        //                                   //   Icons.info_outline,
+                                        //                                   //   color: AppColor
+                                        //                                   //       .primaryColor,
+                                        //                                   //   size: 20,
+                                        //                                   // ),
+                                        //                                 ),
+                                        //                               ],
+                                        //                             ),
+                                        //                           ),
+                                        //                           Visibility(
+                                        //                               visible: historyData
+                                        //                                   .isSelected ==
+                                        //                                   true,
+                                        //                               child: Padding(
+                                        //                                 padding:
+                                        //                                 const EdgeInsets.all(
+                                        //                                     8.0),
+                                        //                                 child: Row(
+                                        //                                   children: [
+                                        //                                     Expanded(
+                                        //                                       child: SizedBox(
+                                        //                                         width: 300,
+                                        //                                         child: (vitalsmodal
+                                        //                                             .controller
+                                        //                                             .getVitalHistoryList[
+                                        //                                         index]
+                                        //                                             .vitalDetails!
+                                        //                                             .isEmpty ==
+                                        //                                             true)
+                                        //                                             ? Padding(
+                                        //                                           padding:
+                                        //                                           const EdgeInsets.all(
+                                        //                                               8.0),
+                                        //                                           child:
+                                        //                                           Text(
+                                        //                                             "NO Data Found",
+                                        //                                             textAlign:
+                                        //                                             TextAlign.center,
+                                        //                                             style: MyTextTheme()
+                                        //                                                 .smallGCN,
+                                        //                                           ),
+                                        //                                         )
+                                        //                                             : Column(
+                                        //                                           children: List.generate(
+                                        //                                               historyData
+                                        //                                                   .vitalDetails!
+                                        //                                                   .length,
+                                        //                                                   (index) {
+                                        //                                                 return Row(
+                                        //                                                   children: [
+                                        //                                                     Expanded(
+                                        //                                                       child: Padding(
+                                        //                                                         padding: const EdgeInsets.all(8.0),
+                                        //                                                         child: Text(
+                                        //                                                           historyData.vitalDetails![index].vitalDate.toString(),
+                                        //                                                           style: MyTextTheme().smallBCN,
+                                        //                                                         ),
+                                        //                                                       ),
+                                        //                                                     ),
+                                        //                                                     Text(
+                                        //                                                       historyData.vitalDetails![index].vitalValue.toString(),
+                                        //                                                       style: MyTextTheme().smallBCN,
+                                        //                                                     ),
+                                        //                                                   ],
+                                        //                                                 );
+                                        //                                               }),
+                                        //                                         ),
+                                        //                                       ),
+                                        //                                     )
+                                        //                                   ],
+                                        //                                 ),
+                                        //                               ))
+                                        //                         ],
+                                        //                       ),
+                                        //                     ),
+                                        //                   ),
+                                        //                 ),
+                                        //               ),
+                                        //             ),
+                                        //           );
+                                        //         }),
+                                        //   ),
+                                        // ),
+                                        Expanded(child:
+                                        Visibility(
+                                          replacement: Center(
+                                            child:
+                                            Text(localization.getLocaleData.notAvailable.toString(),style: MyTextTheme().largePCB,)
+                                          ),
+                                          visible: modal.controller.getMedVitalsList.length!=0,
+                                          child:   ListView.builder(
+                                            itemCount: modal.controller.getMedVitalsList.length,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              var item = modal.controller.getMedVitalsList[index];
+                                              return Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  width: Get.width,
+                                                  color: Colors.white,
+                                                  child: Column(
+                                                    children:  [
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: Row(
+                                                          children: [
+                                                            Text(item["vitalName"].toString(),style: MyTextTheme().largeBCB,),
+                                                            const Text(" : "),
+                                                            Text(item["vmValue"].toString(),style: MyTextTheme().largePCB,),
+                                                            const Expanded(child: SizedBox()),
+                                                            Text(item["vitalDateTime"].toString(),style: MyTextTheme().mediumBCB,),
+                                                          ],
+                                                        ),
+                                                      ),
+
+                                                    ],
                                                   ),
                                                 ),
                                               );
-                                            }),
-                                          ),
-                                      ):Expanded(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text("No data found",style: MyTextTheme().mediumBCB,),
-                                          ],
-                                        ),
-                                      )
-                                )
-                                    ],
+                                            },),
+                                        ))
+
+                                      ],
+                                    ),
                                   ),
-                              ),
-                            );
-                          }
+                                ),
+                              );
+                            }
                         ),
                       ):
-                           getContainerIndex=="1"?
-                           Expanded(
+
+                      Expanded(
                         child: GetBuilder(
-                          init: VitalHistoryController(),
-                          builder: (_) {
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
-                                    borderRadius: BorderRadius.circular(5)
-                                ),
+                            init: InvestigationController(),
+                            builder: (_) {
+                              return DefaultTabController(
+                                length: 5,
+                                initialIndex: widget.page??0,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(localization.getLocaleData.vitalHistory.toString(),style: MyTextTheme().largeBCB,),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.fromLTRB(4, 8, 170,5),
-                                      //   child: Row(
-                                      //     mainAxisAlignment:
-                                      //     MainAxisAlignment.center,
-                                      //     children:  [
-                                      //       Expanded(
-                                      //           child: Text(localization.getLocaleData.hintText!.fromDate.toString(), style: MyTextTheme()
-                                      //               .mediumGCN
-                                      //               .copyWith(fontSize: 16))),
-                                      //       // const SizedBox(
-                                      //       //   width: 10,
-                                      //       // ),
-                                      //       Expanded(
-                                      //           child: Text(localization.getLocaleData.hintText!.toDate.toString(), style: MyTextTheme()
-                                      //               .mediumGCN
-                                      //               .copyWith(fontSize: 16))),
-                                      //
-                                      //     ],
-                                      //   ),
-                                      // ),
-                                      //
-                                      // Row(
-                                      //   mainAxisAlignment:
-                                      //   MainAxisAlignment.spaceAround,
-                                      //   children: [
-                                      //     Expanded(flex: 2,
-                                      //         child: MyDateTimeField(
-                                      //           controller:
-                                      //           vitalsmodal.controller.dateFromC.value,
-                                      //           onChanged: (val) async {
-                                      //             await vitalsmodal
-                                      //                 .getPatientVitalsDateWiseHistory(
-                                      //                 context);
-                                      //           },
-                                      //         )),
-                                      //     const SizedBox(
-                                      //       width: 10,
-                                      //     ),
-                                      //     Expanded(flex: 2,
-                                      //         child: MyDateTimeField(
-                                      //           controller:
-                                      //           vitalsmodal.controller.dateToC.value,
-                                      //           onChanged: (val) async {
-                                      //             await vitalsmodal
-                                      //                 .getPatientVitalsDateWiseHistory(
-                                      //                 context);
-                                      //           },
-                                      //         )),
-                                      //     const SizedBox(width: 50,),
-                                      //     Expanded(child: MyButton(
-                                      //       color: AppColor.primaryColor,
-                                      //       onPress: (){
-                                      //          //App().navigate(context, AddVitalsView());
-                                      //         showAlertDialog(context);
-                                      //       },title:localization.getLocaleData.addManually.toString(),))
-                                      //   ],
-                                      // ),
-
-
-                                      // Expanded(
-                                      //   child: AnimationLimiter(
-                                      //     child: ListView.builder(
-                                      //         shrinkWrap: true,
-                                      //         itemCount: vitalsmodal.controller
-                                      //             .getVitalHistoryList.length,
-                                      //         itemBuilder: (BuildContext context, int index) {
-                                      //           VitalHistoryDataModal historyData = vitalsmodal.controller.getVitalHistoryList[index];
-                                      //           return AnimationConfiguration.staggeredList(
-                                      //             position: index,
-                                      //             duration: const Duration(milliseconds: 800),
-                                      //             child: SlideAnimation(
-                                      //               verticalOffset: 50.0,
-                                      //               child: FadeInAnimation(
-                                      //                 child: Visibility(
-                                      //                   visible: historyData.vitalName.toString()!="RBS" && historyData.vitalName.toString()!="TEMPERATURE"&&
-                                      //                       historyData.vitalName.toString()!="RESPRATE",
-                                      //                   child: Padding(
-                                      //                     padding: const EdgeInsets.all(8.0),
-                                      //                     child: Container(
-                                      //                       color: AppColor.white,
-                                      //                       padding: const EdgeInsets.all(8),
-                                      //                       child: Column(
-                                      //                         children: [
-                                      //                           GestureDetector(
-                                      //                             onTap: () async {
-                                      //                               await vitalsmodal.controller
-                                      //                                   .updateHistoryData(index, historyData.isSelected as bool);
-                                      //                             },
-                                      //                             child: Row(
-                                      //                               children: [
-                                      //                                 Expanded(
-                                      //                                   flex: 1,
-                                      //                                   child:
-                                      //                                   CachedNetworkImage(
-                                      //                                     placeholder: (context,
-                                      //                                         url) =>
-                                      //                                         Image.asset(
-                                      //                                             'assets/image_unavailable.jpg'),
-                                      //                                     imageUrl: historyData
-                                      //                                         .iconPath
-                                      //                                         .toString(),
-                                      //                                     errorWidget: (context,
-                                      //                                         url, error) =>
-                                      //                                         Image.asset(
-                                      //                                             'assets/image_unavailable.jpg'),
-                                      //                                   ),
-                                      //                                 ),
-                                      //                                 const SizedBox(
-                                      //                                   width: 10,
-                                      //                                 ),
-                                      //                                 Expanded(
-                                      //                                   flex: 7,
-                                      //                                   child: Text(
-                                      //                                     historyData.vitalName
-                                      //                                         .toString()
-                                      //                                         .toUpperCase(),
-                                      //                                     style: MyTextTheme()
-                                      //                                         .smallBCB,
-                                      //                                   ),
-                                      //                                 ),
-                                      //                                 Expanded(
-                                      //                                     flex: 2,
-                                      //                                     child: Text(localization.getLocaleData.hintText!.viewDetails.toString(),style: MyTextTheme().mediumGCN,)
-                                      //                                   // Icon(
-                                      //                                   //   Icons.info_outline,
-                                      //                                   //   color: AppColor
-                                      //                                   //       .primaryColor,
-                                      //                                   //   size: 20,
-                                      //                                   // ),
-                                      //                                 ),
-                                      //                               ],
-                                      //                             ),
-                                      //                           ),
-                                      //                           Visibility(
-                                      //                               visible: historyData
-                                      //                                   .isSelected ==
-                                      //                                   true,
-                                      //                               child: Padding(
-                                      //                                 padding:
-                                      //                                 const EdgeInsets.all(
-                                      //                                     8.0),
-                                      //                                 child: Row(
-                                      //                                   children: [
-                                      //                                     Expanded(
-                                      //                                       child: SizedBox(
-                                      //                                         width: 300,
-                                      //                                         child: (vitalsmodal
-                                      //                                             .controller
-                                      //                                             .getVitalHistoryList[
-                                      //                                         index]
-                                      //                                             .vitalDetails!
-                                      //                                             .isEmpty ==
-                                      //                                             true)
-                                      //                                             ? Padding(
-                                      //                                           padding:
-                                      //                                           const EdgeInsets.all(
-                                      //                                               8.0),
-                                      //                                           child:
-                                      //                                           Text(
-                                      //                                             "NO Data Found",
-                                      //                                             textAlign:
-                                      //                                             TextAlign.center,
-                                      //                                             style: MyTextTheme()
-                                      //                                                 .smallGCN,
-                                      //                                           ),
-                                      //                                         )
-                                      //                                             : Column(
-                                      //                                           children: List.generate(
-                                      //                                               historyData
-                                      //                                                   .vitalDetails!
-                                      //                                                   .length,
-                                      //                                                   (index) {
-                                      //                                                 return Row(
-                                      //                                                   children: [
-                                      //                                                     Expanded(
-                                      //                                                       child: Padding(
-                                      //                                                         padding: const EdgeInsets.all(8.0),
-                                      //                                                         child: Text(
-                                      //                                                           historyData.vitalDetails![index].vitalDate.toString(),
-                                      //                                                           style: MyTextTheme().smallBCN,
-                                      //                                                         ),
-                                      //                                                       ),
-                                      //                                                     ),
-                                      //                                                     Text(
-                                      //                                                       historyData.vitalDetails![index].vitalValue.toString(),
-                                      //                                                       style: MyTextTheme().smallBCN,
-                                      //                                                     ),
-                                      //                                                   ],
-                                      //                                                 );
-                                      //                                               }),
-                                      //                                         ),
-                                      //                                       ),
-                                      //                                     )
-                                      //                                   ],
-                                      //                                 ),
-                                      //                               ))
-                                      //                         ],
-                                      //                       ),
-                                      //                     ),
-                                      //                   ),
-                                      //                 ),
-                                      //               ),
-                                      //             ),
-                                      //           );
-                                      //         }),
-                                      //   ),
-                                      // ),
-
-Expanded(child: ListView.builder(
-itemCount: modal.controller.getMedVitalsList.length,
-  itemBuilder: (BuildContext context, int index) {
-  var item = modal.controller.getMedVitalsList[index];
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Container(
-      width: Get.width,
-color: Colors.white,
-      child: Column(
-        children:  [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(item["vitalName"].toString(),style: MyTextTheme().largeBCB,),
-                const Text(" : "),
-                Text(item["vmValue"].toString(),style: MyTextTheme().largePCB,),
-                Expanded(child: SizedBox()),
-                Text(item["vitalDateTime"].toString(),style: MyTextTheme().mediumBCB,),
-              ],
-            ),
-          ),
-
-        ],
-      ),
-    ),
-  );
-  },))
-
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                        ),
-                      ):
-                           Expanded(
-                             child: GetBuilder(
-                              init: InvestigationController(),
-                              builder: (_) {
-                                return DefaultTabController(
-                                  length: 5,
-                                  initialIndex: widget.page??0,
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey.shade200,
-                                          borderRadius: BorderRadius.circular(5)
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 50,
-                                              child: TabBar(
-                                                onTap: (val) async {
-                                                  print("object"+val.toString());
-                                                  investigationModel.controller.updateSelectedTab = val.toString();
-                                                  await investigationModel.onPressedTab(context);
-                                                },
-                                                mouseCursor: MouseCursor.defer,
-                                                isScrollable: true,
-                                                labelColor: AppColor.primaryColor,
-                                                unselectedLabelColor: AppColor.greyDark,
-                                                tabs: [
-                                                  Tab(
-                                                    icon: Row(
-                                                      children: [
-                                                        SvgPicture.asset('assets/manuallyReport.svg'),
-                                                        const SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Text(localization.getLocaleData.manuallyReport.toString()),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Tab(
-                                                    icon: Row(
-                                                      children: [
-                                                        SvgPicture.asset('assets/investigation.svg'),
-                                                        const SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Text(localization.getLocaleData.erasInvestigation.toString()),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Tab(
-                                                    icon: Row(
-                                                      children: [
-                                                        SvgPicture.asset('assets/radiology.svg'),
-                                                        const SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Text(localization.getLocaleData.radiologyReport.toString()  ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Tab(
-                                                    icon: Row(
-                                                      children: [
-                                                        SvgPicture.asset('assets/microbiology.svg',width: 15,height: 15,),
-                                                        const SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                         Text(localization.getLocaleData.hintText!.microbiology.toString()),
-                                                        //Text(localization.getLocaleData.radiologyReport.toString()),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Tab(
-                                                    icon: Row(
-                                                      children: [
-                                                        SvgPicture.asset('assets/microbiology.svg',width: 15,height: 15,),
-                                                        const SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                         Text(localization.getLocaleData.hintText!.bmi.toString()),
-                                                        //Text(localization.getLocaleData.radiologyReport.toString()),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: TabBarView(
-                                                physics: const NeverScrollableScrollPhysics(),
-                                                children: [
-                                                  manuallyReport(),
-                                                  const LabTestNavigationView(isShowAppBar: false,),
-                                                  const RadiologyView(),
-                                                  const MicrobiologyView(),
-                                                  AnimationLimiter(
-                                                      child: ListView.separated( 
-                                                      itemCount: investigationModel.controller.getBmI.length,
-                                                      separatorBuilder: ((_, index) => const SizedBox(height: 15,)),
-                                                      physics: const BouncingScrollPhysics(
-                                                          parent: AlwaysScrollableScrollPhysics()),
-                                                      itemBuilder: ((_, index) {
-                                                        BmiModel bmiData = investigationModel.controller
-                                                            .getBmI[index];
-                                                        return AnimationConfiguration.staggeredList(
-                                                          position: index,
-                                                          duration: const Duration(milliseconds: 800),
-                                                          child: SlideAnimation(
-                                                            verticalOffset: 50.0,
-                                                            child: FadeInAnimation(
-                                                              child: CustomInkwell(
-                                                                onPress: () {
-                                                                // Get.to(()=>const MicrobiologyReportView(),arguments: {
-                                                                //   "billNo":microbiologyData.labReportNo
-                                                                // });
-                                                              },
-                                                                borderRadius: 10,
-                                                                elevation: 3,
-                                                                shadowColor: Colors.white,
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets.fromLTRB(5, 12, 5, 12),
-                                                                  child: Column(
-                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: const EdgeInsets.all(8.0),
-                                                                        child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                          children: [
-                                                                            Text(localization.getLocaleData.hintText!.bmi.toString(),
-                                                                              style: MyTextTheme().mediumGCB,),
-                                                                            Text(bmiData.bmiValue.toString(),
-                                                                              style: MyTextTheme().mediumGCB,),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: const EdgeInsets.all(8.0),
-                                                                        child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                          children: [
-                                                                            Text(localization.getLocaleData.hintText!.yourHeight.toString(),
-                                                                              style: MyTextTheme().mediumGCB,),
-                                                                            Text(bmiData.height.toString(),
-                                                                              style: MyTextTheme().mediumGCB,),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: const EdgeInsets.all(8.0),
-                                                                        child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                          children: [
-                                                                            Text(localization.getLocaleData.hintText!.yourWeight.toString(),
-                                                                              style: MyTextTheme().mediumGCB,),
-                                                                            Text(bmiData.weight.toString(),
-                                                                              style: MyTextTheme().mediumGCB,),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      // Text(bmiData.createdAt.toString(),
-                                                                      //   style: MyTextTheme().mediumGCB,),
-                                                                    ],
-                                                                  ),
-                                                                ),),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }),
-                                                  ),
-                                                    )
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                  padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.shade200,
+                                        borderRadius: BorderRadius.circular(5)
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: const [
+                                          SizedBox(
+                                            height: 50,
+                                            width: double.infinity,
+                                            // child: TabBar(
+                                            //   onTap: (val) async {
+                                            //     print("object"+val.toString());
+                                            //     investigationModel.controller.updateSelectedTab = val.toString();
+                                            //     await investigationModel.onPressedTab(context);
+                                            //   },
+                                            //   mouseCursor: MouseCursor.defer,
+                                            //   isScrollable: true,
+                                            //   labelColor: AppColor.primaryColor,
+                                            //   unselectedLabelColor: AppColor.greyDark,
+                                            //   tabs: [
+                                            //     Tab(
+                                            //       icon: Row(
+                                            //         children: [
+                                            //           SvgPicture.asset('assets/manuallyReport.svg'),
+                                            //           const SizedBox(
+                                            //             width: 5,
+                                            //           ),
+                                            //           Text(localization.getLocaleData.manuallyReport.toString()),
+                                            //         ],
+                                            //       ),
+                                            //     ),
+                                            //     Tab(
+                                            //       icon: Row(
+                                            //         children: [
+                                            //           SvgPicture.asset('assets/investigation.svg'),
+                                            //           const SizedBox(
+                                            //             width: 5,
+                                            //           ),
+                                            //           Text(localization.getLocaleData.erasInvestigation.toString()),
+                                            //         ],
+                                            //       ),
+                                            //     ),
+                                            //     Tab(
+                                            //       icon: Row(
+                                            //         children: [
+                                            //           SvgPicture.asset('assets/radiology.svg'),
+                                            //           const SizedBox(
+                                            //             width: 5,
+                                            //           ),
+                                            //           Text(localization.getLocaleData.radiologyReport.toString()  ),
+                                            //         ],
+                                            //       ),
+                                            //     ),
+                                            //     Tab(
+                                            //       icon: Row(
+                                            //         children: [
+                                            //           SvgPicture.asset('assets/microbiology.svg',width: 15,height: 15,),
+                                            //           const SizedBox(
+                                            //             width: 5,
+                                            //           ),
+                                            //            Text(localization.getLocaleData.hintText!.microbiology.toString()),
+                                            //           //Text(localization.getLocaleData.radiologyReport.toString()),
+                                            //         ],
+                                            //       ),
+                                            //     ),
+                                            //     Tab(
+                                            //       icon: Row(
+                                            //         children: [
+                                            //           SvgPicture.asset('assets/microbiology.svg',width: 15,height: 15,),
+                                            //           const SizedBox(
+                                            //             width: 5,
+                                            //           ),
+                                            //            Text(localization.getLocaleData.hintText!.bmi.toString()),
+                                            //           //Text(localization.getLocaleData.radiologyReport.toString()),
+                                            //         ],
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                          ),
+                                          // Expanded(
+                                          //   child: TabBarView(
+                                          //     physics: const NeverScrollableScrollPhysics(),
+                                          //     children: [
+                                          //       manuallyReport(),
+                                          //       const LabTestNavigationView(isShowAppBar: false,),
+                                          //       const RadiologyView(),
+                                          //       const MicrobiologyView(),
+                                          //       AnimationLimiter(
+                                          //           child: ListView.separated(
+                                          //           itemCount: investigationModel.controller.getBmI.length,
+                                          //           separatorBuilder: ((_, index) => const SizedBox(height: 15,)),
+                                          //           physics: const BouncingScrollPhysics(
+                                          //               parent: AlwaysScrollableScrollPhysics()),
+                                          //           itemBuilder: ((_, index) {
+                                          //             BmiModel bmiData = investigationModel.controller
+                                          //                 .getBmI[index];
+                                          //             return AnimationConfiguration.staggeredList(
+                                          //               position: index,
+                                          //               duration: const Duration(milliseconds: 800),
+                                          //               child: SlideAnimation(
+                                          //                 verticalOffset: 50.0,
+                                          //                 child: FadeInAnimation(
+                                          //                   child: CustomInkwell(
+                                          //                     onPress: () {
+                                          //                     // Get.to(()=>const MicrobiologyReportView(),arguments: {
+                                          //                     //   "billNo":microbiologyData.labReportNo
+                                          //                     // });
+                                          //                   },
+                                          //                     borderRadius: 10,
+                                          //                     elevation: 3,
+                                          //                     shadowColor: Colors.white,
+                                          //                     child: Padding(
+                                          //                       padding: const EdgeInsets.fromLTRB(5, 12, 5, 12),
+                                          //                       child: Column(
+                                          //                         crossAxisAlignment: CrossAxisAlignment.start,
+                                          //                         mainAxisAlignment: MainAxisAlignment.start,
+                                          //                         children: [
+                                          //                           Padding(
+                                          //                             padding: const EdgeInsets.all(8.0),
+                                          //                             child: Row(
+                                          //                               mainAxisAlignment: MainAxisAlignment
+                                          //                                   .spaceBetween,
+                                          //                               children: [
+                                          //                                 Text(localization.getLocaleData.hintText!.bmi.toString(),
+                                          //                                   style: MyTextTheme().mediumGCB,),
+                                          //                                 Text(bmiData.bmiValue.toString(),
+                                          //                                   style: MyTextTheme().mediumGCB,),
+                                          //                               ],
+                                          //                             ),
+                                          //                           ),
+                                          //                           Padding(
+                                          //                             padding: const EdgeInsets.all(8.0),
+                                          //                             child: Row(
+                                          //                               mainAxisAlignment: MainAxisAlignment
+                                          //                                   .spaceBetween,
+                                          //                               children: [
+                                          //                                 Text(localization.getLocaleData.hintText!.yourHeight.toString(),
+                                          //                                   style: MyTextTheme().mediumGCB,),
+                                          //                                 Text(bmiData.height.toString(),
+                                          //                                   style: MyTextTheme().mediumGCB,),
+                                          //                               ],
+                                          //                             ),
+                                          //                           ),
+                                          //                           Padding(
+                                          //                             padding: const EdgeInsets.all(8.0),
+                                          //                             child: Row(
+                                          //                               mainAxisAlignment: MainAxisAlignment
+                                          //                                   .spaceBetween,
+                                          //                               children: [
+                                          //                                 Text(localization.getLocaleData.hintText!.yourWeight.toString(),
+                                          //                                   style: MyTextTheme().mediumGCB,),
+                                          //                                 Text(bmiData.weight.toString(),
+                                          //                                   style: MyTextTheme().mediumGCB,),
+                                          //                               ],
+                                          //                             ),
+                                          //                           ),
+                                          //                           // Text(bmiData.createdAt.toString(),
+                                          //                           //   style: MyTextTheme().mediumGCB,),
+                                          //                         ],
+                                          //                       ),
+                                          //                     ),),
+                                          //                 ),
+                                          //               ),
+                                          //             );
+                                          //           }),
+                                          //       ),
+                                          //         )
+                                          //     ],
+                                          //   ),
+                                          // ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                );
-                              }
-                          ),
-                           ),
+                                ),
+                              );
+                            }
+                        ),
+                      ),
                       // SizedBox(
                       //   height: Get.height*0.11,
                       //     child:  FooterView())
@@ -1045,12 +1051,12 @@ color: Colors.white,
       AVIDataModal(
         containerImage:  'assets/kiosk_setting.png',
         //containerText: "Appointment",
-         containerText: localization.getLocaleData.hintText!.appointment.toString(),
+        containerText: localization.getLocaleData.hintText!.appointment.toString(),
         route:const MyAppointmentView(),
       ),
       AVIDataModal(
           containerImage: 'assets/kiosk_vitals.png',
-           containerText: localization.getLocaleData.vitalHistory.toString(),
+          containerText: localization.getLocaleData.vitalHistory.toString(),
           //containerText: "Vital History",
           route: const VitalHistoryView()
       ),
@@ -1234,10 +1240,10 @@ color: Colors.white,
                               Text(appointmentData.appointDate.toString(),style: MyTextTheme().smallBCN,),
                               const SizedBox(width: 40,),
                               InkWell(
-                  onTap: (){
-                    Navigator.pop(context);
-                  }
-                  ,child: Icon(Icons.clear,color: AppColor.red,))
+                                  onTap: (){
+                                    Navigator.pop(context);
+                                  }
+                                  ,child: Icon(Icons.clear,color: AppColor.red,))
                             ],
                           ),
                         ],
@@ -1264,7 +1270,7 @@ color: Colors.white,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                               Text(localization.getLocaleData.diagnosis.toString(),),
+                              Text(localization.getLocaleData.diagnosis.toString(),),
                             ],
                           )
                         ],
@@ -1320,7 +1326,7 @@ color: Colors.white,
                               ),
                             );
                           }):
-                          //
+                      //
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

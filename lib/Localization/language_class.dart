@@ -1,5 +1,23 @@
 class Lang {
   String? yourAppointment;
+
+
+  String? Abdomen;
+  String? backPain;
+  String? Ear;
+  String? face;
+  String? hand;
+  String? leg;
+  String? mouth;
+  String? neck;
+  String? nose;
+  String? pelvis;
+  String? skin;
+  String? spine;
+  String? teeth;
+  String? fullBody;
+
+
   String? location;
   String? doctorBySymptoms;
   String? doctorBySpeciality;
@@ -8,6 +26,7 @@ class Lang {
   String? downloadPostCovidCareBooklet;
   String? sendYourDataToDoctor;
   String? noOfDoctors;
+  String? addThroughDevice;
   String? hiThereFoundGreatDoctor;
   String? loading;
   String? bookAnAppointmentText;
@@ -157,6 +176,7 @@ class Lang {
   String? profile;
   String? changeProfilePhoto;
   String? fullName;
+  String? uhid;
   String? selectGender;
   String? haveReadAndAgree;
   String? termsAndConditions;
@@ -519,6 +539,24 @@ class Lang {
       {this.tooBusyText,
 
         this.doctorBySpeciality,
+
+
+        this.Abdomen,
+        this.backPain,
+        this.Ear,
+        this.face,
+        this.hand,
+        this.leg,
+        this.mouth,
+        this.nose,
+        this.pelvis,
+        this.skin,
+        this.spine,
+        this.teeth,
+        this.fullBody,
+
+
+        this.uhid,
         this.searchBy,
         this.doctorBySymptoms,
         this.yourAppointment,
@@ -551,6 +589,7 @@ class Lang {
         this.findClinic,
         this.viewAll,
         this.doctorsInDemands,
+        this.addThroughDevice,
         this.ourBlogs,
         this.ourUsers,
         this.ourDoctors,
@@ -1035,6 +1074,23 @@ class Lang {
   Lang.fromJson(Map<String, dynamic> json) {
     searchBy=json['searchBy'];
     doctorBySpeciality=json['doctorBySpeciality'];
+
+
+    Abdomen=json['Abdomen'];
+    backPain=json['backPain'];
+    Ear=json['Ear'];
+    face=json['face'];
+    hand=json['hand'];
+    leg=json['leg'];
+    mouth=json['mouth'];
+    nose=json['nose'];
+    pelvis=json['pelvis'];
+    skin=json['skin'];
+    spine=json['spine'];
+    teeth=json['teeth'];
+    fullBody=json['fullBody'];
+
+
     doctorBySymptoms=json['doctorBySymptoms'];
     yourAppointment=json['yourAppointment'];
     location=json['location'];
@@ -1054,6 +1110,7 @@ class Lang {
     skip = json['skip'];
     next = json['next'];
     enterMobileHeaderText = json['enterMobileHeaderText'];
+    uhid = json['uhid'];
     enterMobileAndEmail = json['enterMobileAndEmail'];
     login = json['login'];
     signUp = json['signUp'];
@@ -1111,6 +1168,7 @@ class Lang {
     confirm = json['confirm'];
     camera = json['camera'];
     browse = json['browse'];
+    addThroughDevice = json['addThroughDevice'];
     date = json['date'];
     dateWise = json['dateWise'];
     testReport = json['testReport'];
@@ -1570,6 +1628,21 @@ class Lang {
     data['yourAppointment'] = this.yourAppointment;
     data['location'] = this.location;
     data['tooBusyText'] = this.tooBusyText;
+
+
+    data['Abdomen'] = this.Abdomen;
+    data['backPain'] = this.backPain;
+    data['Ear'] = this.Ear;
+    data['hand'] = this.hand;
+    data['leg'] = this.leg;
+    data['mouth'] = this.mouth;
+    data['nose'] = this.nose;
+    data['pelvis'] = this.pelvis;
+    data['skin'] = this.skin;
+    data['teeth'] = this.teeth;
+    data['fullBody'] = this.fullBody;
+
+
     data['specialist']=this.specialist;
     data['sendCodeHeaderText'] = this.sendCodeHeaderText;
     data['downloadPostCovidCareBooklet'] = this.downloadPostCovidCareBooklet;
@@ -1661,6 +1734,7 @@ class Lang {
     data['medicineReminderDataNotFound'] = this.medicineReminderDataNotFound;
     data['loadingMedicineReminderData'] = this.loadingMedicineReminderData;
     data['frequency'] = this.frequency;
+    data['addThroughDevice'] = this.addThroughDevice;
     data['days'] = this.days;
     data['setReminder'] = this.setReminder;
     data['hi'] = this.hi;
@@ -1693,6 +1767,7 @@ class Lang {
     data['viewPrescription'] = this.viewPrescription;
     data['cancelAppointment'] = this.cancelAppointment;
     data['re-Schedule'] = this.reSchedule;
+    data['uhid'] = this.uhid;
     data['image'] = this.image;
     data['audio'] = this.audio;
     data['video'] = this.video;
@@ -2135,6 +2210,8 @@ class HintText {
   String?selectProblem;
   String?selectOrgan;
   String?bookSlot;
+  String?slotsAvailable;
+  String?noSlotsAvailable;
   String?available;
   String?book;
   String?ProvideHealthKiosk;
@@ -2200,6 +2277,8 @@ class HintText {
         this.placeFinger,
         this.pressButton,
         this.pulseOximeter,
+        this.slotsAvailable,
+        this.noSlotsAvailable,
         this.normalTemperature,
         this.addBMI,
         this.measure,
@@ -2288,6 +2367,8 @@ class HintText {
     normalTemperature = json['normalTemperature'];
     yourBP = json['yourBP'];
     measureSPO = json['measureSPO'];
+    slotsAvailable = json['slotsAvailable'];
+    noSlotsAvailable = json['noSlotsAvailable'];
     measureBP = json['measureBP'];
     placeFinger = json['placeFinger'];
     pressButton = json['pressButton'];
@@ -2385,6 +2466,8 @@ class HintText {
     data['yourBP'] = this.yourBP;
     data['measureSPO'] = this.measureSPO;
     data['measureBP'] = this.measureBP;
+    data['slotsAvailable'] = this.slotsAvailable;
+    data['noSlotsAvailable'] = this.noSlotsAvailable;
     data['placeFinger'] = this.placeFinger;
     data['pressButton'] = this.pressButton;
     data['pulseOximeter'] = this.pulseOximeter;

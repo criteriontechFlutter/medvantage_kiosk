@@ -10,6 +10,16 @@ class NewBookAppointmentController extends GetxController{
   Rx<TextEditingController> uhidController = TextEditingController().obs;
   Rx<TextEditingController> appointment = TextEditingController().obs;
 
+
+  List<Map<String, dynamic>> problemAndOrganId = [];
+  get getProblemAndOrganData=> problemAndOrganId;
+  set updatePrblmOrgn(val){
+    problemAndOrganId=val;
+    update();
+  }
+
+
+
   String time='';
   get getTime=>time;
   set updateTime(val){
@@ -58,6 +68,26 @@ class NewBookAppointmentController extends GetxController{
     update();
   }
 
+  bool loadingDays=false;
+  get getLoadingDys=>true;
+  set updateDaysLoading(val){
+    loadingDays=val;
+    update();
+  }
+
+  bool loadingTime=false;
+  get getLoadingTime=>loadingTime;
+  set updateLoadingTime(val){
+    loadingTime=val;
+    update();
+  }
+
+  bool bookAppointmentLoader=false;
+  get getBookAppointmentLoader=>bookAppointmentLoader;
+  set updateBookAppointment(val){
+    bookAppointmentLoader=val;
+    update();
+  }
 
 
 }

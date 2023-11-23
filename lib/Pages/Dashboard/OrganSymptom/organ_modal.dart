@@ -51,12 +51,7 @@ Map newObject={
 
   }
 
-  clearSelectedList(){
-    for(int i=0;i< controller.listItemsOne.length;i++){
-      controller.listItemsOne[i]['isSelected']=false;
-    }
-    controller.update();
-  }
+
 
   getBodyPartList(context)async{
     try{

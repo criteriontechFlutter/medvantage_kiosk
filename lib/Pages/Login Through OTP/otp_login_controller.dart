@@ -136,6 +136,14 @@ class OtpLoginController extends GetxController {
     update();
   }
 
+  bool isChecked = false;
+  get getIsChecked=>isChecked;
+  set updateIsChecked(val){
+    isChecked=val;
+    update();
+  }
+
+
 
 
 }

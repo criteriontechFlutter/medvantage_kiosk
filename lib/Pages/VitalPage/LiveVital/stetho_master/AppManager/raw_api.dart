@@ -388,7 +388,7 @@ class RawDataApi{
       final snackBar = SnackBar(
         content:  const Text('Some Error Occured. Retry'),
         action: SnackBarAction(
-          label: 'Undo',
+          label: 'ok',
           onPressed: () {
             // Some code to undo the change.
           },

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../../../AppManager/alert_dialogue.dart';
 import '../../../AppManager/app_color.dart';
 import '../../../AppManager/app_util.dart';
@@ -21,7 +22,6 @@ import '../../voiceAssistantProvider.dart';
 import '../otp_login_controller.dart';
 import '../otp_modal.dart';
 
-
 class Registration extends StatefulWidget {
   final String? phonenumber;
   const Registration({Key? key,  this.phonenumber}) : super(key: key);
@@ -33,7 +33,6 @@ class Registration extends StatefulWidget {
 
 
 class _RegistrationState extends State<Registration> {
-  bool isChecked = false;
   LoginThroughOTPModal modal2 = LoginThroughOTPModal();
   StartupController controller = Get.put(StartupController());
 
@@ -41,6 +40,7 @@ class _RegistrationState extends State<Registration> {
   void initState() {
     super.initState();
     get();
+
   }
 
   get() {
@@ -57,8 +57,10 @@ class _RegistrationState extends State<Registration> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
+
     ApplicationLocalizations localization =
         Provider.of<ApplicationLocalizations>(context, listen: true);
     return Container(
@@ -302,16 +304,95 @@ class _RegistrationState extends State<Registration> {
                                                                   return null;
                                                                 },
                                                               ),
+                                                              const SizedBox(height: 20,),
+
+                                                              TextButton(
+                                                                onPressed: () => showDialog(
+                                                                    context: context,
+                                                                    builder: (BuildContext context) {
+                                                                      return StatefulBuilder(
+                                                                          builder: (context, setState) {
+                                                                          return AlertDialog(
+                                                                            title: Text(localization.getLocaleData.termsAndConditions.toString()),
+                                                                            content: const SizedBox(
+                                                                              height: 300,
+                                                                              width: 300,
+                                                                              child: WebView(
+                                                                                initialUrl: 'https://kiosk.medvantage.tech/termsandconditions',
+                                                                                javascriptMode: JavascriptMode.unrestricted,
+                                                                              ),
+                                                                            ),
+                                                                            actions: <Widget>[
+
+                                                                              InkWell(
+                                                                                onTap: (){
+                                                                                  setState(() {
+                                                                                    if(modal2.controller.getIsChecked==false){
+                                                                                      modal2.controller.updateIsChecked=true;
+                                                                                    }else{
+                                                                                      modal2.controller.updateIsChecked=false;
+                                                                                    }
+                                                                                  });
+                                                                                },
+                                                                                child: Row(
+                                                                                  children: [
+                                                                                    Icon(modal2.controller.getIsChecked==false? Icons.check_box_outline_blank:Icons.check_box,color: AppColor.primaryColor,),
+                                                                                    const SizedBox(width: 10,),
+                                                                                    Text('${localization.getLocaleData.iAgreeTo}  ${localization.getLocaleData.termsAndConditions}',style: MyTextTheme().mediumPCB,)
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+
+                                                                              TextButton(
+                                                                                onPressed: () {
+                                                                                  Navigator.of(context).pop();
+                                                                                },
+                                                                                child: const Text('Close'),
+                                                                              ),
+                                                                            ],
+                                                                          );
+                                                                        }
+                                                                      );
+                                                                    },
+
+                                                                ),
+                                                                child:   Row(
+                                                                  children: [
+                                                                     Icon(modal2.controller.getIsChecked==false? Icons.check_box_outline_blank:Icons.check_box,color: Colors.white,),
+                                                                    const SizedBox(width: 10,),
+                                                                    Text(localization.getLocaleData.termsAndConditions.toString(),style: MyTextTheme().mediumWCB,)
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              const SizedBox(height: 10),
                                                             ],
                                                           ))
                                                         ],
                                                       ),
+
                                                       const SizedBox(height: 15),
+
                                                       MyButton(
-                                                          title: localization.getLocaleData.signUp.toString() ?? '',
+                                                          title: localization.getLocaleData.register.toString() ?? '',
                                                           textStyle: MyTextTheme().largeWCN,
                                                           color: Colors.orange,
-                                                          onPress: () async {
+                                                          onPress: () async
+                                                          {
+                                                            if(modal2.controller.getIsChecked==false){
+                                                              final snackBar = SnackBar(
+                                                                backgroundColor: AppColor.secondaryColor,
+                                                                content:  Text(localization.getLocaleData.pleaseAcceptTermCondition.toString()),
+                                                                action: SnackBarAction(
+                                                                  textColor: Colors.white,
+                                                                  label: 'Ok',
+                                                                  onPressed: () {
+
+                                                                  },
+                                                                ),
+                                                              );
+                                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                            }else{
+
                                                             if (modal2
                                                                 .controller
                                                                 .formKeyOtp
@@ -335,10 +416,12 @@ class _RegistrationState extends State<Registration> {
                                                             } else {
                                                               alertToast(context, "Please Enter Your Details");
                                                             }
-                                                          }
+                                                          }}
+
                                                           // {
                                                           // modal.profile(context);
                                                           // },
+
                                                           ),
                                                       const SizedBox(height: 23,),
                                                       Center(
@@ -408,9 +491,9 @@ class _RegistrationState extends State<Registration> {
             content: Stack(
               clipBehavior: Clip.none,
               children: <Widget>[
-                  Row(
+                  const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     LanguageChangeWidget(isPopScreen: true),
                   ],
                 ),

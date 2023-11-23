@@ -1402,19 +1402,18 @@ else{
                         0
                         ? reScheduleAppointment(
                         context)
-                        : App().navigate(
-                        context,
-                        BookAppointmentView(
-                          drName: 'drName'
-                              .toString(),
-                          speciality:'speciality'
-                              .toString(),
-                          degree: 'degree'
-                              .toString(),
-                          isEraUser: int
-                              .parse('iSEraDoctor'
-                              .toString()),
-                        ));
+                        :null;
+                    // App().navigate(
+                    //     context,
+                    //     BookAppointmentView(
+                    //       drName: 'drName'
+                    //           .toString(),
+                    //       speciality:'speciality'
+                    //           .toString(),
+                    //       degree: 'degree'
+                    //           .toString(), doctorId: '', departmentId: null, timeSlot: '', date: null, day: '', timeSlotId: '', dayid: '',
+                    //
+                    //     ));
                   }
                   else {
                     alertToast(context,

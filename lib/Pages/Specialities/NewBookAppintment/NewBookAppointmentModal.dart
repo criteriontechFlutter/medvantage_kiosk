@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:digi_doctor/AppManager/alert_dialogue.dart';
+import 'package:digi_doctor/Pages/Dashboard/OrganSymptom/organ_controller.dart';
 import 'package:digi_doctor/Pages/VitalPage/LiveVital/stetho_master/AppManager/raw_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../../AppManager/app_color.dart';
 import '../../../AppManager/app_util.dart';
+import '../../../AppManager/newLoader.dart';
 import '../../StartUpScreen/startup_screen.dart';
 import 'NewBookAppointmentController.dart';
 import 'data_modal/data_modal.dart';
@@ -19,7 +21,7 @@ class NewBookAppointmentModal {
 
 
   NewBookAppointmentController controller = Get.put(NewBookAppointmentController());
-
+  OrganController controller2=Get.put(OrganController());
   //
   // bookAppointment(context,{doctorId,departmentId,timeSlotsId,appointmentDate,dayId })async{
   //   // var body={
@@ -101,7 +103,7 @@ class NewBookAppointmentModal {
 
 
   bookAppointment(context,{doctorId,departmentId,timeSlotsId,appointmentDate,dayId}) async{
-
+   controller.updateBookAppointment=true;
   final medvantageUser = GetStorage();
   var name = medvantageUser.read('medvantageUserName');
   var uhid = medvantageUser.read('medvantageUserUHID');
@@ -117,7 +119,9 @@ class NewBookAppointmentModal {
     "timeslotsId": timeSlotsId.toString(),
     "dayId": dayId.toString(),
     "appointmentDate":  appointmentDate.toString(),
-    "userId": 99
+    "userId": 99,
+    "clientId": 176,
+    "jsonProblems": jsonEncode(controller.getProblemAndOrganData)
   });
   print(request.body.toString());
   request.headers.addAll(headers);
@@ -148,6 +152,7 @@ class NewBookAppointmentModal {
   else {
   print(response.reasonPhrase);
   }
+ controller.updateBookAppointment=false;
 
   }
 
@@ -173,8 +178,9 @@ class NewBookAppointmentModal {
 
 
 
-
   Future <void> getDays(context,drId)async{
+    controller.updateDaysLoading=true;
+
     var data = await RawDataApi().getapi('/api/DoctorTimeSlotMapping/GetAllDaysByDoctorId?doctorId=$drId',context);
     if (kDebugMode) {
       print('${data}0000000000');
@@ -186,13 +192,16 @@ class NewBookAppointmentModal {
     print('abc${controller.getDayList}');
     for(int i =0;i<controller.getDayList.length;i++){
       controller.availableDays.add(controller.getDayList[i].dayName);
-      controller.update();
       print('${controller.getAvailableDays}abcd');
     }
+    controller.updateDaysLoading=false;
+    controller.update();
   }
 
    getTime(BuildContext context,{required String dayName,required String drId}) {
-    print("DayLIstLength${controller.getDayList.length}");
+     controller.updateLoadingTime=true;
+
+     print("DayLIstLength${controller.getDayList.length}");
     print("DayLIstLength$dayName");
     for(int i=0;i<controller.getDayList.length;i++){
       if(controller.getDayList[i].dayName.toString().toUpperCase().trim()==dayName.toUpperCase().toString().trim()){
@@ -206,6 +215,8 @@ class NewBookAppointmentModal {
     }
 
 
+     controller.updateLoadingTime=false;
+    controller.update();
 
   }
 }

@@ -1,3 +1,4 @@
+
 import 'package:digi_doctor/Pages/Pharmacy/allProduct/SortModule/sort_product_module.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,10 +21,11 @@ class NewBookAppointment extends StatefulWidget {
   final doctorId;
   final timeSlot;
   final timeSlotId;
+  final speciality;
   final date;
   final day;
   final dayid;
-  const NewBookAppointment({super.key, this.doctorName, this.doctorId, this.departmentId ,this.timeSlot,this.date,this.day,this.timeSlotId,this.dayid});
+  const NewBookAppointment({super.key, this.doctorName, this.doctorId, this.departmentId ,this.timeSlot,this.date,this.day,this.timeSlotId,this.dayid, this.speciality});
 
   @override
   State<NewBookAppointment> createState() => _NewBookAppointmentState();
@@ -68,76 +70,120 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
       body:  GetBuilder(
           init: NewBookAppointmentController(),
           builder: (_) {
-          return Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage("assets/kiosk_bg_img.png",),fit: BoxFit.fitHeight)
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
-              child: Center(
-                child: SizedBox(
-                  width: Get.width/1.5,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                               Text(localization.getLocaleData.fullName.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    )),
-                               const SizedBox(height: 5),
-                              SizedBox(
-                                child: MyTextField2(
-                                  enabled: false,
-                                  //controller: modal2.controller.mobileController.value,
-                                  hintText: name,
-                                  controller: modal.controller.nameController.value,
-                                  validator: (value) {
-                                    // if (value!.isEmpty) {
-                                    //   return localization.getLocaleData
-                                    //       .validationText!
-                                    //       .mobileNumber10Digits.toString();
-                                    // }
-                                    return null;
-                                  },
-                                ),
-                              ),
+          return ListView(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+               //     image: DecorationImage(image: AssetImage("assets/kiosk_bg_img.png",),fit: BoxFit.fitHeight)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
+                  child: Center(
+                    child: SizedBox(
+                      width: Get.width/1.5,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                                   Text(localization.getLocaleData.fullName.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        )),
+                                   const SizedBox(height: 5),
+                                  SizedBox(
+                                    child: MyTextField2(
+                                      enabled: false,
+                                      //controller: modal2.controller.mobileController.value,
+                                      hintText: name,
+                                      controller: modal.controller.nameController.value,
+                                      validator: (value) {
+                                        // if (value!.isEmpty) {
+                                        //   return localization.getLocaleData
+                                        //       .validationText!
+                                        //       .mobileNumber10Digits.toString();
+                                        // }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                          const SizedBox(height: 15),
+                                   Text(localization.getLocaleData.uhid.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                      )),
+                                  const SizedBox(height: 5),
+                                  SizedBox(
+                                    // height: 40,
+                                    child: MyTextField2(
+                                      enabled: false,
+                                      //controller: modal2.controller.mobileController.value,
+                                      hintText: uhid,
+                                      controller: modal.controller.uhidController.value,
+                                      validator: (value) {
+                                        // if (value!.isEmpty) {
+                                        //   return localization.getLocaleData
+                                        //       .validationText!
+                                        //       .mobileNumber10Digits.toString();
+                                        // }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
 
-                      const SizedBox(height: 15),
+                          const SizedBox(height: 15),
 
-                              const Text("UHID",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  )),
-                              const SizedBox(height: 5),
-                              SizedBox(
-                                // height: 40,
-                                child: MyTextField2(
-                                  enabled: false,
-                                  //controller: modal2.controller.mobileController.value,
-                                  hintText: uhid,
-                                  controller: modal.controller.uhidController.value,
-                                  validator: (value) {
-                                    // if (value!.isEmpty) {
-                                    //   return localization.getLocaleData
-                                    //       .validationText!
-                                    //       .mobileNumber10Digits.toString();
-                                    // }
-                                    return null;
-                                  },
-                                ),
-                              ),
+                                   Text(localization.getLocaleData.doctorsInformation.toString(), style: const TextStyle(
+                                    fontSize: 18,),),
+                                  const SizedBox(height: 5,),
+                          MyTextField2(
+                            enabled: false,
+                            //controller: modal2.controller.mobileController.value,
+                            hintText: widget.doctorName,
+                            controller: modal.controller.uhidController.value,
+                            validator: (value) {
+                              // if (value!.isEmpty) {
+                              //   return localization.getLocaleData
+                              //       .validationText!
+                              //       .mobileNumber10Digits.toString();
+                              // }
+                              return null;
+                            },
+                          ),
 
-                      const SizedBox(height: 15),
+                          const SizedBox(height: 15),
 
-                               Text(localization.getLocaleData.doctorsInformation.toString(), style: TextStyle(
-                                fontSize: 18,),),
-                              const SizedBox(height: 5,),
+                                  // Text('${localization.getLocaleData.hintText?.id.toString()}',
+                                  //     style: const TextStyle(
+                                  //       fontSize: 18, color: Colors.white,)),
+                                   Text(localization.getLocaleData.appointmentDate.toString(),style:const TextStyle(
+                                    fontSize: 18,) ,),
+                                  const SizedBox(height: 6,),
                       MyTextField2(
                         enabled: false,
                         //controller: modal2.controller.mobileController.value,
-                        hintText: widget.doctorName,
-                        controller: modal.controller.uhidController.value,
+                        hintText: widget.date,
+                       // controller: modal.controller.uhidController.value,
+                        validator: (value) {
+                          // if (value!.isEmpty) {
+                          //   return localization.getLocaleData
+                          //       .validationText!
+                          //       .mobileNumber10Digits.toString();
+                          // }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                                  // Text('${localization.getLocaleData.hintText?.id.toString()}',
+                                  //     style: const TextStyle(
+                                  //       fontSize: 18, color: Colors.white,)),
+                                   Text(localization.getLocaleData.days.toString(),style:const TextStyle(
+                                    fontSize: 18,) ,),
+                                  const SizedBox(height: 6,),
+                      MyTextField2(
+                        enabled: false,
+                        //controller: modal2.controller.mobileController.value,
+                        hintText: widget.day,
+                       // controller: modal.controller.uhidController.value,
                         validator: (value) {
                           // if (value!.isEmpty) {
                           //   return localization.getLocaleData
@@ -148,98 +194,56 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
                         },
                       ),
 
-                      const SizedBox(height: 15),
-
-                              // Text('${localization.getLocaleData.hintText?.id.toString()}',
-                              //     style: const TextStyle(
-                              //       fontSize: 18, color: Colors.white,)),
-                               Text(localization.getLocaleData.appointmentDate.toString(),style:TextStyle(
-                                fontSize: 18,) ,),
-                              const SizedBox(height: 6,),
-                  MyTextField2(
-                    enabled: false,
-                    //controller: modal2.controller.mobileController.value,
-                    hintText: widget.date,
-                   // controller: modal.controller.uhidController.value,
-                    validator: (value) {
-                      // if (value!.isEmpty) {
-                      //   return localization.getLocaleData
-                      //       .validationText!
-                      //       .mobileNumber10Digits.toString();
-                      // }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 15),
-                              // Text('${localization.getLocaleData.hintText?.id.toString()}',
-                              //     style: const TextStyle(
-                              //       fontSize: 18, color: Colors.white,)),
-                               Text(localization.getLocaleData.days.toString(),style:TextStyle(
-                                fontSize: 18,) ,),
-                              const SizedBox(height: 6,),
-                  MyTextField2(
-                    enabled: false,
-                    //controller: modal2.controller.mobileController.value,
-                    hintText: widget.day,
-                   // controller: modal.controller.uhidController.value,
-                    validator: (value) {
-                      // if (value!.isEmpty) {
-                      //   return localization.getLocaleData
-                      //       .validationText!
-                      //       .mobileNumber10Digits.toString();
-                      // }
-                      return null;
-                    },
-                  ),
-
-                      const SizedBox(height: 15,),
+                          const SizedBox(height: 15,),
 
 
 
 
-                            // Text('${localization.getLocaleData.hintText?.address.toString()}',
-                            //     style: const TextStyle(
-                            //       fontSize: 18, color: Colors.white,)),
-                             Text(localization.getLocaleData.time.toString(),style: TextStyle(fontSize: 18, ),),
-                            const SizedBox(height: 5,),
-                  MyTextField2(
-                    enabled: false,
-                    //controller: modal2.controller.mobileController.value,
-                    hintText: widget.timeSlot,
+                                // Text('${localization.getLocaleData.hintText?.address.toString()}',
+                                //     style: const TextStyle(
+                                //       fontSize: 18, color: Colors.white,)),
+                                 Text(localization.getLocaleData.time.toString(),style: TextStyle(fontSize: 18, ),),
+                                const SizedBox(height: 5,),
+                      MyTextField2(
+                        enabled: false,
+                        //controller: modal2.controller.mobileController.value,
+                        hintText: widget.timeSlot,
 
-                    validator: (value) {
-                      // if (value!.isEmpty) {
-                      //   return localization.getLocaleData
-                      //       .validationText!
-                      //       .mobileNumber10Digits.toString();
-                      // }
-                      return null;
-                    },
-                  ),
+                        validator: (value) {
+                          // if (value!.isEmpty) {
+                          //   return localization.getLocaleData
+                          //       .validationText!
+                          //       .mobileNumber10Digits.toString();
+                          // }
+                          return null;
+                        },
+                      ),
 
 
-                      const SizedBox(height: 50,),
+                          const SizedBox(height: 50,),
 
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: SizedBox(
-                            width: 200,
-                            child: MyButton(title:"Confirm",height: 50,
-                              onPress: (){
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: SizedBox(
+                                width: 200,
+                                child: MyButton(title:"Confirm",height: 50,
+                                  onPress: (){
 
-                                modal.bookAppointment(context,doctorId: widget.doctorId,departmentId: widget.departmentId,timeSlotsId: widget.timeSlotId,appointmentDate: widget.date,dayId:widget.dayid);
-                                // modal.getTimeSlots(context,1);
-                                // modal.getDays(context,1);
+                                    modal.bookAppointment(context,doctorId: widget.doctorId,departmentId: widget.departmentId,timeSlotsId: widget.timeSlotId,appointmentDate: widget.date,dayId:widget.dayid);
+                                    // modal.getTimeSlots(context,1);
+                                    // modal.getDays(context,1);
 
-                                },
+                                    },
 
-                            )),
-                      )
-                    ],
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           );
         }
       ),
@@ -247,3 +251,5 @@ class _NewBookAppointmentState extends State<NewBookAppointment> {
     );
   }
 }
+
+

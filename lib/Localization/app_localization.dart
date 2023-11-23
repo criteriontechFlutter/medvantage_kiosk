@@ -100,7 +100,7 @@ String getLanguageInRealLanguage(Language lang){
     case Language.urdu:  return "Urdu"+' ( '+"اردو"+' )';
     case Language.bengali:  return "Bengali"+' ( '+"বাংলা"+' )';
     case Language.marathi:  return "Marathi"+' ( '+"मराठी"+' )';
-    case Language.arabic:  return "arabic"+' ( '+"عربى"+' )';
+    case Language.arabic:  return "Arabic"+' ( '+"عربى"+' )';
 
   }
 }

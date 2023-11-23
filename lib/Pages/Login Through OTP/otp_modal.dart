@@ -64,8 +64,11 @@ class LoginThroughOTPModal {
         // print( controller.usersList[0].gender);
 
         final medvantageUser = GetStorage();
-        controller.updateUsersList = List<UsersDataModal>.from(((data['responseValue'])).map((e) => UsersDataModal.fromJson(e)));
-        await medvantageUser.write('allUsersList',controller.usersList);
+         await medvantageUser.write('allUsersList',data['responseValue']);
+        var users = await medvantageUser.read('allUsersList');
+        print("ali"+users.toString());
+        controller.updateUsersList = List<UsersDataModal>.from(((users)).map((e) => UsersDataModal.fromJson(e)));
+
         print('1234567890${controller.getUsersList}');
         if ('${controller.getUsersList}' == '[]') {
        //   App().navigate(context, const Registration());
@@ -73,7 +76,7 @@ class LoginThroughOTPModal {
         } else {
           var users =  await medvantageUser.read('allUsersList');
           print('1234567890${users}1234567890');
-          App().replaceNavigate(context, const SelectUser());
+          App().replaceNavigate(context, const SelectUser(isFromLogin:true));
 
         }
         //
@@ -188,7 +191,15 @@ class LoginThroughOTPModal {
       "isFromKiosk": 1,
        "ageUnitId": controller.dobUnitId.value.text,
        "dob": controller.dateOfBirth.value.text.toString(),
+
+      "clientId": 176,
+       "stateId": 38,
+       "countryId": 101,
+       "cityId": 4933,
+      "address": "Lucknow",
+
     };
+
     // patientName: patientName,
     // mobileNo: JSON.parse(sessionStorage.getItem('loginData')),
     // emailID: emailID,

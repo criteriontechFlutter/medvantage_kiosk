@@ -128,6 +128,7 @@ import 'AppManager/app_color.dart';
 import 'Localization/app_localization.dart';
 import 'Localization/language_class.dart';
 import 'Pages/Dashboard/find_location_provider.dart';
+import 'Pages/Login Through OTP/select_user_view_modal.dart';
 import 'Pages/StartUpScreen/startup_screen.dart';
 import 'Pages/VitalPage/LiveVital/PatientMonitor/patient_monitor_view_modal.dart';
 import 'Pages/VitalPage/LiveVital/Stethoscope/stethoscope_view_modal.dart';
@@ -210,6 +211,8 @@ void main() async {
       create: (_) => LocationProvider(),
     ),  ChangeNotifierProvider<MedvantageLogin>(
       create: (_) => MedvantageLogin(),
+    ), ChangeNotifierProvider<SelectUserViewModal>(
+      create: (_) => SelectUserViewModal(),
     ),
   ], child: MaterialApp(
     debugShowCheckedModeBanner: false,

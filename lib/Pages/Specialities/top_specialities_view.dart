@@ -399,9 +399,9 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                 ),
                                                                               ),
 
-                                                                              Column(
+                                                                              const Column(
                                                                                 mainAxisAlignment: MainAxisAlignment.center,
-                                                                                children:  const [
+                                                                                children:  [
                                                                                   // Align(
                                                                                   //   child: Text(
                                                                                   //     //  localization.getLocaleData.noOfDoctors.toString() +
@@ -616,10 +616,13 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                                   width: 150,
                                                                                                   child: MyButton(title:localization.getLocaleData.hintText!.book.toString(),height: 100,
                                                                                                     onPress: (){
+
                                                                                                     modal2.controller.updateDoctorId=doctor.id;
                                                                                                     modal2.getDays(context,doctor.id.toString());
+
                                                                                                   //  App().navigate(context, NewBookAppointment(doctorName: doctor.name.toString(),doctorId:doctor.id,departmentId: doctor.departmentId));
-//**//**********
+//**//*****
+
                                                                                                       App().navigate(context, TimeSlotView(profilePhoto: '',degree:'' ,doctorId:doctor.id.toString(),
                                                                                                         drName:doctor.name.toString(),
                                                                                                         fees: 0,
@@ -628,12 +631,11 @@ NewBookAppointmentModal modal2 = NewBookAppointmentModal();
                                                                                                         timeSlots:[],
                                                                                                           selectedDay:null,
                                                                                                         departmentId: doctor.departmentId??0,
-
                                                                                                          // departmentId: doctor.departmentId??0
                                                                                                       ));
                                                                                                     },
-                                                                                                  ))
-                                                                                            ]
+                                                                                                  )),
+                                                                                            ],
                                                                                         ),
                                                                                       ),
                                                                                       ),

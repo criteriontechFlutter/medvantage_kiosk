@@ -95,17 +95,17 @@ class _OtpViewState extends State<OtpView> {
                                 blurRadius: 10,
                               )
                             ],
-                            onCompleted: (v) {
-                              if (kDebugMode) {
+                            onCompleted: (v) async{
+
                                 if(widget.registerOrLogin=='Login'){
 
                                   print('controller.otpC.value.text.toString()''${controller.otpC.value.text}+$v');
-                                  modal.matchOtp(context, v, usernameOrNumber);
+                              await    modal.matchOtp(context, v, usernameOrNumber);
                                   print("Completed");
                                 }else{
                                   modal.matchRegistrationOtp(context, widget.phonenumber, controller.getOtpval);
                                 }
-                              }
+
                             },
                             // onTap: () {
                             //   print("Pressed");
@@ -117,6 +117,16 @@ class _OtpViewState extends State<OtpView> {
                             beforeTextPaste: (text) {
                               return true;
                             },
+                          ),
+                          const SizedBox(height: 10),
+                          InkWell(
+                            onTap: (){
+                              modal.loginThroughOTP(context,  widget.phonenumber.toString());
+                            },
+                            child: Text(
+                              localization.getLocaleData.resendOTP.toString(),
+                              style: MyTextTheme().veryLargeWCN,
+                            ),
                           ),
                         ],
                       ),

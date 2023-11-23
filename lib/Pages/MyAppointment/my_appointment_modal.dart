@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:digi_doctor/AppManager/alert_dialogue.dart';
 import 'package:digi_doctor/Pages/MyAppointment/my_appointment_controller.dart';
 import 'package:digi_doctor/Pages/VitalPage/LiveVital/stetho_master/AppManager/raw_api.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,8 @@ class MyAppointmentModal {
     log(data.toString()+'abcdeeeeee');
     if(data["status"].toString()=='1'){
       controller.updateSetMedVitalList =  data["responseValue"]["allPatientVital"];
+    }else{
+      alertToast(context, data['responseValue']);
     }
   }
 }

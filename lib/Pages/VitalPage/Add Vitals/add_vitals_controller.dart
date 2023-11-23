@@ -59,4 +59,12 @@ class AddVitalsController extends GetxController {
   }
 
 
+  bool isloading=false;
+  get getIsLoading=>isloading;
+  set updateIsLoding(val){
+    isloading=val;
+    update();
+  }
+
+
 }

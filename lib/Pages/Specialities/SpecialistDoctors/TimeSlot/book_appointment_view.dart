@@ -377,7 +377,9 @@ import 'package:digi_doctor/AppManager/widgets/my_button2.dart';
 import 'package:digi_doctor/Pages/Specialities/SpecialistDoctors/TimeSlot/time_slot_controller.dart';
 import 'package:digi_doctor/Pages/select_member/select_memeber_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -390,7 +392,10 @@ import 'package:get/get.dart';
 
 import '../../../../Localization/app_localization.dart';
 import '../../../Dashboard/Widget/profile_info_widget.dart';
+import '../../../Login Through OTP/select_user.dart';
+import '../../../Login Through OTP/select_user_view_modal.dart';
 import '../../../select_member/select_memeber_modal.dart';
+import '../../NewBookAppintment/NewBookAppointmentModal.dart';
 import '../../top_specialities_view.dart';
 import '../DataModal/payment_data_modal.dart';
 import 'package:digi_doctor/Pages/Specialities/SpecialistDoctors/TimeSlot/time_slot_controller.dart' as dp;
@@ -401,7 +406,14 @@ class BookAppointmentView extends StatefulWidget {
   final String drName;
   final String speciality;
   final String degree;
-  final int isEraUser;
+  final String doctorId;
+  final String timeSlot;
+  final String date;
+  final String day;
+  final String timeSlotId;
+  final String dayid;
+  final int? departmentId;
+
 
 
   const BookAppointmentView({
@@ -409,7 +421,8 @@ class BookAppointmentView extends StatefulWidget {
     required this.drName,
     required this.speciality,
     required this.degree,
-    required this.isEraUser,
+    required  this.doctorId, required this.departmentId, required this.timeSlot, required this.date, required this.day, required this.timeSlotId, required this.dayid,
+
   }) : super(key: key);
 
   @override
@@ -484,6 +497,17 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
 
   @override
   Widget build(BuildContext context) {
+
+    var  newDate = DateTime.parse(widget.date);
+    var date = DateFormat.yMd().format(newDate);
+    NewBookAppointmentModal modal2 = NewBookAppointmentModal();
+    final medvantageUser = GetStorage();
+    SelectUserViewModal currentUser =
+    Provider.of<SelectUserViewModal>(context, listen: true);
+    currentUser.updateName=medvantageUser.read('medvantageUserName');
+
+    var userName = medvantageUser.read('medvantageUserName');
+    var number = medvantageUser.read('medvantageUserNumber');
     ApplicationLocalizations localization=Provider.of<ApplicationLocalizations>(context,listen: true);
     return Container(
       color: AppColor.primaryColor,
@@ -502,29 +526,28 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                             color: AppColor.primaryColorLight,
                             image: const DecorationImage(
                                 image:  AssetImage("assets/kiosk_bg.png"),
+
                                 // Orientation.portrait==MediaQuery.of(context).orientation?
                                 //  AssetImage("assets/kiosk_bg.png",):
                                 // AssetImage("assets/kiosk_bg_img.png",),
 
-                                fit: BoxFit.fill)),
+                                fit: BoxFit.fill),
+                        ),
                         child: Column(
                           children: [
                             //**
                             const SizedBox(
                                 height: 80,
                                 child: ProfileInfoWidget()),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             SizedBox(
                               height: 110,
-
                               child: ListView.builder(
                                   scrollDirection:   Axis.horizontal,
                                   physics: const NeverScrollableScrollPhysics(),
                                   // shrinkWrap: true,
-
                                   itemCount: optionList().length,itemBuilder:(BuildContext context,int index){
                                 return Padding(
-
                                   padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 18),
                                   child: InkWell(
                                     onTap: (){
@@ -565,9 +588,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                                   .white:AppColor.secondaryColorShade2,
                                               height: 40,
                                             ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
+                                            const SizedBox(width: 10),
                                             Text(
                                               optionList()[index]['name'],
                                               style: MyTextTheme()
@@ -605,36 +626,71 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                             child: Text(localization.getLocaleData.self.toString(),style:MyTextTheme().mediumWCB ),
                                           ),
                                           onPress: () async {
-                                            memberModal.controller.updateSelectedMemberId='';
-                                            await memberModal.getMember(context);
+                                            // memberModal.controller.updateSelectedMemberId='';
+                                            // await memberModal.getMember(context);
                                           },
                                         ),
                                         const SizedBox(width: 100),
-                                        CustomInkwell(
-                                          color:userData.getUserPrimaryStatus=="0"?AppColor.buttonColor:Colors.grey,
-                                          elevation: 3,borderRadius: 15,
-                                          onPress: (){
-                                            App().navigate(context, const SelectMember(pageName: '',));
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              App().navigate(context, const SelectUser());
+                                            });
                                           },
                                           child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Text(
-                                                  userData.getUserPrimaryStatus=="0"?userData.getUserName.capitalize!:localization.getLocaleData.selectMember.toString(),
-                                                  style: MyTextTheme().mediumWCB,
+                                            padding:  const EdgeInsets.all(8.0),
+                                            child: Container(
+                                                width: 160,
+                                                decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
+                                                  border: Border.all(
+                                                      color: AppColor.white
+                                                  ),
                                                 ),
-                                                // Icon(
-                                                //   Icons.arrow_forward_ios,
-                                                //   size: 15,
-                                                //    color: AppColor.black,
-                                                // )
-                                              ],
+                                                child:Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    border: Border.all(color: Colors.grey),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Expanded(child: Text(currentUser.getName.toString(),style: MyTextTheme().mediumBCB,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)),
+                                                        //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
+                                                        const Icon(Icons.arrow_drop_down_sharp,color: Colors.grey,),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
                                             ),
                                           ),
                                         ),
+                                        // CustomInkwell(
+                                        //   color:userData.getUserPrimaryStatus=="0"?AppColor.buttonColor:Colors.grey,
+                                        //   elevation: 3,borderRadius: 15,
+                                        //   onPress: (){
+                                        //     App().navigate(context, const SelectMember(pageName: '',));
+                                        //   },
+                                        //   child: Padding(
+                                        //     padding: const EdgeInsets.all(8.0),
+                                        //     child: Row(
+                                        //       mainAxisAlignment:
+                                        //       MainAxisAlignment.spaceEvenly,
+                                        //       children: [
+                                        //         Text(
+                                        //           userData.getUserPrimaryStatus=="0"?userData.getUserName.capitalize!:localization.getLocaleData.selectMember.toString(),
+                                        //           style: MyTextTheme().mediumWCB,
+                                        //         ),
+                                        //         // Icon(
+                                        //         //   Icons.arrow_forward_ios,
+                                        //         //   size: 15,
+                                        //         //    color: AppColor.black,
+                                        //         // )
+                                        //       ],
+                                        //     ),
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                     const SizedBox(
@@ -652,13 +708,13 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                               localization.getLocaleData.doctorInformation.toString(),
                                               style: MyTextTheme().largeBCB,
                                             ),
-                                            const SizedBox(height: 10,),
+                                            const SizedBox(height: 10),
                                             Row(
                                               children: [
-                                                Text("${localization.getLocaleData.fullName.toString()} :",style: MyTextTheme().mediumBCB,),
-                                                const SizedBox(width: 8,),
+                                                Text("${localization.getLocaleData.fullName.toString()} :",style: MyTextTheme().mediumBCB ),
+                                                const SizedBox(width: 8 ),
                                                 Text(
-                                                  "${widget.drName.toString().toUpperCase()}  (${widget.degree})",
+                                                  widget.drName.toString().toUpperCase(),
                                                   style: MyTextTheme().mediumGCB,
                                                 ),
                                               ],
@@ -668,7 +724,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                               children: [
                                                 Text("${localization.getLocaleData.speciality.toString()} :",style: MyTextTheme().mediumBCB,),
                                                 const SizedBox(width: 8,),
-                                                Text(widget.speciality.toString().toUpperCase(),
+                                                Text(widget.speciality.toString()==''?'N/A':widget.speciality.toString().toUpperCase(),
                                                   style: MyTextTheme().mediumGCB,
                                                 ),
                                               ],
@@ -677,13 +733,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                             Row(
                                               //mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Text("${localization.getLocaleData.appointmentDate.toString()} :",style: MyTextTheme().mediumBCB,),
-                                                const SizedBox(width: 10,),
-                                                Text(
-                                                  '${DateFormat.MMMEd().format(
-                                                      modal
-                                                          .controller.getSelectedDate??DateTime.now())}  ${modal
-                                                      .controller.getSavedTime}',
+                                                Text("${localization.getLocaleData.appointmentDate.toString()} :",style: MyTextTheme().mediumBCB),
+                                                const SizedBox(width: 10),
+                                                Text(date.toString(),
                                                   style: MyTextTheme().mediumGCB,
                                                 ),
                                               ],
@@ -693,21 +745,20 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                               localization.getLocaleData.patientInformation.toString(),
                                               style: MyTextTheme().largeBCB,
                                             ),
-                                            const SizedBox(height: 20,),
+                                            const SizedBox(height: 10,),
                                             Row(
                                               children: [
                                                 Text(
                                                   "${localization.getLocaleData.fullName.toString()} :",
                                                   style: MyTextTheme().mediumBCB,
                                                 ),
-                                                const SizedBox(width: 8,),
-                                                Text(
-                                                  "${userData.getUserName.toString()}  (${DateTime.now().year-int.parse(userData.getUserDob.split('/')[2])} y / ${userData.getUserGender=='1'?'M':'F'})",
+
+                                                Text(userName.toString(),
                                                   style: MyTextTheme().mediumGCB,
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(height: 20,),
+                                            const SizedBox(height: 10,),
                                             // Text(
                                             //   localization.getLocaleData.hintText!.enterMobileNo.toString(),
                                             //   style: MyTextTheme().mediumBCN,
@@ -718,38 +769,40 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                             Row(
                                               children: [
                                                 Text("${localization.getLocaleData.mobileNumber.toString()} :",style: MyTextTheme().mediumBCB,),
-                                                const SizedBox(width: 8,),
+                                                const SizedBox(width: 8),
                                                 Text(
-                                                  userData.getUserMobileNo.toString(),
+                                                  number.toString(),
                                                   style: MyTextTheme().mediumGCB,
                                                 ),
                                               ],
                                             ),
-
                                             Center(
                                               child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: MyButton(
-                                                  title: localization.getLocaleData.confirm.toString(),
-                                                  buttonRadius: 25,
-                                                  onPress: () async {
-                                                    // await  modal.openCheckout(context,_razorpay);
-                                                    var data= await  modal.onPressedCfm(context);
-                                                    print('nnnnnnnnnnnnnnnn$data');
-                                                    if(data==1){
-                                                     // await  paymentModule(context);
-                                                    }
-                                                    // widget.isEraUser!=0?   modal.onPressedConfirm(context):payOption(context);
-                                                  },
+                                                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                                                child: SizedBox(
+                                                  width: 200,
+                                                  child:modal2.controller.bookAppointmentLoader==true?Center(child: LoadingAnimationWidget.fourRotatingDots(color: AppColor.primaryColor, size: 50)): MyButton(
+                                                    title: localization.getLocaleData.confirm.toString(),
+                                                    buttonRadius: 25,
+                                                    onPress: () async {
+                                                      // await  modal.openCheckout(context,_razorpay);
+                                                      modal2.bookAppointment(context,doctorId: widget.doctorId,departmentId: widget.departmentId,timeSlotsId: widget.timeSlotId,appointmentDate: widget.date,dayId:widget.dayid);
+                                                      //
+                                                      // var data= await  modal.onPressedCfm(context);
+                                                      // print('nnnnnnnnnnnnnnnn$data');
+                                                      // if(data==1){
+                                                      //  // await  paymentModule(context);
+                                                      // }
+                                                      // widget.isEraUser!=0?   modal.onPressedConfirm(context):payOption(context);
+                                                    },
+                                                  ),
                                                 ),
                                               ),
                                             ),
-
                                           ],
                                         ),
-                                      ) ,
+                                      ),
                                     ),
-
                                     // Expanded(
                                     //   child: Container(
                                     //     width: Get.width,

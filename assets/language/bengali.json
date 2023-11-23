@@ -7,7 +7,25 @@
   "hiThereFoundGreatDoctor": "Hi there!\ni found a great doctor",
 
 
+  "Abdomen": "পেট",
+  "backPain": "পিঠে ব্যাথা",
+  "Ear": "কান",
+  "face": "মুখ",
+  "hand": "হাত",
+  "leg": "পা",
+  "mouth": "মুখ",
+  "neck": "ঘাড়",
+  "nose": "নাক",
+  "pelvis": "পেলভিস",
+  "skin": "চামড়া",
+  "teeth": "দাঁত",
+  "fullBody": "সমস্ত শরীর",
+
+
+
   "loading": "লোড হচ্ছে...",
+  "uhid": "ইউ এইচ আই ডি",
+  "addThroughDevice": "ডিভাইসের মাধ্যমে যোগ করুন",
   "bookAnAppointmentText": "আপনার নিকটতম এবং শীর্ষ ডাক্তারের সাথে একটি অ্যাপয়েন্টমেন্ট বুক করুন",
   "getSampleText": "আপনার জায়গায় নমুনা সংগ্রহ করুন, আপনি বাড়িতে থাকুন",
   "getStarted": "শুরু করুন",
@@ -525,6 +543,8 @@
     "measureBP": "আপনার BP পরিমাপ করুন",
     "measureSPO": "আপনার SPO2 পরিমাপ করুন",
     "yourBP": "আপনার বিপি হয়",
+    "slotsAvailable": "স্লট উপলব্ধ",
+    "noSlotsAvailable": "কোন স্লট উপলব্ধ",
     "yourBP": "আপনার SPO2 হল",
     "addBMI": "মেশিন/ম্যানুয়ালি BMI যোগ করুন",
     "measure": "আপনার উচ্চতা এবং ওজন পরিমাপ করুন",

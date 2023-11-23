@@ -3,6 +3,23 @@
   "location": "موقع",
   "tooBusyText": "مشغول جدا لرؤية الطبيب؟ \n استشر الطبيب عبر الإنترنت في مكانك",
   "measureHeight": "قياس الارتفاع",
+
+
+  "Abdomen": "البطن",
+  "backPain": "ألم في الظهر",
+  "Ear": "أذن",
+  "face": "وجه",
+  "hand": "يُسلِّم",
+  "leg": "رجل",
+  "mouth": "فم",
+  "neck": "رقبة",
+  "nose": "أنف",
+  "pelvis": "الحوض",
+  "skin": "جلد",
+  "teeth": "أسنان",
+  "fullBody": "جسم كامل",
+
+
   "yourWeight": "وزنك",
   "sendCodeHeaderText": "سنرسل رمزا (عبر رسالة نصية قصيرة \nرسالة) إلى رقم هاتفك",
   "downloadPostCovidCareBooklet": "تحميل ما بعد كوفيد  \nكتيب العناية",
@@ -10,6 +27,8 @@
   "noOfDoctors": "عدد الأطباء \n",
   "hiThereFoundGreatDoctor": "مرحبًا بكم!\nلقد وجدت طبيبا رائعا",
   "loading": "تحميل...",
+  "uhid": "يو إتش آي دي",
+  "addThroughDevice": "إضافة من خلال الجهاز",
   "bookAnAppointmentText": "احجز موعدا مع أقرب وأعلى طبيب",
   "getSampleText": "احصل على جمع العينات في مكانك ، يمكنك البقاء في المنزل",
   "getStarted": "ابدأ الآن",
@@ -416,6 +435,7 @@
   "loginWithPasswordHeaderText": "تسجيل الدخول بكلمة مرور",
   "enterMobilePasswordHeaderText": "أدخل رقم هاتفك المحمول أو بريدك الإلكتروني وكلمة المرور لتسجيل الدخول",
   "passwordHint": "أدخل كلمة المرور",
+
   "sendOtpTitle": "إرسال كلمة المرور لمرة واحدة",
   "passwordValidation": "الرجاء إدخال كلمة المرور الخاصة بك",
   "forgotPasswordText": "نسيت كلمة المرور",
@@ -516,6 +536,9 @@
     "measureBP": "قياس ضغط الدم الخاص بك",
     "measureSPO": "قم بقياس SPO2 الخاص بك",
     "yourBP": "BP الخاص بك هو",
+    "slotsAvailable": "فتحة متاحة",
+    "noSlotsAvailable": "لا توجد فتحات متاحة",
+
     "yourBP": "SPO2 الخاص بك هو",
     "addBMI": "أضف مؤشر كتلة الجسم عن طريق الجهاز / يدويا",
     "press": "اضغط على زر ابدأ لإجراء الاختبار",

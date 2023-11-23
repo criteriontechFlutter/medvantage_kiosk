@@ -20,7 +20,7 @@ class TopSymptomsModal {
 
 
  Future<void> onPressed(context) async{
-    await getDoctorBySymptom(context);
+  //  await getDoctorBySymptom(context);
    // await getDoctorsList(context);
 
   }

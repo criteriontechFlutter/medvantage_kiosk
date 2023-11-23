@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,8 @@ import '../../ai chat/ai_chat.dart';
 import '../Dashboard/Widget/profile_info_widget.dart';
 import '../Dashboard/dashboard_modal.dart';
 import '../Login Through OTP/phone_number_view.dart';
+import '../Login Through OTP/select_user_view_modal.dart';
+import '../Specialities/SpecialistDoctors/TimeSlot/book_appointment_view.dart';
 import '../Specialities/top_specialities_view.dart';
 import '../VitalPage/LiveVital/device_view.dart';
 import '../VitalPage/LiveVital/stetho_master/AppManager/alert_dialogue.dart';
@@ -56,7 +59,14 @@ class _StartupPageState extends State<StartupPage> {
         Provider.of<ApplicationLocalizations>(context, listen: false);
     MedvantageLogin userdata =
     Provider.of<MedvantageLogin>(context, listen: false);
+
     userdata.checkUser();
+    final medvantageUser = GetStorage();
+    SelectUserViewModal currentUser =
+    Provider.of<SelectUserViewModal>(context, listen: false);
+    currentUser.updateName=medvantageUser.read('medvantageUserName')??'';
+
+
   }
 
   get() async {
@@ -131,8 +141,61 @@ class _StartupPageState extends State<StartupPage> {
                           //crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const SizedBox(
-                                height: 80, child: ProfileInfoWidget()),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: SizedBox(
+                                      height: 80, child: ProfileInfoWidget()),
+                                ),
+                                Visibility(
+                                  visible: (userdata.getLoggedIn !=
+                                      true),
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        changeLanguage();
+                                      });
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(25.0),
+                                      child: Container(
+                                        width: 160,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(color: AppColor.white),
+                                        ),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            border: Border.all(color: Colors.white),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                4, 4, 4, 4),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  localization.getLanguage.name
+                                                      .toString().capitalize.toString(),
+                                                  style: MyTextTheme().mediumWCB,
+                                                ),
+                                                //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
+                                                const Icon(
+                                                  Icons.arrow_drop_down_sharp,
+                                                  color: Colors.white,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -161,6 +224,31 @@ class _StartupPageState extends State<StartupPage> {
                             const SizedBox(
                               height: 30,
                             ),
+                            // InkWell(
+                            //   onTap: (){
+                            //     App().navigate(
+                            //         context,
+                            //         BookAppointmentView(
+                            //           drName: 'drName'
+                            //               .toString(),
+                            //           speciality:'speciality'
+                            //               .toString(),
+                            //           degree: 'degree'
+                            //               .toString(), doctorId: '', departmentId: null, timeSlot: '', date: '', day: '', timeSlotId: '', dayid: '',
+                            //         ));
+                            //   },
+                            //   child: Container(
+                            //     height: 20,
+                            //     width: 200,
+                            //     decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(8),
+                            //       color: Colors.lightGreen
+                            //     ),
+                            //     child: Text('Test',style: TextStyle(
+                            //       color: Colors.white,fontSize: 15
+                            //     ),),
+                            //   ),
+                            // ),
                             Expanded(
                               flex: 5,
                               child: Center(
@@ -348,53 +436,53 @@ class _StartupPageState extends State<StartupPage> {
                               ),
                             ),
 
-                            Visibility(
-                              visible: (userdata.getLoggedIn !=
-                                  true),
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    changeLanguage();
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 160,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(color: AppColor.white),
-                                    ),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            4, 4, 4, 4),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              localization.getLanguage.name
-                                                  .toString(),
-                                              style: MyTextTheme().mediumWCB,
-                                            ),
-                                            //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
-                                            const Icon(
-                                              Icons.arrow_drop_down_sharp,
-                                              color: Colors.white,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                            // Visibility(
+                            //   visible: (userdata.getLoggedIn !=
+                            //       true),
+                            //   child: InkWell(
+                            //     onTap: () {
+                            //       setState(() {
+                            //         changeLanguage();
+                            //       });
+                            //     },
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(8.0),
+                            //       child: Container(
+                            //         width: 160,
+                            //         decoration: BoxDecoration(
+                            //           borderRadius: BorderRadius.circular(20),
+                            //           border: Border.all(color: AppColor.white),
+                            //         ),
+                            //         child: Container(
+                            //           decoration: BoxDecoration(
+                            //             borderRadius: BorderRadius.circular(20),
+                            //             border: Border.all(color: Colors.white),
+                            //           ),
+                            //           child: Padding(
+                            //             padding: const EdgeInsets.fromLTRB(
+                            //                 4, 4, 4, 4),
+                            //             child: Row(
+                            //               mainAxisAlignment:
+                            //                   MainAxisAlignment.center,
+                            //               children: [
+                            //                 Text(
+                            //                   localization.getLanguage.name
+                            //                       .toString().capitalize.toString(),
+                            //                   style: MyTextTheme().mediumWCB,
+                            //                 ),
+                            //                 //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
+                            //                 const Icon(
+                            //                   Icons.arrow_drop_down_sharp,
+                            //                   color: Colors.white,
+                            //                 ),
+                            //               ],
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                             // Expanded(
                             //   flex: 1,
                             //   child: Row(
@@ -784,7 +872,7 @@ class _StartupPageState extends State<StartupPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title:
-              Text(localization.getLocaleData.alertToast!.language.toString()),
+              Text(localization.getLocaleData.alertToast!.language.toString().capitalizeFirst.toString()),
           contentPadding: const EdgeInsets.all(8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
@@ -792,9 +880,9 @@ class _StartupPageState extends State<StartupPage> {
           content: Stack(
             clipBehavior: Clip.none,
             children: <Widget>[
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Expanded(child: LanguageChangeWidget(isPopScreen: true)),
                 ],
               ),

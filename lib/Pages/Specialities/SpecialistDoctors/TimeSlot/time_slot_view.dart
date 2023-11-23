@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digi_doctor/Pages/Dashboard/Widget/profile_info_widget.dart';
+import 'package:digi_doctor/Pages/Specialities/SpecialistDoctors/TimeSlot/book_appointment_view.dart';
 import 'package:digi_doctor/Pages/voiceAssistantProvider.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../Localization/app_localization.dart';
 import 'package:digi_doctor/AppManager/app_util.dart';
 import 'package:digi_doctor/Pages/Specialities/SpecialistDoctors/TimeSlot/time_slot_controller.dart';
@@ -9,11 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../AppManager/alert_dialogue.dart';
 import '../../../../AppManager/app_color.dart';
 import '../../../../AppManager/my_text_theme.dart';
-
 import '../../../Dashboard/dashboard_modal.dart';
 import '../../NewBookAppintment/NewBookAppointemtView.dart';
 import '../../NewBookAppintment/NewBookAppointmentController.dart';
@@ -98,8 +99,9 @@ class _TimeSlotViewState extends State<TimeSlotView> {
   NewBookAppointmentModal appointmentModal = NewBookAppointmentModal();
   bool selected = false;
   get() async {
-
-   selected=false;
+setState(() {
+  selected=false;
+});
     appointmentModal.controller.updateAvailableDays=[];
     appointmentModal.controller.updateTimeList=[];
     // appointmentModal.getTimeSlots(context,dayId: '', drId: '');
@@ -479,7 +481,7 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                                                                           child: Container(
                                                                             color: Colors.white,
                                                                             height: 95,
-                                                                            child: ListView.builder(
+                                                                            child: appointmentModal.controller.loadingDays==true?Center(child: LoadingAnimationWidget.twoRotatingArc(color: AppColor.primaryColor, size: 50),):  ListView.builder(
                                                                                 physics: const BouncingScrollPhysics(
                                                                                     parent: AlwaysScrollableScrollPhysics()),
                                                                                 scrollDirection: Axis.horizontal,
@@ -508,8 +510,6 @@ class _TimeSlotViewState extends State<TimeSlotView> {
 
 
                                                                                       }
-
-
                                                                                       // appointmentModal.getTime(context, dayName: fullDay, drId: widget.doctorId,);
                                                                                     },
                                                                                     child: Container(
@@ -566,16 +566,18 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                                                                                                 child: Text(
                                                                                                   appointmentModal.controller.getAvailableDays.contains(fullDay)
                                                                                                       ?
+
                                                                                                   // localization.getLocaleData.selectSlot
                                                                                                   //     .toString():
-                                                                                                  "Slots available ":'No slots available',
+
+                                                                                                  localization.getLocaleData.hintText!.slotsAvailable.toString():localization.getLocaleData.hintText!.noSlotsAvailable.toString(),
                                                                                                   style: appointmentModal.controller.getAvailableDays.contains(fullDay)
                                                                                                       ? TextStyle(fontSize: 12, color:!selected?AppColor.primaryColor: AppColor.white):!selected
                                                                                                       ?  TextStyle(
-                                                                                                      fontSize: 9,
+                                                                                                      fontSize: 15,
                                                                                                       color: AppColor.greyDark)
                                                                                                       : TextStyle(
-                                                                                                      fontSize: 9,
+                                                                                                      fontSize: 15,
                                                                                                       color: AppColor.white),
                                                                                                 ))
                                                                                           ],
@@ -586,57 +588,127 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                                                                                 }),
                                                                           ),
                                                                         ),
-                                                                        Padding(
-                                                                          padding: const EdgeInsets.all(8.0),
-                                                                          child: Align(
-                                                                            alignment: Alignment.topLeft,
-                                                                            child: Visibility(
-                                                                              visible: appointmentModal.controller.getTimeList.isNotEmpty,
-                                                                              replacement: Center(child: Padding(
-                                                                                padding: const EdgeInsets.all(20.0),
-                                                                                child:  Text("No Slots Available",style: MyTextTheme().largePCB,),
-                                                                              )),
-                                                                              child: SizedBox(
-                                                                                height: Get.height/2-100,
-                                                                                width: Get.width/2,
-                                                                                child: ListView.builder(
-                                                                                  itemCount: appointmentModal.controller.getTimeList.length,
-                                                                                  itemBuilder: (BuildContext context, int index2) {
-                                                                                TimeSlotDataModal  time=      appointmentModal.controller.getTimeList[index2];
-                                                                                  return InkWell(
-                                                                                    onTap: (){
-                                                                                      showDialog(
-                                                                                        context: context,
-                                                                                        builder: (BuildContext context) => _buildPopupDialog(context,selectedDay: selectedDay,time: time),
-                                                                                      );
+//                                                                         Padding(
+//                                                                           padding: const EdgeInsets.all(8.0),
+//                                                                           child: Align(
+//                                                                             alignment: Alignment.topLeft,
+//                                                                             child: Visibility(
+//                                                                               visible: appointmentModal.controller.getTimeList.isNotEmpty,
+//                                                                               replacement: Center(child: Padding(
+//                                                                                 padding: const EdgeInsets.all(20.0),
+//                                                                                 child:  Text("No Slots Available",style: MyTextTheme().largePCB,),
+//                                                                               )),
+//                                                                               child: SizedBox(
+//                                                                                 height: Get.height/2-100,
+//                                                                                 width: Get.width/2,
+//                                                                                 child: ListView.builder(
+//                                                                                   itemCount: appointmentModal.controller.getTimeList.length,
+//                                                                                   itemBuilder: (BuildContext context, int index2) {
+//                                                                                 TimeSlotDataModal  time=      appointmentModal.controller.getTimeList[index2];
+//                                                                                   return InkWell(
+//                                                                                     onTap: (){
+//                                                                                       // showDialog(
+//                                                                                       //   context: context,
+//                                                                                       //   builder: (BuildContext context) => _buildPopupDialog(context,selectedDay: selectedDay,time: time),
+//                                                                                       // );
+//
+//
+//
+//
+//                                                                                       App().navigate(context,  BookAppointmentView(drName: widget.drName.toString(), speciality: widget.speciality.toString(), degree: '',doctorId:widget.doctorId,departmentId: widget.departmentId,timeSlot: (time.fromTime.toString()+'  -  '+time.toTime.toString()),date: modal.controller.getSelectedDate.toString(),day: selectedDay,timeSlotId: time.timeslotId.toString(),dayid: time.dayId.toString()));
+// // //**//*******
+//                                                                                     },
+//                                                                                     child: Container(
+//                                                                                       height: 70,
+//                                                                                       decoration: BoxDecoration(
+//                                                                                         borderRadius: BorderRadius.circular(10),
+//                                                                                         border: Border.all(color: Colors.grey),
+//                                                                                           color:  AppColor.primaryColor),
+//                                                                                       child: Center(child: Row(
+//                                                                                         mainAxisAlignment: MainAxisAlignment.center,
+//                                                                                         children: [
+//                                                                                           Text('${time.fromTime}   -   ${time.toTime}',style: MyTextTheme().largeWCB,),
+//                                                                                           const SizedBox(width: 20,),
+//                                                                                           Icon(Icons.send,color: AppColor.white,)
+//                                                                                         ],
+//                                                                                       )),
+//                                                                                     ),
+//                                                                                   );
+//                                                                                 },),
+//                                                                               ),
+//                                                                             ),
+//                                                                           ),
+//                                                                         ),
+                                                                       Padding(
+                                                                         padding: const EdgeInsets.only(top: 20.0,left: 10),
+                                                                         child:  GridView.builder(
+                                                                                                           shrinkWrap: true,
+                                                                                                           physics:
+                                                                                                           const NeverScrollableScrollPhysics(),
+                                                                                                           gridDelegate:
+                                                                                                           const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                                             crossAxisCount: 4,
+                                                                                                             crossAxisSpacing: 15,
+                                                                                                             mainAxisSpacing: 5,
+                                                                                                             childAspectRatio: 4 / 1.4,
+                                                                                                           ),
+                                                                                                           itemCount: appointmentModal.controller.getTimeList.length,
+                                                                                                           itemBuilder:
+                                                                                                               (BuildContext context,
+                                                                                                               int index2) {
+                                                                                                                 TimeSlotDataModal  time =      appointmentModal.controller.getTimeList[index2];
 
+                                                                                                             //print("ccccccccccccccc${slotDetails.slotTime}");
 
+                                                                                                             // Map slot=modal.controller.getPatientList[index]['slotDetails'][index2];
 
+                                                                                                             return AnimationConfiguration.staggeredGrid(
+                                                                                                               position: index2,
+                                                                                                               columnCount: 4,
+                                                                                                               duration: const Duration(milliseconds: 800),
+                                                                                                               child: ScaleAnimation(
+                                                                                                                 child: FadeInAnimation(
+                                                                                                                   child: InkWell(
+                                                                                                                     onTap: ()
+                                                                                                                     {
 
-                                                                                   //   App().navigate(context, NewBookAppointment(doctorName: widget.drName.toString(),doctorId:widget.doctorId,departmentId: widget.departmentId,timeSlot: (time.fromTime.toString()+'  -  '+time.toTime.toString()),date: modal.controller.getSelectedDate.toString(),day: selectedDay,timeSlotId: time.timeslotId,dayid: time.dayId,));
+                                                                                                                       App().navigate(context,  BookAppointmentView(drName: widget.drName.toString(), speciality: widget.speciality.toString(), degree: '',doctorId:widget.doctorId,departmentId: widget.departmentId,timeSlot: (time.fromTime.toString()+'  -  '+time.toTime.toString()),date: modal.controller.getSelectedDate.toString(),day: selectedDay,timeSlotId: time.timeslotId.toString(),dayid: time.dayId.toString()));
 // //**//*******
-                                                                                    },
-                                                                                    child: Container(
-                                                                                      height: 70,
-                                                                                      decoration: BoxDecoration(
-                                                                                        borderRadius: BorderRadius.circular(10),
-                                                                                        border: Border.all(color: Colors.grey),
-                                                                                          color:  AppColor.primaryColor),
-                                                                                      child: Center(child: Row(
-                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                        children: [
-                                                                                          Text('${time.fromTime} - ${time.toTime}',style: MyTextTheme().largeWCB,),
-                                                                                          SizedBox(width: 20,),
-                                                                                          Icon(Icons.send,color: AppColor.white,)
-                                                                                        ],
-                                                                                      )),
-                                                                                    ),
-                                                                                  );
-                                                                                },),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
+
+                                                                                                                     },
+                                                                                                                     child:appointmentModal.controller.loadingTime==true?Container(height: 100,width: 100,color: Colors.red,child: Center(child: LoadingAnimationWidget.twoRotatingArc(color: AppColor.primaryColor, size: 50),)): Container(
+                                                                                                                         decoration:
+                                                                                                                         BoxDecoration(
+                                                                                                                           border: Border.all(
+                                                                                                                             color: AppColor.primaryColor,
+                                                                                                                           ),
+                                                                                                                           color:  AppColor
+                                                                                                                               .white,
+                                                                                                                           borderRadius:
+                                                                                                                           const BorderRadius
+                                                                                                                               .all(Radius.circular(5)),
+                                                                                                                         ),
+                                                                                                                         child: Center(
+                                                                                                                             child: Row(
+                                                                                                                               mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                                               children: [
+                                                                                                                                 Text(
+                                                                                                                                     '${time.fromTime}   -   ${time.toTime}',
+                                                                                                                                     style: MyTextTheme().mediumPCB.copyWith()),
+                                                                                                                                 const SizedBox(width: 10,),
+
+                                                                                                                                 Icon(Icons.send,color: AppColor.primaryColor,)
+                                                                                                                               ],
+                                                                                                                             ))),
+                                                                                                                   ),
+                                                                                                                 ),
+                                                                                                               ),
+                                                                                                             );
+                                                                                                           }),
+                                                                       ),
+
+
+
                                                                         // Expanded(
                                                                         //   child: Center(
                                                                         //       child: CommonWidgets().showNoData(
@@ -1601,7 +1673,7 @@ class _TimeSlotViewState extends State<TimeSlotView> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 5,)
+                    const SizedBox(height: 5,)
                   ],
                 ),
               );
@@ -1623,15 +1695,15 @@ class _TimeSlotViewState extends State<TimeSlotView> {
   Widget _buildPopupDialog(BuildContext context,{time,selectedDay}) {
     return  AlertDialog(
 
-      content:  SizedBox(width:Get.width/2,child: NewBookAppointment(doctorName: widget.drName.toString(),doctorId:widget.doctorId,departmentId: widget.departmentId,timeSlot: (time.fromTime.toString()+'  -  '+time.toTime.toString()),date: modal.controller.getSelectedDate.toString(),day: selectedDay,timeSlotId: time.timeslotId,dayid: time.dayId,)),
-      actions: <Widget>[
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-
-          child: const Text('Close'),
-        ),
+      content:  SizedBox(width:Get.width/2,child: NewBookAppointment(doctorName: widget.drName.toString(),doctorId:widget.doctorId,departmentId: widget.departmentId,timeSlot: (time.fromTime.toString()+'  -  '+time.toTime.toString()),date: modal.controller.getSelectedDate.toString(),day: selectedDay,timeSlotId: time.timeslotId,dayid: time.dayId,speciality:widget.speciality)),
+      actions: const <Widget>[
+        // ElevatedButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        //
+        //   child: const Text('Close'),
+        // ),
       ],
     );
   }
@@ -1651,8 +1723,6 @@ class _TimeSlotViewState extends State<TimeSlotView> {
         });
   }
 }
-
-
 //   Container(
 //                       height:300,
 //                       //820,

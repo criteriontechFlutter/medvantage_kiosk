@@ -81,7 +81,7 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                           const SizedBox(height: 20,),
                           Container(
                             width: 500,
-                            height: 250,
+                            height:    widget.registerOrLogin=='Login'?300:200,
                             decoration: BoxDecoration(
                                 color: AppColor.primaryColorLight
                             ),
@@ -251,6 +251,24 @@ class _LoginThroughOtpState extends State<LoginThroughOtp> {
                                         child:  Text(widget.registerOrLogin=='Login'? localization.getLocaleData.login.toString():localization.getLocaleData.verifyingOtp.toString()),
                                     ),
                                   ),
+                                ),
+                                Visibility(
+                                  visible: widget.registerOrLogin=='Login',
+                                  child: Center(
+                                      child: Text(
+                                          localization
+                                              .getLocaleData
+                                              .or
+                                              .toString(),
+                                          style:
+                                          const TextStyle(
+                                            fontWeight:
+                                            FontWeight
+                                                .bold,
+                                            fontSize: 24,
+                                            color: Colors
+                                                .white,
+                                          ))),
                                 ),
                                 Visibility(
                                   visible: widget.registerOrLogin=='Login',

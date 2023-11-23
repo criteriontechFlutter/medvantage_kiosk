@@ -21,6 +21,7 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -201,20 +202,19 @@ class _DeviceViewState extends State<DeviceView> {
                           //     ),
                           //   ),
                           // ),
-
                           SizedBox(
                             height: 50,
                             child: AppBar(
                               backgroundColor: AppColor.primaryColorLight,
 
-                              bottom: const TabBar(
+                              bottom:  TabBar(
                                 indicatorColor: Colors.white,
                                 tabs: [
                                   Tab(
-                                    icon: Text('Add Manually'),
+                                    icon: Text(localization.getLocaleData.addManually.toString(),style: TextStyle(fontWeight: FontWeight.w900,fontSize: 18),),
                                   ),
                                   Tab(
-                                    icon: Text('Add By Machine'),
+                                    icon: Text(localization.getLocaleData.addThroughDevice.toString(),style: TextStyle(fontWeight: FontWeight.w900,fontSize: 18),),
                                   ),
                                 ],
                               ),
@@ -226,213 +226,219 @@ class _DeviceViewState extends State<DeviceView> {
                                 // first tab bar view widget
                                 Padding(
                                   padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/5),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white54,
-                                    ),
+                                  child: Center(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white54,
+                                      ),
 
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 20),
-                                      child: SizedBox(
-                                        height:MediaQuery.of(context).size.height-250,
-                                        //********
-                                        width:MediaQuery.of(context).size.width-20,
-                                        //width: double.maxFinite,
-                                        child:
-                                        GetBuilder(
-                                          init: AddVitalsController(),
-                                          builder: (AddVitalsController controller) {
-                                            return ListView(
-                                              // crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text(localization.getLocaleData.addVitals.toString(),style: MyTextTheme().mediumGCN.copyWith(fontSize: 20),),
-                                                    // InkWell(
-                                                    //     onTap: (){
-                                                    //       Navigator.pop(context);
-                                                    //     },
-                                                    //     child: const Icon(Icons.close,size: 30,)),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 600,
-                                                  child: ListView(
-                                                    physics: const NeverScrollableScrollPhysics(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 20),
+                                        child: SizedBox(
+                                          height:MediaQuery.of(context).size.height-250,
+                                          //********
+                                          width:MediaQuery.of(context).size.width-20,
+                                          //width: double.maxFinite,
+                                          child:
+                                          GetBuilder(
+                                            init: AddVitalsController(),
+                                            builder: (AddVitalsController controller) {
+                                              return ListView(
+                                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      //  const SizedBox(height: 15,),
-                                                      Row(
-                                                        children: [
-                                                          CircleAvatar(
-                                                              radius: 15,
-                                                              backgroundColor: Colors.white,
-                                                              child: SvgPicture.asset(
-                                                                  'assets/bloodPressureImage.svg')),
-                                                          const SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Text(
-                                                            localization.getLocaleData.bloodPressure.toString(),
-                                                            style: MyTextTheme()
-                                                                .mediumGCN
-                                                                .copyWith(fontSize: 20),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      const SizedBox(height: 5,),
-                                                      Container(
-                                                        width: double.infinity,
-                                                        decoration:  BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius: BorderRadius.circular(10)
-                                                        ),
-                                                        child: Row(
+                                                      Text(localization.getLocaleData.addVitals.toString(),style: MyTextTheme().mediumGCN.copyWith(fontSize: 20),),
+                                                      // InkWell(
+                                                      //     onTap: (){
+                                                      //       Navigator.pop(context);
+                                                      //     },
+                                                      //     child: const Icon(Icons.close,size: 30,)),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10,),
+                                                  SizedBox(
+                                                    // height: 600,
+                                                    child: ListView(
+                                                      shrinkWrap: true,
+                                                      physics: const NeverScrollableScrollPhysics(),
+                                                      children: [
+                                                        //  const SizedBox(height: 15,),
+                                                        Row(
                                                           children: [
-                                                            Expanded(
-                                                              child: MyTextField2(
-                                                                controller: addVitalsModel.controller.systolicC.value,
-                                                                hintText: localization.getLocaleData.hintText!.systolic.toString(),
-                                                                maxLength: 3,
-                                                                keyboardType: TextInputType.number,
-                                                                borderColor: Colors.white,
-                                                              ),
-                                                            ),
+                                                            CircleAvatar(
+                                                                radius: 15,
+                                                                backgroundColor: Colors.white,
+                                                                child: SvgPicture.asset(
+                                                                    'assets/bloodPressureImage.svg')),
                                                             const SizedBox(
                                                               width: 5,
                                                             ),
-                                                            Container(height: 40,
-                                                              width: 1,
-                                                              decoration: BoxDecoration(
-                                                                  border: Border.all(color: Colors.black54)
-                                                              ),),
-                                                            Expanded(
-                                                              child: MyTextField2(
-                                                                //       controller: addVitalsModel.controller.diastolicC.value,
-                                                                hintText:  localization.getLocaleData.hintText!.diastolic.toString(),
-                                                                maxLength: 3,
-                                                                keyboardType: TextInputType.number,
-                                                                borderColor: Colors.white,
-                                                              ),
+                                                            Text(
+                                                              localization.getLocaleData.bloodPressure.toString(),
+                                                              style: MyTextTheme()
+                                                                  .mediumGCN
+                                                                  .copyWith(fontSize: 20),
                                                             )
                                                           ],
                                                         ),
-                                                      ),
-                                                      ListView.builder(
-                                                        physics: const NeverScrollableScrollPhysics(),
-                                                        shrinkWrap: true,
-                                                        itemCount: addVitalsModel.controller.getVitalsList(context).length,
-                                                        itemBuilder: (BuildContext context, int index) {
-                                                          // print('-------------'+modal.controller.getVitalsList(context)[index]['controller'].value.text.toString());
-                                                          return Column(
+                                                        const SizedBox(height: 5,),
+                                                        Container(
+                                                          width: double.infinity,
+                                                          decoration:  BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.circular(10)
+                                                          ),
+                                                          child: Row(
                                                             children: [
-                                                              const SizedBox(
-                                                                height: 5,
+                                                              Expanded(
+                                                                child: MyTextField2(
+                                                                  controller: addVitalsModel.controller.systolicC.value,
+                                                                  hintText: localization.getLocaleData.hintText!.systolic.toString(),
+                                                                  maxLength: 3,
+                                                                  keyboardType: TextInputType.number,
+                                                                  borderColor: Colors.white,
+                                                                ),
                                                               ),
-                                                              Row(
+                                                              const SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Container(height: 40,
+                                                                width: 1,
+                                                                decoration: BoxDecoration(
+                                                                    border: Border.all(color: Colors.black54)
+                                                                ),),
+                                                              Expanded(
+                                                                child: MyTextField2(
+                                                                  //       controller: addVitalsModel.controller.diastolicC.value,
+                                                                  hintText:  localization.getLocaleData.hintText!.diastolic.toString(),
+                                                                  maxLength: 3,
+                                                                  keyboardType: TextInputType.number,
+                                                                  borderColor: Colors.white,
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          child: ListView.builder(
+                                                            physics: const NeverScrollableScrollPhysics(),
+                                                            shrinkWrap: true,
+                                                            itemCount: addVitalsModel.controller.getVitalsList(context).length,
+                                                            itemBuilder: (BuildContext context, int index) {
+                                                              // print('-------------'+modal.controller.getVitalsList(context)[index]['controller'].value.text.toString());
+                                                              return Column(
                                                                 children: [
-                                                                  CircleAvatar(
-                                                                      radius: 15,
-                                                                      backgroundColor: Colors.white,
-                                                                      child: SvgPicture.asset(addVitalsModel
-                                                                          .controller
-                                                                          .getVitalsList(context)[index]['image']
-                                                                          .toString())),
                                                                   const SizedBox(
-                                                                    width: 10,
+                                                                    height: 5,
                                                                   ),
-                                                                  Expanded(
-                                                                    child: Text(
-                                                                      addVitalsModel.controller
-                                                                          .getVitalsList(context)[index]['title']
-                                                                          .toString(),
-                                                                      style: MyTextTheme()
-                                                                          .mediumGCN
-                                                                          .copyWith(fontSize: 20),
-                                                                    ),
+                                                                  Row(
+                                                                    children: [
+                                                                      CircleAvatar(
+                                                                          radius: 15,
+                                                                          backgroundColor: Colors.white,
+                                                                          child: SvgPicture.asset(addVitalsModel
+                                                                              .controller
+                                                                              .getVitalsList(context)[index]['image']
+                                                                              .toString())),
+                                                                      const SizedBox(
+                                                                        width: 10,
+                                                                      ),
+                                                                      Expanded(
+                                                                        child: Text(
+                                                                          addVitalsModel.controller
+                                                                              .getVitalsList(context)[index]['title']
+                                                                              .toString(),
+                                                                          style: MyTextTheme()
+                                                                              .mediumGCN
+                                                                              .copyWith(fontSize: 20),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 5,
+                                                                  ),
+
+                                                                  MyTextField2(
+                                                                        controller:addVitalsModel.controller.vitalTextX[index],
+                                                                    hintText: addVitalsModel.controller
+                                                                        .getVitalsList(context)[index]['leading']
+                                                                        .toString(),
+                                                                    maxLength:index==1? 6:3,
+                                                                    onChanged: (val){
+                                                                      setState(() {
+                                                                      });
+                                                                    },
+                                                                    keyboardType: TextInputType.number,
                                                                   ),
                                                                 ],
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 5,
-                                                              ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
 
-                                                              MyTextField2(
-                                                                    controller:addVitalsModel.controller.vitalTextX[index],
-                                                                hintText: addVitalsModel.controller
-                                                                    .getVitalsList(context)[index]['leading']
-                                                                    .toString(),
-                                                                maxLength:index==1? 6:3,
-                                                                onChanged: (val){
-                                                                  setState(() {
-                                                                  });
-                                                                },
-                                                                keyboardType: TextInputType.number,
-                                                              ),
+                                                        const SizedBox(height: 5,),
+                                                        Text('${localization.getLocaleData.hintText!.yourHeight} / ${localization.getLocaleData.hintText!.yourWeight}', style: MyTextTheme().mediumGCN.copyWith(fontSize: 20)),
+                                                        const SizedBox(height: 5,),
+                                                        Container(
+                                                          width: double.infinity,
+                                                          decoration:  BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.circular(10)
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Expanded(child: MyTextField2(hintText:localization.getLocaleData.hintText!.yourHeight.toString(),controller: addVitalsModel.controller.heightC.value, borderColor: Colors.white,)),
+                                                              Container(height: 40,
+                                                                width: 1,
+                                                                decoration: BoxDecoration(
+                                                                    border: Border.all(color: Colors.black54)
+                                                                ),),
+                                                              Expanded(child: MyTextField2(hintText: localization.getLocaleData.hintText!.yourWeight.toString(),
+                                                                // controller: addVitalsModel.controller.weightC.value,
+                                                                borderColor: Colors.white,)),
                                                             ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Center(
+                                                    child:medvantagemodal.controller.isloading==true?LoadingAnimationWidget.fourRotatingDots(color: AppColor.primaryColor, size: 50): Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                                                      child: MyButton(
+                                                        title: localization.getLocaleData.save.toString(),
+                                                        //localization.getLocaleData.submit.toString(),
+                                                        //   buttonRadius: 25,
+                                                        color: AppColor.primaryColor,
+                                                        onPress: () {
+                                                          // addVitalsModel.onPressedSubmit(context);
+                                                          medvantagemodal.medvantageAddVitals(context,
+                                                            BPSys:addVitalsModel.controller.systolicC.value.text.toString(),
+                                                            BPDias:addVitalsModel.controller.diastolicC.value.text.toString(),
+                                                            RespiratoryRate:addVitalsModel.controller.vitalTextX[3].value.text.toString(),
+                                                            SPO2:addVitalsModel.controller.vitalTextX[2].value.text.toString(),
+                                                            Pulse:addVitalsModel.controller.vitalTextX[0].value.text.toString(),
+                                                            Temperature:addVitalsModel.controller.vitalTextX[1].value.text.toString(),
+                                                            HeartRate:'',
+
+                                                            BMR:'',
+                                                            weight:addVitalsModel.controller.weightC.value.text.toString(),
+                                                            height:addVitalsModel.controller.heightC.value.text.toString(),
+                                                            Rbs:'',
                                                           );
                                                         },
                                                       ),
-
-                                                      const SizedBox(height: 5,),
-                                                      Text('${localization.getLocaleData.hintText!.yourHeight} / ${localization.getLocaleData.hintText!.yourWeight}', style: MyTextTheme().mediumGCN.copyWith(fontSize: 20)),
-                                                      const SizedBox(height: 5,),
-                                                      Container(
-                                                        width: double.infinity,
-                                                        decoration:  BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius: BorderRadius.circular(10)
-                                                        ),
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Expanded(child: MyTextField2(hintText:localization.getLocaleData.hintText!.yourHeight.toString(),controller: addVitalsModel.controller.heightC.value, borderColor: Colors.white,)),
-                                                            Container(height: 40,
-                                                              width: 1,
-                                                              decoration: BoxDecoration(
-                                                                  border: Border.all(color: Colors.black54)
-                                                              ),),
-                                                            Expanded(child: MyTextField2(hintText: localization.getLocaleData.hintText!.yourWeight.toString(),
-                                                              // controller: addVitalsModel.controller.weightC.value,
-                                                              borderColor: Colors.white,)),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Center(
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                    child: MyButton(
-                                                      title: localization.getLocaleData.save.toString(),
-                                                      //localization.getLocaleData.submit.toString(),
-                                                      //   buttonRadius: 25,
-                                                      color: AppColor.primaryColor,
-                                                      onPress: () {
-                                                        // addVitalsModel.onPressedSubmit(context);
-                                                        medvantagemodal.medvantageAddVitals(context,
-                                                          BPSys:addVitalsModel.controller.systolicC.value.text.toString(),
-                                                          BPDias:addVitalsModel.controller.diastolicC.value.text.toString(),
-                                                          RespiratoryRate:addVitalsModel.controller.vitalTextX[3].value.text.toString(),
-                                                          SPO2:addVitalsModel.controller.vitalTextX[2].value.text.toString(),
-                                                          Pulse:addVitalsModel.controller.vitalTextX[0].value.text.toString(),
-                                                          Temperature:addVitalsModel.controller.vitalTextX[1].value.text.toString(),
-                                                          HeartRate:'',
-
-                                                          BMR:'',
-                                                          weight:addVitalsModel.controller.weightC.value.text.toString(),
-                                                          height:addVitalsModel.controller.heightC.value.text.toString(),
-                                                          Rbs:'',
-                                                        );
-                                                      },
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            );
-                                          },
+                                                ],
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -440,7 +446,7 @@ class _DeviceViewState extends State<DeviceView> {
                                 ),
 
                                 // second tab bar viiew widget
-                                DeviceViewMachine()
+                                const DeviceViewMachine()
                               ],
                             ),
                           ),

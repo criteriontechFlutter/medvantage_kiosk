@@ -6,17 +6,39 @@
   "RNo": "RNo. ",
   "time1": "time 1",
   "time2": "time 2",
-  "time2": "time 2",
   "mmHgHigher": "140/90mmHgHigher",
   "mmHgLower": "90/60mmHgLower",
   "eraMedicalCollegeLucknow": "546/497 sarafarz ganj , era medical college , lucknow ",
   "hiThereFoundGreatDoctor":"ہیلو ایک عظیم !\n ڈاکٹر ملا ہے",
   "noOfDoctors": "ڈاکٹروں کی/ تعداد",
+
+
+
+
+  "Abdomen": "پیٹ",
+  "backPain": "کمر درد",
+  "Ear": "کان",
+  "face": "چہرہ",
+  "hand": "ہاتھ",
+  "leg": "ٹانگ",
+  "mouth": "منہ",
+  "neck": "گردن",
+  "nose": "ناک",
+  "pelvis": "شرونی",
+  "skin": "جلد",
+  "teeth": "دانت",
+  "fullBody": "مکمل جسم",
+
+
+
+
   "sendCodeHeaderText": "ہم آپ کے فون نمبر پر ایک کوڈ (بذریعہ ایس ایم ایس ٹیکسٹ/ میسج) بھیجیں گے",
   "sendYourDataToDoctor": "آپ اپنی علامات/مسائل سے متعلق اپنی تصویر/آڈیو/ویڈیو ڈاکٹر کو بھیج سکتے ہیں۔",
   "tooBusyText": "ڈاکٹر کو دیکھنے کے لئے بہت مصروف ہیں؟ \nاپنی جگہ پر ڈاکٹر سے آن لائن رضامندی حاصل کریں",
 
   "loading": "لوڈ ہو رہا ہے...",
+  "uhid": "یو ایچ آئی ڈی",
+  "addThroughDevice": "ڈیوائس کے ذریعے شامل کریں۔",
   "bookAnAppointmentText": "اپنے قریبی اور اعلیٰ ڈاکٹر سے ملاقات کا وقت بُک کریں",
   "getSampleText": "اپنی جگہ پر نمونہ جمع کریں، آپ گھر پر رہیں",
   "getStarted": "شروع کریں",
@@ -500,6 +522,8 @@
     "measureSPO": "اپنے SPO2 کی پیمائش کریں۔",
     "yourBP": "آپ کا بی پی ہے۔",
     "yourBP": "آپ کا SPO2 ہے۔",
+    "slotsAvailable": "سلاٹ دستیاب ہے",
+    "noSlotsAvailable": "کوئی سلاٹ دستیاب نہیں ہے۔",
     "addBMI": "BMI بذریعہ مشین/دستی طور پر شامل کریں۔",
     "measure": "اپنے قد اور وزن کی پیمائش کریں۔",
     "press": "ٹیسٹ کرنے کے لیے اسٹارٹ بٹن دبائیں۔",

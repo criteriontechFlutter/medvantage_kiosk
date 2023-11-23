@@ -19,6 +19,7 @@ import '../../../AppManager/widgets/my_button2.dart';
 import '../../../Localization/app_localization.dart';
 import '../../../Localization/language_change_widget.dart';
 import '../../Login Through OTP/select_user.dart';
+import '../../Login Through OTP/select_user_view_modal.dart';
 import '../../VitalPage/LiveVital/stetho_master/AppManager/alert_dialogue.dart';
 import '../../voiceAssistantProvider.dart';
 import '../dashboard_modal.dart';
@@ -34,6 +35,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    SelectUserViewModal selectUserVM = Provider.of<SelectUserViewModal>(context, listen: true);
 
     ApplicationLocalizations localization =
     Provider.of<ApplicationLocalizations>(context, listen: true);
@@ -168,7 +170,7 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(localization.getLanguage.name.toString(),style: MyTextTheme().mediumWCB,),
+                                    Text(localization.getLanguage.name.toString().capitalize.toString(),style: MyTextTheme().mediumWCB,),
                                //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
                                     const Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
                                   ],
@@ -178,46 +180,44 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                       ),
                     ),
                   ),
-                  // InkWell(
-                  //   onTap: () {
-                  //     setState(() {
-                  //       App().navigate(context, const SelectUser());
-                  //     });
-                  //   },
-                  //   child: Padding(
-                  //     padding:  const EdgeInsets.all(8.0),
-                  //     child: Container(
-                  //       width: 160,
-                  //         decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
-                  //         border: Border.all(
-                  //           color: AppColor.white
-                  //         ),
-                  //         ),
-                  //         child:Container(
-                  //           decoration: BoxDecoration(
-                  //             borderRadius: BorderRadius.circular(20),
-                  //             border: Border.all(color: Colors.white),
-                  //           ),
-                  //           child: Padding(
-                  //             padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-                  //             child: Row(
-                  //                 mainAxisAlignment: MainAxisAlignment.center,
-                  //                 children: [
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //                   Text(userName.toString(),style: MyTextTheme().mediumWCB,),
-                  //              //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
-                  //                   const Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
-                  //                 ],
-                  //               ),
-                  //           ),
-                  //         )
-                  //     ),
-                  //   ),
-                  // ),
+                  Visibility(
+                    visible: userName.toString()!="null",
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          App().navigate(context, const SelectUser());
+                        });
+                      },
+                      child: Padding(
+                        padding:  const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 160,
+                            decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
+                            border: Border.all(
+                              color: AppColor.white
+                            ),
+                            ),
+                            child:Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.white),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(child: Text(selectUserVM.getName.toString(),style: MyTextTheme().mediumWCB,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)),
+                                 //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
+                                      const Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
+                                    ],
+                                  ),
+                              ),
+                            )
+                        ),
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding:
                     const EdgeInsets.only(right: 15, left: 5),

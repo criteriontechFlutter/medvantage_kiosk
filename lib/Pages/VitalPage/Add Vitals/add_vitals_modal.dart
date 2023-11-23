@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:digi_doctor/Pages/Pharmacy/allProduct/SortModule/sort_product_module.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
@@ -210,6 +211,7 @@ print('----------'+sys.toString());
     String height='0',
     String Rbs='0',
   })  async {
+      controller.updateIsLoding=true;
     final medvantageUser = GetStorage();
     // var name = medvantageUser.read('medvantageUserName');
     var uhid = medvantageUser.read('medvantageUserUHID');
@@ -271,6 +273,7 @@ print('----------'+sys.toString());
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      controller.updateIsLoding=false;
 
 
 
