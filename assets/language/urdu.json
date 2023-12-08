@@ -11,6 +11,7 @@
   "eraMedicalCollegeLucknow": "546/497 sarafarz ganj , era medical college , lucknow ",
   "hiThereFoundGreatDoctor":"ہیلو ایک عظیم !\n ڈاکٹر ملا ہے",
   "noOfDoctors": "ڈاکٹروں کی/ تعداد",
+  "age": "عمر",
 
 
 
@@ -24,10 +25,20 @@
   "mouth": "منہ",
   "neck": "گردن",
   "nose": "ناک",
+  "eye": "চোখ",
+  "spine": "ریڑھ",
   "pelvis": "شرونی",
   "skin": "جلد",
   "teeth": "دانت",
   "fullBody": "مکمل جسم",
+
+  "wellueOximeter": "ویلیو آکسیمیٹر",
+  "yonkerOximeter": "یونکر آکسیمیٹر",
+  "stethoscope": "اسٹیتھوسکوپ",
+  "ctStethoscope": "سی ٹی اسٹیتھوسکوپ",
+  "thermometer": "تھرمامیٹر",
+  "ecg": "ای سی جی",
+  "yonkerBPMachine": "یونکر بی پی مشین",
 
 
 
@@ -79,7 +90,7 @@
   "selectLifeSupport": "لائف سپورٹ کو منتخب کریں",
   "bloodPressure": "بلڈ پریشر",
   "pulseRate": "پلس ریٹ",
-  "temperature": "(F) درجہ حرارت",
+  "temperature": "(°F) درجہ حرارت",
   "respiratoryRate": "سانس کی شرح",
   "request": "درخواست",
   "isolationRequestDetail": "تنہائی کی درخواست کی تفصیل",

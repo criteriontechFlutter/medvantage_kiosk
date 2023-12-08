@@ -1,4 +1,7 @@
 
+import 'dart:async';
+
+import 'package:digi_doctor/AppManager/AudioPlayer.dart';
 import 'package:digi_doctor/Pages/StartUpScreen/startup_screen.dart';
 import 'package:digi_doctor/Pages/medvantage_login.dart';
 import 'package:digi_doctor/Pages/profile/profile_view.dart';
@@ -221,10 +224,13 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                   Padding(
                     padding:
                     const EdgeInsets.only(right: 15, left: 5),
-                    child: Image.asset(
-                      "assets/qr_kiosk.png",
-                      scale: 2,
-                      color: AppColor.white,
+                    child: SizedBox(
+                      height: 70,
+                      child: Image.asset(
+                        "assets/qr_kiosk2.png",
+                        scale: 2,
+                        //color: AppColor.white,
+                      ),
                     ),
                   ),
                 ],
@@ -271,10 +277,11 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
                     title: 'Logout',
                     onPress: (){
                       MedvantageLogin userdata=Provider.of<MedvantageLogin>(context,listen: false);
-                      userdata.logOut();
+                      userdata.logOut(context);
                       setState(() {
                       //  DashboardModal().onPressLogout(context);
                         Navigator.of(context, rootNavigator: true).pop();
+                          App().replaceNavigate(context, const StartupPage());
                       });
                     },
                   ),

@@ -192,12 +192,12 @@ class _RegistrationState extends State<Registration> {
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 const Text(
-                                                                    'age',
+                                                                    'Age',
                                                                     style: TextStyle(fontSize: 18,color: Colors.white,)),
                                                                 const SizedBox(height: 3),
                                                                 MyTextField2(
                                                                   controller: modal2.controller.yearController.value,
-                                                                  hintText: 'age',
+                                                                  hintText: 'Age',
                                                                   validator: (value) {
                                                                     if (value!.isEmpty) {
                                                                       return localization.getLocaleData.validationText!.enterValidEmail.toString();
@@ -275,7 +275,7 @@ class _RegistrationState extends State<Registration> {
                                                                   hintText: localization.getLocaleData.hintText!.dateOfBirth.toString(),
                                                                   borderColor: AppColor.greyLight,
                                                                   prefixIcon:   const Icon(
-                                                                    Icons.calendar_today,color: Colors.blue, ),
+                                                                    Icons.calendar_today,color: Colors.blue),
                                                                   // suffixIcon: Icon(Icons.person),
                                                                 ),
 
@@ -295,7 +295,7 @@ class _RegistrationState extends State<Registration> {
                                                               const SizedBox(height: 5,),
                                                               MyTextField2(
                                                                 controller: modal2.controller.emailController.value,
-                                                                hintText: 'EmailId',
+                                                                hintText: 'Email Id',
                                                                 validator: (value) {
                                                                   if (value!.isEmpty) {
                                                                     return localization.getLocaleData.validationText!.enterValidEmail
@@ -354,7 +354,6 @@ class _RegistrationState extends State<Registration> {
                                                                         }
                                                                       );
                                                                     },
-
                                                                 ),
                                                                 child:   Row(
                                                                   children: [

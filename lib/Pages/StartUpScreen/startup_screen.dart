@@ -2,15 +2,8 @@ import 'dart:io';
 import 'package:digi_doctor/AppManager/app_color.dart';
 import 'package:digi_doctor/AppManager/app_util.dart';
 import 'package:digi_doctor/AppManager/my_text_theme.dart';
-import 'package:digi_doctor/AppManager/user_data.dart';
-import 'package:digi_doctor/AppManager/widgets/my_button.dart';
-import 'package:digi_doctor/Pages/Dashboard/OrganSymptom/speech.dart';
-import 'package:digi_doctor/Pages/Dashboard/OrganSymptom/translate.dart';
-import 'package:digi_doctor/Pages/Dashboard/find_location.dart';
-import 'package:digi_doctor/Pages/Login_files/login_view.dart';
 import 'package:digi_doctor/Pages/MyAppointment/my_appointment_view.dart';
 import 'package:digi_doctor/Pages/StartUpScreen/startup_controller.dart';
-import 'package:digi_doctor/Pages/VitalPage/LiveVital/stetho_master/AppManager/widgets/my_custom_sd.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,23 +11,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import '../../AppManager/widgets/my_button2.dart';
 import '../../Localization/app_localization.dart';
 import '../../Localization/language_change_widget.dart';
-import '../../SignalR/signal_r_view_model.dart';
-import '../../ai chat/ai_chat.dart';
 import '../Dashboard/Widget/profile_info_widget.dart';
-import '../Dashboard/dashboard_modal.dart';
 import '../Login Through OTP/phone_number_view.dart';
 import '../Login Through OTP/select_user_view_modal.dart';
-import '../Specialities/SpecialistDoctors/TimeSlot/book_appointment_view.dart';
 import '../Specialities/top_specialities_view.dart';
 import '../VitalPage/LiveVital/device_view.dart';
 import '../VitalPage/LiveVital/stetho_master/AppManager/alert_dialogue.dart';
-import '../Voice_Assistant.dart';
-import '../bhojpuri.dart';
 import '../medvantage_login.dart';
 import '../voiceAssistantProvider.dart';
 
@@ -52,6 +38,9 @@ class _StartupPageState extends State<StartupPage> {
 
   @override
   void initState() {
+    setState(() {
+
+    });
     print('fgcybenvhurnijkv');
     get();
     super.initState();
@@ -65,8 +54,6 @@ class _StartupPageState extends State<StartupPage> {
     SelectUserViewModal currentUser =
     Provider.of<SelectUserViewModal>(context, listen: false);
     currentUser.updateName=medvantageUser.read('medvantageUserName')??'';
-
-
   }
 
   get() async {
@@ -266,89 +253,89 @@ class _StartupPageState extends State<StartupPage> {
                                             .getDashboard(context)[index];
                                         print(
                                             "object${MediaQuery.of(context).orientation}");
-                                        return InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              controller.updateContainerIndex =
-                                                  index.toString();
-                                              if (controller.getContainerIndex
-                                                      .toString() ==
-                                                  "0") {
-                                                // if (UserData().getUserData.isNotEmpty) {
-                                                if (userdata.getLoggedIn ==
-                                                    true) {
-                                                  App().navigate(context,
-                                                      TopSpecialitiesView());
-                                                } else if (userdata
-                                                        .getLoggedIn ==
-                                                    false) {
-                                                  App().navigate(
-                                                      context,
-                                                      LoginThroughOtp(
-                                                          index: '',
-                                                          registerOrLogin:
-                                                              'Login'));
-                                                }
-                                                // }else{
-                                                //    App().navigate(context,  LoginThroughOtp(index:'appointment'));
-                                                // }
-                                              } else if (controller
-                                                      .getContainerIndex
-                                                      .toString() ==
-                                                  "1") {
-                                                // if (UserData().getUserData.isNotEmpty) {
-                                                // App().navigate(context,  DeviceView());}
-                                                //userdata.checkUser();
-                                                if (userdata.getLoggedIn ==
-                                                    true) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8,
+                                              horizontal: Orientation
+                                                          .portrait ==
+                                                      MediaQuery.of(context)
+                                                          .orientation
+                                                  ? 200
+                                                  : 8),
+                                          child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                controller.updateContainerIndex =
+                                                    index.toString();
+                                                if (controller.getContainerIndex
+                                                    .toString() ==
+                                                    "0") {
+                                                  // if (UserData().getUserData.isNotEmpty) {
+                                                  if (userdata.getLoggedIn ==
+                                                      true) {
+                                                    App().navigate(context,
+                                                        TopSpecialitiesView());
+                                                  } else if (userdata
+                                                      .getLoggedIn ==
+                                                      false) {
+                                                    App().navigate(
+                                                        context,
+                                                        LoginThroughOtp(
+                                                            index: '',
+                                                            registerOrLogin:
+                                                            'Login'));
+                                                  }
+                                                  // }else{
+                                                  //    App().navigate(context,  LoginThroughOtp(index:'appointment'));
+                                                  // }
+                                                } else if (controller
+                                                    .getContainerIndex
+                                                    .toString() ==
+                                                    "1") {
+                                                  // if (UserData().getUserData.isNotEmpty) {
+                                                  // App().navigate(context,  DeviceView());}
+                                                  //userdata.checkUser();
+                                                  if (userdata.getLoggedIn ==
+                                                      true) {
 
 
-                                                  App().navigate(context, DeviceView());
-                                                } else if (userdata
-                                                        .getLoggedIn ==
-                                                    false) {
-                                                  App().navigate(
-                                                      context,
-                                                      LoginThroughOtp(
-                                                          index: '',
-                                                          registerOrLogin:
-                                                              'Login'));
+                                                    App().navigate(context, DeviceView());
+                                                  } else if (userdata
+                                                      .getLoggedIn ==
+                                                      false) {
+                                                    App().navigate(
+                                                        context,
+                                                        LoginThroughOtp(
+                                                            index: '',
+                                                            registerOrLogin:
+                                                            'Login'));
+                                                  }
+                                                  // }
+                                                  // else {
+                                                  //   App().navigate(context,  LoginThroughOtp(index:controller.getContainerIndex));
+                                                  // }
+                                                  // alertToast(context, "Coming Soon...");
+                                                } else {
+                                                  if (userdata.getLoggedIn ==
+                                                      true) {
+                                                    App().navigate(context,
+                                                        const MyAppointmentView());
+                                                  } else if (userdata
+                                                      .getLoggedIn ==
+                                                      false) {
+                                                    App().navigate(
+                                                        context,
+                                                        LoginThroughOtp(
+                                                            index: '',
+                                                            registerOrLogin:
+                                                            'Login'));
+                                                  }
+                                                  print("Login Page");
                                                 }
-                                                // }
-                                                // else {
-                                                //   App().navigate(context,  LoginThroughOtp(index:controller.getContainerIndex));
-                                                // }
-                                                // alertToast(context, "Coming Soon...");
-                                              } else {
-                                                if (userdata.getLoggedIn ==
-                                                    true) {
-                                                  App().navigate(context,
-                                                      const MyAppointmentView());
-                                                } else if (userdata
-                                                        .getLoggedIn ==
-                                                    false) {
-                                                  App().navigate(
-                                                      context,
-                                                      LoginThroughOtp(
-                                                          index: '',
-                                                          registerOrLogin:
-                                                              'Login'));
-                                                }
-                                                print("Login Page");
-                                              }
-                                              //App().navigate(context, data.route);
-                                            });
-                                            //print("consultDoctor");
-                                          },
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 8,
-                                                horizontal: Orientation
-                                                            .portrait ==
-                                                        MediaQuery.of(context)
-                                                            .orientation
-                                                    ? 200
-                                                    : 8),
+                                                //App().navigate(context, data.route);
+                                              });
+                                              //print("consultDoctor");
+                                            },
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color: controller
@@ -850,8 +837,11 @@ class _StartupPageState extends State<StartupPage> {
                       MedvantageLogin userdata =
                           Provider.of<MedvantageLogin>(context, listen: false);
                       setState(() {});
-                      userdata.logOut();
+                      userdata.logOut(context);
                       Navigator.of(context, rootNavigator: true).pop();
+
+                      App().replaceNavigate(context, const StartupPage());
+
                     },
                   ),
                 ],

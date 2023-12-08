@@ -16,6 +16,10 @@ class SelectUserViewModal extends ChangeNotifier{
     medvantageUser.write('medvantageUserName', user.patientName.toString());
     medvantageUser.write('medvantageUserNumber', user.mobileNo.toString());
     medvantageUser.write('medvantageUserUHID', user.uhID.toString());
+    medvantageUser.write('medvantageUserAge', user.age.toString());
+    medvantageUser.write('medvantageUserGender', user.gender.toString());
+
+
     updateName = medvantageUser.read('medvantageUserName');
     var B = medvantageUser.read('medvantageUserUHID');
     print('${getName}data123');

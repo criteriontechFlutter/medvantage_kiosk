@@ -11,6 +11,7 @@
   "backPain": "পিঠে ব্যাথা",
   "Ear": "কান",
   "face": "মুখ",
+  "eye": "চোখ",
   "hand": "হাত",
   "leg": "পা",
   "mouth": "মুখ",
@@ -20,6 +21,17 @@
   "skin": "চামড়া",
   "teeth": "দাঁত",
   "fullBody": "সমস্ত শরীর",
+  "spine": "মেরু",
+
+
+  "wellueOximeter": "উয়েল্যু অক্সিমিটার",
+  "yonkerOximeter": "ইয়নকের অক্সিমিটার",
+  "stethoscope": "স্থেথোস্কোপ",
+  "ctStethoscope": "সি টি স্থেথোস্কোপ",
+  "thermometer": "থার্মোমিটার",
+  "ecg": "ইসিজি",
+  "yonkerBPMachine": "ইয়ংকের বি.পি. মেশিন",
+  "age": "বয়স",
 
 
 
@@ -66,7 +78,7 @@
   "haveYouCovidTest": "লাইফ সাপোর্ট নির্বাচন করুন",
   "selectLifeSupport": "Due2385AE_5",
   "bloodPressure": "রক্তচাপ",
-  "temperature": "তাপমাত্রা(F)",
+  "temperature": "তাপমাত্রা(°F)",
   "spO2": "SpO2",
   "respiratoryRate": "শ্বাসপ্রশ্বাসের হার",
   "request": "অনুরোধ] ​​[বিচ্ছিন্নতার অনুরোধের বিস্তারিত",

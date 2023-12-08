@@ -3,6 +3,7 @@
   "location": "موقع",
   "tooBusyText": "مشغول جدا لرؤية الطبيب؟ \n استشر الطبيب عبر الإنترنت في مكانك",
   "measureHeight": "قياس الارتفاع",
+  "age": "عمر",
 
 
   "Abdomen": "البطن",
@@ -11,6 +12,7 @@
   "face": "وجه",
   "hand": "يُسلِّم",
   "leg": "رجل",
+  "eye": "عين",
   "mouth": "فم",
   "neck": "رقبة",
   "nose": "أنف",
@@ -18,6 +20,16 @@
   "skin": "جلد",
   "teeth": "أسنان",
   "fullBody": "جسم كامل",
+  "spine": "العمود الفقري ",
+
+  "wellueOximeter": "جهاز ويليو لقياس نسبة الأكسجين في الدم",
+  "yonkerOximeter": "جهاز يونكر لقياس نسبة الأكسجين في الدم",
+  "stethoscope": "ستيثوسكوب",
+  "ctStethoscope": "ستيثوسكوب CT",
+  "thermometer": "ميزان الحرارة",
+  "ecg": "جهاز تخطيط القلب",
+  "yonkerBPMachine": "جهاز قياس ضغط الدم يونكر",
+
 
 
   "yourWeight": "وزنك",
@@ -69,7 +81,7 @@
   "haveYouCovidTest": "هل خضعت لاختبار كوفيد؟",
   "selectLifeSupport": "حدد دعم الحياة",
   "bloodPressure": "ضغط الدم",
-  "temperature": "درجة الحرارة (F)",
+  "temperature": "درجة الحرارة (°F)",
   "spO2": "اشباع الاکسیجین",
   "respiratoryRate": "معدل التنفس",
   "request": "طلب",

@@ -6,6 +6,7 @@ class Lang {
   String? backPain;
   String? Ear;
   String? face;
+  String? eye;
   String? hand;
   String? leg;
   String? mouth;
@@ -16,7 +17,7 @@ class Lang {
   String? spine;
   String? teeth;
   String? fullBody;
-
+  String? yonkerBPMachine;
 
   String? location;
   String? doctorBySymptoms;
@@ -273,6 +274,17 @@ class Lang {
   String? duration;
   String? Medicine;
   String? oximeter;
+  String? wellueOximeter;
+  String? yonkerOximeter;
+  String? stethoscope;
+  String? ctStethoscope;
+  String? thermometer;
+  String? ecg;
+
+
+
+
+
   String? connectDeviceForData;
   String? hRV;
   String? pI;
@@ -545,6 +557,7 @@ class Lang {
         this.backPain,
         this.Ear,
         this.face,
+        this.eye,
         this.hand,
         this.leg,
         this.mouth,
@@ -554,6 +567,7 @@ class Lang {
         this.spine,
         this.teeth,
         this.fullBody,
+        this.neck,
 
 
         this.uhid,
@@ -612,6 +626,7 @@ class Lang {
         this.temperature,
         this.spO2,
         this.respiratoryRate,
+        this.yonkerBPMachine,
         this.request,
         this.isolationRequestDetail,
         this.mobileNumber,
@@ -812,6 +827,16 @@ class Lang {
         this.Medicine,
         this.oximeter,
         this.connectDeviceForData,
+
+        this.wellueOximeter,
+        this.yonkerOximeter,
+        this.stethoscope,
+        this.ctStethoscope,
+        this.thermometer,
+        this.ecg,
+
+
+
         this.hRV,
         this.pI,
         this.vitalChart,
@@ -1078,8 +1103,10 @@ class Lang {
 
     Abdomen=json['Abdomen'];
     backPain=json['backPain'];
+    neck=json['neck'];
     Ear=json['Ear'];
     face=json['face'];
+    eye=json['eye'];
     hand=json['hand'];
     leg=json['leg'];
     mouth=json['mouth'];
@@ -1089,7 +1116,8 @@ class Lang {
     spine=json['spine'];
     teeth=json['teeth'];
     fullBody=json['fullBody'];
-
+    fullBody=json['fullBody'];
+    yonkerBPMachine = json['yonkerBPMachine'];
 
     doctorBySymptoms=json['doctorBySymptoms'];
     yourAppointment=json['yourAppointment'];
@@ -1217,6 +1245,15 @@ class Lang {
     confirmed = json['confirmed'];
     upload = json['upload'];
     addMore = json['addMore'];
+
+    wellueOximeter = json['wellueOximeter'];
+    yonkerOximeter = json['yonkerOximeter'];
+    stethoscope = json['stethoscope'];
+    ctStethoscope = json['ctStethoscope'];
+    thermometer = json['thermometer'];
+    ecg = json['ecg'];
+
+
     oldAppointments = json['oldAppointments'];
     viewPrescription = json['viewPrescription'];
     cancelAppointment = json['cancelAppointment'];
@@ -1628,12 +1665,15 @@ class Lang {
     data['yourAppointment'] = this.yourAppointment;
     data['location'] = this.location;
     data['tooBusyText'] = this.tooBusyText;
+    data['yonkerBPMachine'] = this.yonkerBPMachine;
 
 
     data['Abdomen'] = this.Abdomen;
     data['backPain'] = this.backPain;
     data['Ear'] = this.Ear;
     data['hand'] = this.hand;
+    data['face'] = this.face;
+    data['eye'] = this.eye;
     data['leg'] = this.leg;
     data['mouth'] = this.mouth;
     data['nose'] = this.nose;
@@ -1641,6 +1681,7 @@ class Lang {
     data['skin'] = this.skin;
     data['teeth'] = this.teeth;
     data['fullBody'] = this.fullBody;
+    data['spine'] = this.spine;
 
 
     data['specialist']=this.specialist;
@@ -1670,6 +1711,7 @@ class Lang {
     data['findClinic'] = this.findClinic;
     data['viewAll'] = this.viewAll;
     data['doctorsInDemands'] = this.doctorsInDemands;
+    data['neck'] = this.neck;
     data['ourBlogs'] = this.ourBlogs;
     data['ourUsers'] = this.ourUsers;
     data['ourDoctors'] = this.ourDoctors;
@@ -1896,6 +1938,17 @@ class Lang {
     data['oximeter'] = this.oximeter;
     data['connectDeviceForData'] = this.connectDeviceForData;
     data['hRV'] = this.hRV;
+
+
+    data['wellueOximeter'] = this.wellueOximeter;
+    data['yonkerOximeter'] = this.yonkerOximeter;
+    data['stethoscope'] = this.stethoscope;
+    data['ctStethoscope'] = this.ctStethoscope;
+    data['thermometer'] = this.thermometer;
+    data['ecg'] = this.ecg;
+
+
+
     data['pI'] = this.pI;
     data['vitalChart'] = this.vitalChart;
     data['history'] = this.history;

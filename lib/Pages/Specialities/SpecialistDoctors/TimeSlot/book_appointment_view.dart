@@ -508,6 +508,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
 
     var userName = medvantageUser.read('medvantageUserName');
     var number = medvantageUser.read('medvantageUserNumber');
+    var age = medvantageUser.read('medvantageUserAge');
+    var gender = medvantageUser.read('medvantageUserGender');
     ApplicationLocalizations localization=Provider.of<ApplicationLocalizations>(context,listen: true);
     return Container(
       color: AppColor.primaryColor,
@@ -594,7 +596,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                               style: MyTextTheme()
                                                   .largeWCN.copyWith(color:optionList()[index]['isChecked']?AppColor
                                                   .white:AppColor.secondaryColorShade2),
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -612,90 +614,90 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(20,30,20,10),
                                       child: Text(
-                                        localization.getLocaleData.bookAppointmentFor.toString(),
-                                        style: MyTextTheme().largeBCB,
+                                        localization.getLocaleData.appointmentDetails.toString(),
+                                        style: MyTextTheme().largeBCB.copyWith(fontSize: 30),
                                       ),
                                     ),
-                                    const SizedBox(height: 12,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        CustomInkwell(borderRadius: 15,color:userData.getUserPrimaryStatus=="1"? AppColor.primaryColor:Colors.grey,elevation: 3,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                                            child: Text(localization.getLocaleData.self.toString(),style:MyTextTheme().mediumWCB ),
-                                          ),
-                                          onPress: () async {
-                                            // memberModal.controller.updateSelectedMemberId='';
-                                            // await memberModal.getMember(context);
-                                          },
-                                        ),
-                                        const SizedBox(width: 100),
-                                        InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              App().navigate(context, const SelectUser());
-                                            });
-                                          },
-                                          child: Padding(
-                                            padding:  const EdgeInsets.all(8.0),
-                                            child: Container(
-                                                width: 160,
-                                                decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
-                                                  border: Border.all(
-                                                      color: AppColor.white
-                                                  ),
-                                                ),
-                                                child:Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    border: Border.all(color: Colors.grey),
-                                                  ),
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        Expanded(child: Text(currentUser.getName.toString(),style: MyTextTheme().mediumBCB,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)),
-                                                        //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
-                                                        const Icon(Icons.arrow_drop_down_sharp,color: Colors.grey,),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                            ),
-                                          ),
-                                        ),
-                                        // CustomInkwell(
-                                        //   color:userData.getUserPrimaryStatus=="0"?AppColor.buttonColor:Colors.grey,
-                                        //   elevation: 3,borderRadius: 15,
-                                        //   onPress: (){
-                                        //     App().navigate(context, const SelectMember(pageName: '',));
-                                        //   },
-                                        //   child: Padding(
-                                        //     padding: const EdgeInsets.all(8.0),
-                                        //     child: Row(
-                                        //       mainAxisAlignment:
-                                        //       MainAxisAlignment.spaceEvenly,
-                                        //       children: [
-                                        //         Text(
-                                        //           userData.getUserPrimaryStatus=="0"?userData.getUserName.capitalize!:localization.getLocaleData.selectMember.toString(),
-                                        //           style: MyTextTheme().mediumWCB,
-                                        //         ),
-                                        //         // Icon(
-                                        //         //   Icons.arrow_forward_ios,
-                                        //         //   size: 15,
-                                        //         //    color: AppColor.black,
-                                        //         // )
-                                        //       ],
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
+                                    const SizedBox(height: 12),
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.center,
+                                    //   children: [
+                                    //     CustomInkwell(borderRadius: 15,color:userData.getUserPrimaryStatus=="1"? AppColor.primaryColor:Colors.grey,elevation: 3,
+                                    //       child: Padding(
+                                    //         padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                    //         child: Text(localization.getLocaleData.self.toString(),style:MyTextTheme().mediumWCB ),
+                                    //       ),
+                                    //       onPress: () async {
+                                    //         // memberModal.controller.updateSelectedMemberId='';
+                                    //         // await memberModal.getMember(context);
+                                    //       },
+                                    //     ),
+                                    //     const SizedBox(width: 100),
+                                    //     InkWell(
+                                    //       onTap: () {
+                                    //         setState(() {
+                                    //           App().navigate(context, const SelectUser());
+                                    //         });
+                                    //       },
+                                    //       child: Padding(
+                                    //         padding:  const EdgeInsets.all(8.0),
+                                    //         child: Container(
+                                    //             width: 160,
+                                    //             decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
+                                    //               border: Border.all(
+                                    //                   color: AppColor.white
+                                    //               ),
+                                    //             ),
+                                    //             child:Container(
+                                    //               decoration: BoxDecoration(
+                                    //                 borderRadius: BorderRadius.circular(20),
+                                    //                 border: Border.all(color: Colors.grey),
+                                    //               ),
+                                    //               child: Padding(
+                                    //                 padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                                    //                 child: Row(
+                                    //                   mainAxisAlignment: MainAxisAlignment.center,
+                                    //                   children: [
+                                    //                     Expanded(child: Text(currentUser.getName.toString(),style: MyTextTheme().mediumBCB,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)),
+                                    //                     //     Text(getLanguageInRealLanguageForChange(UserData().getLang.toString()),style: MyTextTheme().mediumWCB,),
+                                    //                     const Icon(Icons.arrow_drop_down_sharp,color: Colors.grey,),
+                                    //                   ],
+                                    //                 ),
+                                    //               ),
+                                    //             ),
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //     // CustomInkwell(
+                                    //     //   color:userData.getUserPrimaryStatus=="0"?AppColor.buttonColor:Colors.grey,
+                                    //     //   elevation: 3,borderRadius: 15,
+                                    //     //   onPress: (){
+                                    //     //     App().navigate(context, const SelectMember(pageName: '',));
+                                    //     //   },
+                                    //     //   child: Padding(
+                                    //     //     padding: const EdgeInsets.all(8.0),
+                                    //     //     child: Row(
+                                    //     //       mainAxisAlignment:
+                                    //     //       MainAxisAlignment.spaceEvenly,
+                                    //     //       children: [
+                                    //     //         Text(
+                                    //     //           userData.getUserPrimaryStatus=="0"?userData.getUserName.capitalize!:localization.getLocaleData.selectMember.toString(),
+                                    //     //           style: MyTextTheme().mediumWCB,
+                                    //     //         ),
+                                    //     //         // Icon(
+                                    //     //         //   Icons.arrow_forward_ios,
+                                    //     //         //   size: 15,
+                                    //     //         //    color: AppColor.black,
+                                    //     //         // )
+                                    //     //       ],
+                                    //     //     ),
+                                    //     //   ),
+                                    //     // ),
+                                    //   ],
+                                    // ),
+                                    // const SizedBox(
+                                    //   height: 15,
+                                    // ),
                                     Container(
                                       width: Get.width,
                                       color: Colors.white,
@@ -706,59 +708,58 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                           children: [
                                             Text(
                                               localization.getLocaleData.doctorInformation.toString(),
-                                              style: MyTextTheme().largeBCB,
+                                              style: MyTextTheme().largeBCB.copyWith(fontSize: 22),
                                             ),
                                             const SizedBox(height: 10),
                                             Row(
                                               children: [
-                                                Text("${localization.getLocaleData.fullName.toString()} :",style: MyTextTheme().mediumBCB ),
-                                                const SizedBox(width: 8 ),
+                                                Text("${localization.getLocaleData.fullName.toString()} :",style: MyTextTheme().largePCB ),
+                                                const SizedBox(width: 8),
                                                 Text(
-                                                  widget.drName.toString().toUpperCase(),
-                                                  style: MyTextTheme().mediumGCB,
+                                                  widget.drName.toString(),
+                                                  style: MyTextTheme().largePCB.copyWith(color: Colors.grey.shade600),
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(height: 10,),
-                                            Row(
-                                              children: [
-                                                Text("${localization.getLocaleData.speciality.toString()} :",style: MyTextTheme().mediumBCB,),
-                                                const SizedBox(width: 8,),
-                                                Text(widget.speciality.toString()==''?'N/A':widget.speciality.toString().toUpperCase(),
-                                                  style: MyTextTheme().mediumGCB,
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 10,),
+                                            const SizedBox(height: 20),
+                                            // Row(
+                                            //   children: [
+                                            //     Text("${localization.getLocaleData.speciality.toString()} :",style: MyTextTheme().mediumBCB,),
+                                            //     const SizedBox(width: 8,),
+                                            //     Text(widget.speciality.toString()==''?'N/A':widget.speciality.toString().toUpperCase(),
+                                            //       style: MyTextTheme().mediumGCB,
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                            //  const SizedBox(height: 10),
                                             Row(
                                               //mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Text("${localization.getLocaleData.appointmentDate.toString()} :",style: MyTextTheme().mediumBCB),
+                                                Text("${localization.getLocaleData.appointmentDate.toString()} : ",style: MyTextTheme().largePCB),
                                                 const SizedBox(width: 10),
                                                 Text(date.toString(),
-                                                  style: MyTextTheme().mediumGCB,
+                                                  style: MyTextTheme().largePCB.copyWith(color: Colors.grey.shade600),
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(height: 20,),
+                                            const SizedBox(height: 20),
                                             Text(
                                               localization.getLocaleData.patientInformation.toString(),
-                                              style: MyTextTheme().largeBCB,
+                                              style: MyTextTheme().largeBCB.copyWith(fontSize: 22),
                                             ),
-                                            const SizedBox(height: 10,),
+                                            const SizedBox(height: 10),
                                             Row(
                                               children: [
                                                 Text(
-                                                  "${localization.getLocaleData.fullName.toString()} :",
-                                                  style: MyTextTheme().mediumBCB,
+                                                  "${localization.getLocaleData.fullName.toString()} :  ",
+                                                  style: MyTextTheme().largePCB,
                                                 ),
-
                                                 Text(userName.toString(),
-                                                  style: MyTextTheme().mediumGCB,
+                                                  style: MyTextTheme().largePCB.copyWith(color: Colors.grey.shade600),
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(height: 10,),
+                                            const SizedBox(height: 10),
                                             // Text(
                                             //   localization.getLocaleData.hintText!.enterMobileNo.toString(),
                                             //   style: MyTextTheme().mediumBCN,
@@ -768,11 +769,33 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                             // ),
                                             Row(
                                               children: [
-                                                Text("${localization.getLocaleData.mobileNumber.toString()} :",style: MyTextTheme().mediumBCB,),
+                                                Text("${localization.getLocaleData.mobileNumber.toString()} :",style: MyTextTheme().largePCB),
                                                 const SizedBox(width: 8),
                                                 Text(
                                                   number.toString(),
-                                                  style: MyTextTheme().mediumGCB,
+                                                  style: MyTextTheme().largePCB.copyWith(color: Colors.grey.shade600),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              children: [
+                                                Text("${localization.getLocaleData.age.toString()} : " , style: MyTextTheme().largePCB),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  age.toString(),
+                                                  style: MyTextTheme().largePCB.copyWith(color: Colors.grey.shade600),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              children: [
+                                                Text("${localization.getLocaleData.gender.toString()} :",style: MyTextTheme().largePCB),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  gender.toString(),
+                                                  style: MyTextTheme().largePCB.copyWith(color: Colors.grey.shade600),
                                                 ),
                                               ],
                                             ),

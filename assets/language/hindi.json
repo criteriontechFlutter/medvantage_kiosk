@@ -15,10 +15,24 @@
   "mouth": "मुँह",
   "neck": "गरदन",
   "nose": "नाक",
+  "eye": "आंख",
   "pelvis": "श्रोणि",
   "skin": "त्वचा",
   "teeth": "दाँत",
   "fullBody": "पूरा शरीर",
+  "spine": "रीढ़",
+  "leg": "पैर",
+  "age": "आयु",
+
+
+  "wellueOximeter": "वेल्यू ऑक्सीमीटर",
+  "yonkerOximeter": "यॉनकर ऑक्सीमीटर",
+  "stethoscope": "स्थेथोस्कोप",
+  "ctStethoscope": "सीटी स्थेथोस्कोप",
+  "thermometer": "थर्मामीटर",
+  "ecg": "ईसीजी",
+
+  "yonkerBPMachine": "योंकर बीपी मशीन",
 
 
   "loading": "लोड हो रहा है",

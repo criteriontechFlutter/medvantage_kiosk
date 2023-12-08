@@ -2,7 +2,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import '../../AppManager/app_color.dart';
@@ -51,72 +50,75 @@ class _OtpViewState extends State<OtpView> {
                           const SizedBox(
                             height: 20,
                           ),
-                          PinCodeTextField(
-                            appContext: context,
-                            pastedTextStyle: MyTextTheme().smallBCB,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            length: 6,
-                            obscureText: true,
-                            obscuringCharacter: '*',
-                            // obscuringWidget: FlutterLogo(
-                            //   size: 24,
-                            // ),
-                            blinkWhenObscuring: true,
-                            animationType: AnimationType.fade,
-                            validator: (v) {
-                              if (v!.length < 6) {
-                                return localization.getLocaleData.validationText
-                                    ?.filledCompletelyOTP
-                                    .toString();
-                              } else {
-                                return null;
-                              }
-                            },
-                            pinTheme: PinTheme(
-                              inactiveFillColor: AppColor.white,
-                              inactiveColor: AppColor.primaryColor,
-                              activeColor: AppColor.primaryColor,
-                              activeFillColor: AppColor.primaryColor,
-                              shape: PinCodeFieldShape.box,
-                              borderRadius: BorderRadius.circular(5),
-                              fieldHeight: 50,
-                              fieldWidth: 40,
-                            ),
-                            cursorColor: Colors.black,
-                            animationDuration:
-                                const Duration(milliseconds: 300),
-                            enableActiveFill: true,
-                            controller: controller.otpC.value,
-                            keyboardType: TextInputType.number,
-                            boxShadows: const [
-                              BoxShadow(
-                                offset: Offset(0, 1),
-                                color: Colors.black12,
-                                blurRadius: 10,
-                              )
-                            ],
-                            onCompleted: (v) async{
-
-                                if(widget.registerOrLogin=='Login'){
-
-                                  print('controller.otpC.value.text.toString()''${controller.otpC.value.text}+$v');
-                              await    modal.matchOtp(context, v, usernameOrNumber);
-                                  print("Completed");
-                                }else{
-                                  modal.matchRegistrationOtp(context, widget.phonenumber, controller.getOtpval);
+                          SizedBox(
+                            width: 300,
+                            child: PinCodeTextField(
+                              appContext: context,
+                              pastedTextStyle: MyTextTheme().smallBCB,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              length: 6,
+                              obscureText: true,
+                              obscuringCharacter: '*',
+                              // obscuringWidget: FlutterLogo(
+                              //   size: 24,
+                              // ),
+                              blinkWhenObscuring: true,
+                              animationType: AnimationType.fade,
+                              validator: (v) {
+                                if (v!.length < 6) {
+                                  return localization.getLocaleData.validationText
+                                      ?.filledCompletelyOTP
+                                      .toString();
+                                } else {
+                                  return null;
                                 }
+                              },
+                              pinTheme: PinTheme(
+                                inactiveFillColor: AppColor.white,
+                                inactiveColor: AppColor.primaryColor,
+                                activeColor: AppColor.primaryColor,
+                                activeFillColor: AppColor.primaryColor,
+                                shape: PinCodeFieldShape.box,
+                                borderRadius: BorderRadius.circular(5),
+                                fieldHeight: 50,
+                                fieldWidth: 40,
+                              ),
+                              cursorColor: Colors.black,
+                              animationDuration:
+                                  const Duration(milliseconds: 300),
+                              enableActiveFill: true,
+                              controller: controller.otpC.value,
+                              keyboardType: TextInputType.number,
+                              boxShadows: const [
+                                BoxShadow(
+                                  offset: Offset(0, 1),
+                                  color: Colors.black12,
+                                  blurRadius: 10,
+                                )
+                              ],
+                              onCompleted: (v) async{
 
-                            },
-                            // onTap: () {
-                            //   print("Pressed");
-                            // },
-                            onChanged: (value) {
-                              print('$value  00000');
-                              controller.updateOtpVal = value;
-                            },
-                            beforeTextPaste: (text) {
-                              return true;
-                            },
+                                  if(widget.registerOrLogin=='Login'){
+
+                                    print('controller.otpC.value.text.toString()''${controller.otpC.value.text}+$v');
+                                await    modal.matchOtp(context, v, usernameOrNumber);
+                                    print("Completed");
+                                  }else{
+                                    modal.matchRegistrationOtp(context, widget.phonenumber, controller.getOtpval);
+                                  }
+
+                              },
+                              // onTap: () {
+                              //   print("Pressed");
+                              // },
+                              onChanged: (value) {
+                                print('$value  00000');
+                                controller.updateOtpVal = value;
+                              },
+                              beforeTextPaste: (text) {
+                                return true;
+                              },
+                            ),
                           ),
                           const SizedBox(height: 10),
                           InkWell(

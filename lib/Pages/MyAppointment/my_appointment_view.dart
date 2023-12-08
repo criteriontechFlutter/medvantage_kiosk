@@ -126,6 +126,9 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
   @override
   Widget build(BuildContext context) {
     ApplicationLocalizations localization=Provider.of<ApplicationLocalizations>(context,listen: true);
+
+
+
     return Container(
       height: Get.height,
       width: Get.width,
@@ -388,7 +391,8 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                             // Text(localization.getLocaleData.time.toString(),style: MyTextTheme().mediumBCB,),
                                             Expanded(child: Text(localization.getLocaleData.hintText!.date.toString(),style: MyTextTheme().mediumBCB,),),
                                             Expanded(child: Text(localization.getLocaleData.patient.toString(),style: MyTextTheme().mediumBCB,),),
-                                            Expanded(child: Text(localization.getLocaleData.hintText!.doctor.toString(),style: MyTextTheme().mediumBCB,),),
+                                            Expanded(child: Text(localization.getLocaleData.hintText!.doctor.toString()+' ',style: MyTextTheme().mediumBCB,),),
+                                            SizedBox(width: 10,),
                                             Expanded(child:  Text(localization.getLocaleData.hintText!.department.toString(),style: MyTextTheme().mediumBCB,),),
                                             Expanded(child: Text(localization.getLocaleData.mobileNumber.toString(),style: MyTextTheme().mediumBCB,),),
                                             Expanded(child: Text(localization.getLocaleData.hintText!.appointment.toString(),style: MyTextTheme().mediumBCB,),),
@@ -439,7 +443,8 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                                                       // Text((index+1).toString(),style: MyTextTheme().mediumBCN,),
                                                                       Expanded(child: Text(appointmentData.appointmentDate.toString(),style: MyTextTheme().mediumBCN,),),
                                                                       Expanded(child: Text(appointmentData.patientName.toString(),style: MyTextTheme().mediumBCN,),),
-                                                                      Expanded(child: Text(appointmentData.doctorName.toString(),style: MyTextTheme().mediumBCN,),),
+                                                                      Expanded(child: Text(appointmentData.doctorName.toString()+' ',style: MyTextTheme().mediumBCN,),),
+                                                                      SizedBox(width: 10,),
                                                                       Expanded(child: Text(appointmentData.departmentName.toString(),style: MyTextTheme().mediumBCN,),),
                                                                       Expanded(child: Text(appointmentData.mobileNo.toString(),style: MyTextTheme().mediumBCN,),),
                                                                       Expanded(child: Container(
@@ -576,7 +581,10 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(localization.getLocaleData.vitalHistory.toString(),style: MyTextTheme().largeBCB),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 8.0),
+                                          child: Text(localization.getLocaleData.vitalHistory.toString(),style: MyTextTheme().largeBCB),
+                                        ),
                                         // Padding(
                                         //   padding: const EdgeInsets.fromLTRB(4, 8, 170,5),
                                         //   child: Row(
@@ -803,19 +811,44 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                                   color: Colors.white,
                                                   child: Column(
                                                     children:  [
+                                                      // Table(
+                                                      //   border: TableBorder.all(),
+                                                      //   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                                                      //   children:  [
+                                                      //     TableRow(
+                                                      //       children: [
+                                                      //         TableCell(child: Center(child: Text(localization.getLocaleData.hintText!.systolic.toString()))),
+                                                      //         TableCell(child: Center(child: Text(localization.getLocaleData.hintText!.diastolic.toString()))),
+                                                      //         TableCell(child: Center(child: Text(localization.getLocaleData.pulseRate.toString()))),
+                                                      //         TableCell(child: Center(child: Text(localization.getLocaleData.temperature.toString()))),
+                                                      //         TableCell(child: Center(child: Text(localization.getLocaleData.spO2.toString()))),
+                                                      //         TableCell(child: Center(child: Text(localization.getLocaleData.respiratoryRate.toString()))),
+                                                      //         TableCell(child: Center(child: Text(localization.getLocaleData.hintText!.yourHeight.toString()))),
+                                                      //         TableCell(child: Center(child: Text(localization.getLocaleData.hintText!.yourWeight.toString()))),
+                                                      //       ],
+                                                      //     ),
+                                                      //   ],
+                                                      // ),
                                                       Padding(
                                                         padding: const EdgeInsets.all(8.0),
                                                         child: Row(
                                                           children: [
-                                                            Text(item["vitalName"].toString(),style: MyTextTheme().largeBCB,),
+                                                            Text(item["vitalName"].toString()
+                                                                .replaceAll('BP_Sys', localization.getLocaleData.hintText!.systolic.toString())
+                                                                .replaceAll('BP_Dias', localization.getLocaleData.hintText!.diastolic.toString())
+                                                                .replaceAll('Pulse', localization.getLocaleData.pulseRate.toString())
+                                                                .replaceAll('Temperature', '${localization.getLocaleData.temperature}')
+                                                                .replaceAll('Height', localization.getLocaleData.hintText!.yourHeight.toString())
+                                                                .replaceAll('RespRate', localization.getLocaleData.respiratoryRateValue.toString())
+                                                               // .capitalize.toString()
+                                                                ,style: MyTextTheme().largeBCB),
                                                             const Text(" : "),
-                                                            Text(item["vmValue"].toString(),style: MyTextTheme().largePCB,),
+                                                            Text('${item["vmValue"]}',style: MyTextTheme().largePCB),
                                                             const Expanded(child: SizedBox()),
-                                                            Text(item["vitalDateTime"].toString(),style: MyTextTheme().mediumBCB,),
+                                                            Text(item["vitalDateTime"].toString(),style: MyTextTheme().mediumBCB),
                                                           ],
                                                         ),
                                                       ),
-
                                                     ],
                                                   ),
                                                 ),
@@ -846,10 +879,10 @@ class _MyAppointmentViewState extends State<MyAppointmentView> {
                                         color: Colors.grey.shade200,
                                         borderRadius: BorderRadius.circular(5)
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(8.0),
                                       child: Column(
-                                        children: const [
+                                        children: [
                                           SizedBox(
                                             height: 50,
                                             width: double.infinity,

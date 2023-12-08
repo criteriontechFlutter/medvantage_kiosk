@@ -19,8 +19,20 @@
   "nose": "नाक",
   "pelvis": "श्रोणि",
   "skin": "त्वचा",
+  "spine": "कणाडा",
+  "eye": "डोळा",
   "teeth": "दात",
   "fullBody": "पूर्ण शरीर",
+  "age": "वय",
+
+  "wellueOximeter": "वेल्यू ऑक्झिमीटर",
+  "yonkerOximeter": "यॉनकर ऑक्झिमीटर",
+  "stethoscope": "स्थेथोस्कोप",
+  "ctStethoscope": "सीटी स्थेथोस्कोप",
+  "thermometer": "थर्मामीटर",
+  "ecg": "ईसीजी",
+  "yonkerBPMachine": "योंकर बीपी मशीन",
+
 
 
 
@@ -68,7 +80,7 @@
   "haveYouCovidTest": "तुमची कोविड चाचणी झाली आहे का?",
   "selectLifeSupport": "जीवन समर्थन निवडा",
   "bloodPressure": "रक्तदाब",
-  "temperature": "तापमान(F)",
+  "temperature": "तापमान(°F)",
   "spO2": "SpO2",
   "respiratoryRate": "श्वसन दर",
   "request": "विनंती",

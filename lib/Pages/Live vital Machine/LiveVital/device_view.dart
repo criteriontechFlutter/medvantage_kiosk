@@ -269,7 +269,8 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text( 'Yonker BP Machine',
+                                      Text( localization.getLocaleData.yonkerBPMachine
+                                          .toString(),
                                           style: MyTextTheme().mediumBCB.copyWith(
                                               color: AppColor.primaryColorLight)),
                                     ],
@@ -358,7 +359,8 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Text('Wellue Oximeter',
+                                                Text(localization
+                                                .getLocaleData.wellueOximeter.toString(),
                                                     style: MyTextTheme().mediumBCB.copyWith(
                                                         color: AppColor.primaryColorLight)),
                                               ],
@@ -385,7 +387,8 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Text('Yonker Oximeter',
+                                                Text(localization
+                                                .getLocaleData.yonkerOximeter.toString(),
                                                     style: MyTextTheme().mediumBCB.copyWith(
                                                         color: AppColor.primaryColorLight)),
                                               ],
@@ -412,17 +415,18 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                       CircleAvatar(
                                           radius: 14,
                                           backgroundColor: Colors.purple.shade50,
-                                          child: SvgPicture.asset(
-                                              'assets/stethoscope.svg')),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text('Stethoscope',
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Image.asset(
+                                                'assets/stethoscope.png'),
+                                          )),
+                                      const SizedBox(width: 10),
+                                      Text(localization
+                                          .getLocaleData.stethoscope.toString(),
                                         style: MyTextTheme().mediumBCB,
                                       ),
                                     ],
                                   ),
-
                                   const SizedBox(
                                     height: 10,
                                   ),
@@ -440,7 +444,8 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Text( 'CT Stethoscope',
+                                            Text( localization
+                                            .getLocaleData.ctStethoscope.toString(),
                                                 style: MyTextTheme().mediumBCB.copyWith(
                                                     color: AppColor.primaryColorLight)),
                                           ],
@@ -448,8 +453,6 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                       ),
                                     ),
                                   ),
-
-
                                 ],
                               ),
                             ),
@@ -472,7 +475,8 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                       const SizedBox(
                                         width: 10,
                                       ),
-                                      Text('Thermometer',
+                                      Text(localization
+                                          .getLocaleData.thermometer.toString(),
                                         style: MyTextTheme().mediumBCB,
                                       ),
                                     ],
@@ -494,7 +498,8 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Text( 'Thermometer',
+                                            Text( localization
+                                            .getLocaleData.thermometer.toString(),
                                                 style: MyTextTheme().mediumBCB.copyWith(
                                                     color: AppColor.primaryColorLight)),
                                           ],
@@ -558,7 +563,8 @@ class _DeviceViewMachineState extends State<DeviceViewMachine> {
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Text( 'ECG',
+                                                Text( localization
+                                                .getLocaleData.ecg.toString(),
                                                     style: MyTextTheme().mediumBCB.copyWith(
                                                         color: AppColor.primaryColorLight)),
                                               ],

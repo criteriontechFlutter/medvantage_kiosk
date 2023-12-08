@@ -1,30 +1,18 @@
-import 'dart:io';
 
+import 'dart:io';
 import 'package:digi_doctor/AppManager/alert_dialogue.dart';
 import 'package:digi_doctor/AppManager/app_color.dart';
-import 'package:digi_doctor/AppManager/app_util.dart';
 import 'package:digi_doctor/AppManager/my_text_theme.dart';
-import 'package:digi_doctor/AppManager/widgets/my_app_bar.dart';
-import 'package:digi_doctor/AppManager/widgets/my_button.dart';
 import 'package:digi_doctor/Localization/app_localization.dart';
 import 'package:digi_doctor/Pages/Dashboard/OrganSymptom/organ_modal.dart';
-import 'package:digi_doctor/Pages/Dashboard/OrganSymptom/speech.dart';
-import 'package:digi_doctor/Pages/Dashboard/Widget/profile_info_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-import '../../../AppManager/user_data.dart';
-import '../../../AppManager/widgets/MyCustomSD.dart';
-import '../../../AppManager/widgets/MyTextField.dart';
 import '../../../AppManager/widgets/my_button2.dart';
 import '../../Specialities/NewBookAppintment/NewBookAppointmentModal.dart';
 import '../../Symptoms/Select_Doctor/select_doctor_controller.dart';
 import '../../Symptoms/Select_Doctor/select_doctor_modal.dart';
-import '../../voiceAssistantProvider.dart';
 import '../dashboard_modal.dart';
 import 'DataModal/body_organ_data_modal.dart';
 import 'DataModal/organ_symptom_data_modal.dart';
@@ -58,113 +46,120 @@ class _OrganListViewState extends State<OrganListView> {
 
 
 
-  List  listItemsOne = [
-    {
-      "isSelected":false,
-      'img':'assets/abdomen.svg',
-      'title':'Abdomen',
-      'id':'1',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/backpain.svg',
-      'title':'Back Pain',
-      'id':'12',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/ear.svg',
-      'title':'Ear',
-      'id':'19',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/redeye.svg',
-      'title':'Eye',
-      'id':'22',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/face.svg',
-      'title':'Face',
-      'id':'23',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/arm.svg',
-      'title':'Hand',
-      'id':'27',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/leg.svg',
-      'title':'Leg',
-      'id':'32',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/mouth.svg',
-      'title':'Mouth',
-      'id':'34',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/neck.svg',
-      'title':'Neck',
-      'id':'36',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/nose.svg',
-      'title':'Nose',
-      'id':'37',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/pelvis.svg',
-      'title':'Pelvis',
-      'id':'39',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/skin.svg',
-      'title':'Skin',
-      'id':'42',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/spine.svg',
-      'title':'Spine',
-      'id':'12',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/mouth.svg',
-      'title':'Teeth',
-      'id':'43',
-      'language':'1'
-    },
-    {
-      "isSelected":false,
-      'img':'assets/Clinical Features.svg',
-      'title':'Full Body',
-      'id':'50',
-      'language':'1'
-    },
-  ].obs;
+  List  listItemsOne =[].obs;
+
+  additemsInList(context){
+
+    ApplicationLocalizations localization =
+    Provider.of<ApplicationLocalizations>(context, listen: false);
+    listItemsOne=[
+      {
+        "isSelected":false,
+        'img':'assets/abdomen.svg',
+        'title':localization.getLocaleData.Abdomen.toString(),
+        'id':'1',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/backpain.svg',
+        'title':localization.getLocaleData.backPain.toString(),
+        'id':'12',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/ear.svg',
+        'title':localization.getLocaleData.Ear.toString(),
+        'id':'19',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/redeye.svg',
+        'title':localization.getLocaleData.eye.toString(),
+        'id':'22',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/face.svg',
+        'title':localization.getLocaleData.face.toString(),
+        'id':'23',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/arm.svg',
+        'title':localization.getLocaleData.hand.toString(),
+        'id':'27',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/leg.svg',
+        'title':localization.getLocaleData.leg.toString(),
+        'id':'32',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/mouth.svg',
+        'title':localization.getLocaleData.mouth.toString(),
+        'id':'34',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/neck.svg',
+        'title':localization.getLocaleData.neck.toString(),
+        'id':'36',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/nose.svg',
+        'title':localization.getLocaleData.nose.toString(),
+        'id':'37',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/pelvis.svg',
+        'title':localization.getLocaleData.pelvis.toString(),
+        'id':'39',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/skin.svg',
+        'title':localization.getLocaleData.skin.toString(),
+        'id':'42',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/spine.svg',
+        'title':localization.getLocaleData.spine.toString(),
+        'id':'12',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/mouth.svg',
+        'title':localization.getLocaleData.teeth.toString(),
+        'id':'43',
+        'language':'1'
+      },
+      {
+        "isSelected":false,
+        'img':'assets/Clinical Features.svg',
+        'title':localization.getLocaleData.fullBody.toString(),
+        'id':'50',
+        'language':'1'
+      },
+    ];
+  }
 
   get() {
     clearSelectedList();
@@ -179,6 +174,7 @@ class _OrganListViewState extends State<OrganListView> {
   void initState() {
     // TODO: implement initState
     get();
+    additemsInList(context);
     super.initState();
   }
 
@@ -191,6 +187,7 @@ class _OrganListViewState extends State<OrganListView> {
 
   @override
   Widget build(BuildContext context) {
+    additemsInList(context);
     ApplicationLocalizations localization =
         Provider.of<ApplicationLocalizations>(context, listen: true);
     NewBookAppointmentModal modal2 = NewBookAppointmentModal();
