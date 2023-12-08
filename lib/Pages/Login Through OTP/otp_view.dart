@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +22,29 @@ class OtpView extends StatefulWidget {
 }
 
 class _OtpViewState extends State<OtpView> {
+
+
+  int _seconds = 30;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_seconds == 0) {
+        _timer.cancel();
+        // You can add code here to perform actions after the timer ends.
+      } else {
+        setState(() {
+          _seconds--;
+        });
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     var usernameOrNumber = widget.phonenumber;
@@ -120,14 +145,28 @@ class _OtpViewState extends State<OtpView> {
                               },
                             ),
                           ),
+                      Text(
+                        _seconds.toString()=='0'?'':'$_seconds seconds',
+                        style: TextStyle(fontSize: 24,color: Colors.white60),
+                      ),
                           const SizedBox(height: 10),
-                          InkWell(
-                            onTap: (){
-                              modal.loginThroughOTP(context,  widget.phonenumber.toString());
-                            },
-                            child: Text(
-                              localization.getLocaleData.resendOTP.toString(),
-                              style: MyTextTheme().veryLargeWCN,
+                          Visibility(
+                            visible: _seconds.toString()=='0',
+
+                            child: InkWell(
+                              onTap: (){
+                                modal.loginThroughOTP(context,  widget.phonenumber.toString());
+                                setState(() {
+                                  _seconds=30;
+                                });
+                                _startTimer();
+                              },
+                              child: Text(
+                                localization.getLocaleData.resendOTP.toString(),
+                                style: MyTextTheme().veryLargeWCN,
+                              ),
+
+
                             ),
                           ),
                         ],
