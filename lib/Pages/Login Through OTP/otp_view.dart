@@ -146,6 +146,10 @@ class _OtpViewState extends State<OtpView> {
                             ),
                           ),
                       Text(
+                        '$_seconds seconds',
+                        style: TextStyle(fontSize: 24,color: Colors.white60),
+                      ),
+                      Text(
                         _seconds.toString()=='0'?'':'$_seconds seconds',
                         style: TextStyle(fontSize: 24,color: Colors.white60),
                       ),
